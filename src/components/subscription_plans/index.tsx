@@ -4,7 +4,7 @@ import { useGetAllSubscriptionsQuery, useGetSubscriptionSummaryQuery } from "@/s
 import { FilterOptions } from "@/src/types/components";
 import { exportData } from "@/src/utils/exportUtils";
 import useDebounce from "@/src/utils/hooks/useDebounce";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import CommonHeader from "../../shared/CommonHeader";
@@ -22,6 +22,14 @@ const SubscriptionPlansContainer = () => {
   const [filters, setFilters] = useState<FilterOptions>({});
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  useEffect(() => {
+    const statusParam = new URLSearchParams(window.location.search).get("status");
+    if (statusParam) {
+      setFilters((prev) => ({ ...prev, status: statusParam }));
+      setPage(1);
+    }
+  }, []);
 
   const [columns, setColumns] = useState([
     { id: "user", label: "User", isVisible: true, key: "user.name" },
