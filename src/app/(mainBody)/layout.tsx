@@ -2,6 +2,7 @@
 
 import Header from "@/src/components/layouts/header";
 import Sidebar from "@/src/components/layouts/sidebar";
+import PendingPlanApprovalAlert from "@/src/components/subscription_plans/PendingPlanApprovalAlert";
 import { useGetSettingsQuery } from "@/src/redux/api/settingApi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { setSidebarToggle } from "@/src/redux/reducers/layoutSlice";
@@ -47,7 +48,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             ${!isVisuallyCollapsed ? "lg:ml-76 rtl:lg:ml-0 rtl:lg:mr-76" : "lg:ml-24 rtl:lg:ml-0 rtl:lg:mr-24"} ml-0`}
         >
           <div className="p-5 sm:p-6 lg:p-8 min-h-screen">
-            <div className="rounded-lg h-full mt-[80px]">{children}</div>
+            <div className="rounded-lg h-full mt-[80px]">
+              <PendingPlanApprovalAlert />
+              {children}
+            </div>
           </div>
         </main>
       </div>
