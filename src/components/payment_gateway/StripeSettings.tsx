@@ -3,20 +3,24 @@
 
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
-import { useGetStripeSettingsQuery, useUpdateStripeSettingsMutation } from "@/src/redux/api/paymentGatewayApi";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { Eye, EyeOff, ExternalLink } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import Can from "../shared/Can";
-import { usePermissions } from "@/src/hooks/usePermissions";
 import { Label } from "@/src/elements/ui/label";
+import { usePermissions } from "@/src/hooks/usePermissions";
+import {
+  useGetStripeSettingsQuery,
+  useUpdateStripeSettingsMutation,
+} from "@/src/redux/api/paymentGatewayApi";
+import { ExternalLink, Eye, EyeOff } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import Can from "../shared/Can";
 
 const StripeSettings = () => {
   const { t } = useTranslation();
   const { hasPermission } = usePermissions();
   const { data, isLoading } = useGetStripeSettingsQuery();
-  const [updateStripeSettings, { isLoading: isUpdating }] = useUpdateStripeSettingsMutation();
+  const [updateStripeSettings, { isLoading: isUpdating }] =
+    useUpdateStripeSettingsMutation();
 
   const StripeData = data?.data;
 
@@ -56,11 +60,18 @@ const StripeSettings = () => {
         payload.is_stripe_active = settings.is_stripe_active;
       }
 
-      if (settings.stripe_publishable_key !== StripeData?.stripe_publishable_key && !settings.stripe_publishable_key.includes('****')) {
+      if (
+        settings.stripe_publishable_key !==
+          StripeData?.stripe_publishable_key &&
+        !settings.stripe_publishable_key.includes("****")
+      ) {
         payload.stripe_publishable_key = settings.stripe_publishable_key;
       }
 
-      if (settings.stripe_secret_key !== StripeData?.stripe_secret_key && !settings.stripe_secret_key.includes('****')) {
+      if (
+        settings.stripe_secret_key !== StripeData?.stripe_secret_key &&
+        !settings.stripe_secret_key.includes("****")
+      ) {
         payload.stripe_secret_key = settings.stripe_secret_key;
       }
 
@@ -95,9 +106,26 @@ const StripeSettings = () => {
             Publishable Key <span className="text-red-400">*</span>
           </Label>
           <div className="relative">
-            <Input value={settings.stripe_publishable_key} onChange={(e) => handleInputChange("stripe_publishable_key", e.target.value)} type={showPk ? "text" : "password"} placeholder="pk_test_..." className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
-            <Button type="button" tabIndex={-1} onClick={() => setShowPk(!showPk)} className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              {showPk ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <Input
+              value={settings.stripe_publishable_key}
+              onChange={(e) =>
+                handleInputChange("stripe_publishable_key", e.target.value)
+              }
+              type={showPk ? "text" : "password"}
+              placeholder="pk_test_..."
+              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+            />
+            <Button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setShowPk(!showPk)}
+              className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            >
+              {showPk ? (
+                <EyeOff className="w-4 h-4" />
+              ) : (
+                <Eye className="w-4 h-4" />
+              )}
             </Button>
           </div>
         </div>
@@ -107,9 +135,26 @@ const StripeSettings = () => {
             Secret Key <span className="text-red-400">*</span>
           </Label>
           <div className="relative">
-            <Input value={settings.stripe_secret_key} onChange={(e) => handleInputChange("stripe_secret_key", e.target.value)} type={showSk ? "text" : "password"} placeholder="sk_test_..." className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
-            <Button type="button" tabIndex={-1} onClick={() => setShowSk(!showSk)} className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              {showSk ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <Input
+              value={settings.stripe_secret_key}
+              onChange={(e) =>
+                handleInputChange("stripe_secret_key", e.target.value)
+              }
+              type={showSk ? "text" : "password"}
+              placeholder="sk_test_..."
+              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+            />
+            <Button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setShowSk(!showSk)}
+              className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            >
+              {showSk ? (
+                <EyeOff className="w-4 h-4" />
+              ) : (
+                <Eye className="w-4 h-4" />
+              )}
             </Button>
           </div>
         </div>
@@ -117,11 +162,22 @@ const StripeSettings = () => {
 
       <div className="flex items-start justify-between py-4 px-5 border border-(--input-border-color) dark:bg-page-body dark:border-none rounded-lg bg-slate-50/50">
         <div>
-          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t("gateway_enable_gateway")}</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{t("gateway_enable_gateway_desc")}</p>
+          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+            {t("gateway_enable_gateway")}
+          </p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+            {t("gateway_enable_gateway_desc")}
+          </p>
         </div>
         <div className="relative flex items-center shrink-0 ml-4">
-          <Input id="stripe-enable" type="checkbox" checked={settings.is_stripe_active} onChange={(e) => handleToggle(e.target.checked)} disabled={!hasPermission("update.payment_gateways")} className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-(--text-green-primary) cursor-pointer disabled:cursor-not-allowed" />
+          <Input
+            id="stripe-enable"
+            type="checkbox"
+            checked={settings.is_stripe_active}
+            onChange={(e) => handleToggle(e.target.checked)}
+            disabled={!hasPermission("update.payment_gateways")}
+            className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-(--text-green-primary) cursor-pointer disabled:cursor-not-allowed"
+          />
         </div>
       </div>
 
@@ -129,29 +185,64 @@ const StripeSettings = () => {
         <div className="flex items-center gap-2">
           <svg viewBox="0 0 32 22" className="w-6 h-4 shrink-0" fill="none">
             <rect width="32" height="22" rx="3" fill="#635BFF" />
-            <text x="4" y="15" fontSize="9" fontWeight="bold" fill="white" fontFamily="sans-serif">
+            <text
+              x="4"
+              y="15"
+              fontSize="9"
+              fontWeight="bold"
+              fill="white"
+              fontFamily="sans-serif"
+            >
               stripe
             </text>
           </svg>
-          <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-400">Stripe Configuration</p>
+          <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-400">
+            Stripe Configuration
+          </p>
         </div>
-        <p className="text-xs text-indigo-600/80 dark:text-indigo-400/70">Get your Stripe credentials from the Stripe Dashboard. You&apos;ll need both Test and Live credentials.</p>
+        <p className="text-xs text-indigo-600/80 dark:text-indigo-400/70">
+          Get your Stripe credentials from the Stripe Dashboard. You&apos;ll
+          need both Test and Live credentials.
+        </p>
         <ul className="space-y-0.5">
           <li className="text-xs text-slate-600 dark:text-slate-400">
-            • Test keys start with <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">pk_test_</code> or <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">sk_test_</code>
+            • Test keys start with{" "}
+            <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">
+              pk_test_
+            </code>{" "}
+            or{" "}
+            <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">
+              sk_test_
+            </code>
           </li>
           <li className="text-xs text-slate-600 dark:text-slate-400">
-            • Live keys start with <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">pk_live_</code> or <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">sk_live_</code>
+            • Live keys start with{" "}
+            <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">
+              pk_live_
+            </code>{" "}
+            or{" "}
+            <code className="bg-indigo-100 dark:bg-indigo-900/40 px-1 py-0.5 rounded text-[10px] font-mono">
+              sk_live_
+            </code>
           </li>
         </ul>
-        <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline mt-1">
+        <a
+          href="https://dashboard.stripe.com/apikeys"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 font-medium hover:underline mt-1"
+        >
           Get Stripe API Keys <ExternalLink className="w-3 h-3" />
         </a>
       </div>
 
       <div className="flex justify-end">
         <Can permission="update.payment_gateways">
-          <Button onClick={handleUpdate} disabled={isUpdating} className="h-9 px-7 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60">
+          <Button
+            onClick={handleUpdate}
+            disabled={isUpdating}
+            className="h-9 px-7 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60"
+          >
             {isUpdating ? (
               <span className="flex items-center gap-2">
                 <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

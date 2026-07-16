@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { useDeleteRolesMutation, useGetAllRolesQuery, useToggleRoleStatusMutation } from "@/src/redux/api/roleApi";
-import ConfirmModal from "@/src/shared/ConfirmModal";
-import RoleHeader from "./RoleHeader";
-import RoleList from "./RoleList";
 import { ROUTES } from "@/src/constants";
+import { roleColumns } from "@/src/data/role";
+import {
+  useDeleteRolesMutation,
+  useGetAllRolesQuery,
+  useToggleRoleStatusMutation,
+} from "@/src/redux/api/roleApi";
+import ConfirmModal from "@/src/shared/ConfirmModal";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import RoleHeader from "./components/RoleHeader";
+import RoleList from "./components/RoleList";
 
 const RoleContainer = () => {
   const router = useRouter();
@@ -20,13 +25,7 @@ const RoleContainer = () => {
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  const [columns, setColumns] = useState([
-    { id: "name", label: "Role Name", isVisible: true },
-    { id: "description", label: "Description", isVisible: true },
-    { id: "sort_order", label: "Sort Order", isVisible: true },
-    { id: "system_reserved", label: "System", isVisible: true },
-    { id: "status", label: "Status", isVisible: true },
-  ]);
+  const [columns, setColumns] = useState(roleColumns);
 
   const { data: rolesData, isLoading } = useGetAllRolesQuery({
     page,
@@ -37,7 +36,8 @@ const RoleContainer = () => {
   });
 
   const [deleteRoles, { isLoading: isDeleting }] = useDeleteRolesMutation();
-  const [toggleStatus, { isLoading: isToggling }] = useToggleRoleStatusMutation();
+  const [toggleStatus, { isLoading: isToggling }] =
+    useToggleRoleStatusMutation();
 
   const handleSearch = (query: string) => {
     setSearchTerm(query);
@@ -56,7 +56,9 @@ const RoleContainer = () => {
   const handleBulkDelete = async (ids: string[]) => {
     try {
       const res = await deleteRoles(ids).unwrap();
-      toast.success(res.message || `${ids.length} role(s) deleted successfully`);
+      toast.success(
+        res.message || `${ids.length} role(s) deleted successfully`,
+      );
       setSelectedIds([]);
       setIsBulkDeleteModalOpen(false);
     } catch (error: any) {
@@ -74,12 +76,25 @@ const RoleContainer = () => {
   };
 
   const handleColumnToggle = (columnId: string) => {
-    setColumns((prev) => prev.map((col) => (col.id === columnId ? { ...col, isVisible: !col.isVisible } : col)));
+    setColumns((prev) =>
+      prev.map((col) =>
+        col.id === columnId ? { ...col, isVisible: !col.isVisible } : col,
+      ),
+    );
   };
 
   return (
     <div className="space-y-6">
-      <RoleHeader searchTerm={searchTerm} onSearch={handleSearch} onAddClick={() => router.push(`${ROUTES.Roles}/add`)} isLoading={isLoading} selectedCount={selectedIds.length} onBulkDelete={() => setIsBulkDeleteModalOpen(true)} columns={columns} onColumnToggle={handleColumnToggle} />
+      <RoleHeader
+        searchTerm={searchTerm}
+        onSearch={handleSearch}
+        onAddClick={() => router.push(`${ROUTES.Roles}/add`)}
+        isLoading={isLoading}
+        selectedCount={selectedIds.length}
+        onBulkDelete={() => setIsBulkDeleteModalOpen(true)}
+        columns={columns}
+        onColumnToggle={handleColumnToggle}
+      />
 
       <RoleList
         roles={rolesData?.data?.roles || []}
@@ -106,7 +121,18 @@ const RoleContainer = () => {
         searchTerm={searchTerm}
       />
 
-      <ConfirmModal isOpen={isBulkDeleteModalOpen} onClose={() => setIsBulkDeleteModalOpen(false)} onConfirm={() => handleBulkDelete(selectedIds)} isLoading={isDeleting} title="Delete Roles" subtitle={`Are you sure you want to delete ${selectedIds.length} selected role(s)? This action cannot be undone.`} confirmText="Delete" cancelText="Cancel" variant="danger" loadingText="Deleting..." />
+      <ConfirmModal
+        isOpen={isBulkDeleteModalOpen}
+        onClose={() => setIsBulkDeleteModalOpen(false)}
+        onConfirm={() => handleBulkDelete(selectedIds)}
+        isLoading={isDeleting}
+        title="Delete Roles"
+        subtitle={`Are you sure you want to delete ${selectedIds.length} selected role(s)? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+        loadingText="Deleting..."
+      />
     </div>
   );
 };

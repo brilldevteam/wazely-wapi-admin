@@ -1,17 +1,8 @@
 "use client";
 
+import { QuickReplyHeaderProps } from "@/src/types/quickReply";
 import { useTranslation } from "react-i18next";
 import CommonHeader from "../../shared/CommonHeader";
-
-interface QuickReplyHeaderProps {
-  onSearch: (value: string) => void;
-  searchTerm: string;
-  onRefresh: () => void;
-  isLoading: boolean;
-  selectedCount: number;
-  onBulkDelete: () => void;
-  onAddClick: () => void;
-}
 
 const QuickReplyHeader = ({
   onSearch,

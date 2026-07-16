@@ -2,7 +2,7 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
 import { Button } from "@/src/elements/ui/button";
 import { Label } from "@/src/elements/ui/label";
 import { Input } from "@/src/elements/ui/input";
@@ -159,8 +159,8 @@ export const WhatsAppForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-slate-650">Standard WhatsApp App</label>
-                      <input
+                      <Label className="text-xs font-bold text-slate-650">Standard WhatsApp App</Label>
+                      <Input unstyled
                         type="text"
                         value={row?.whatsapp_feature || ""}
                         onChange={(e) => handleCompChange(idx, "whatsapp_feature", e.target.value)}
@@ -169,8 +169,8 @@ export const WhatsAppForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-slate-650">Official API Connection</label>
-                      <input
+                      <Label className="text-xs font-bold text-slate-650">Official API Connection</Label>
+                      <Input unstyled
                         type="text"
                         value={row?.official_api || ""}
                         onChange={(e) => handleCompChange(idx, "official_api", e.target.value)}

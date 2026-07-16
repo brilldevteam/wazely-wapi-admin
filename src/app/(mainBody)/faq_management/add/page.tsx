@@ -1,9 +1,7 @@
-import AddFaqPage from '@/src/components/faq/AddFaqPage'
+import AddFaqPage from "@/src/components/faq/AddFaqPage";
 
 const AddFaq = () => {
-  return (
-    <AddFaqPage />
-  )
-}
+  return <AddFaqPage />;
+};
 
-export default AddFaq
+export default AddFaq;

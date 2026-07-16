@@ -1,23 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState, ReactNode } from "react";
 import { useGetSettingsQuery } from "@/src/redux/api/settingApi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { setSettings } from "@/src/redux/reducers/settingsSlice";
-import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
+import { DynamicSettingsProviderProps } from "@/src/types/layout";
 import { getUrlWithBasePath } from "@/src/utils";
 
 const resolveUrl = (url?: string): string => {
   if (!url) return "";
-  if (url.startsWith("http") || url.startsWith("https") || url.startsWith("data:")) return url;
-  
-  const baseUrl = (API_URL || "").endsWith("/") ? API_URL.slice(0, -1) : API_URL;
-  
+  if (
+    url.startsWith("http") ||
+    url.startsWith("https") ||
+    url.startsWith("data:")
+  )
+    return url;
+
+  const baseUrl = (API_URL || "").endsWith("/")
+    ? API_URL.slice(0, -1)
+    : API_URL;
+
   if (url.startsWith("/uploads/")) {
     return `${baseUrl}${url}`;
   }
@@ -47,15 +55,15 @@ function applyFavicon(href: string) {
   }
 }
 
-interface DynamicSettingsProviderProps {
-  children: ReactNode;
-}
-
-const DynamicSettingsProvider = ({ children }: DynamicSettingsProviderProps) => {
+const DynamicSettingsProvider = ({
+  children,
+}: DynamicSettingsProviderProps) => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const { data: settingsData, isSuccess } = useGetSettingsQuery();
-  const { data: settings, pageTitle } = useAppSelector((state) => state.settings);
+  const { data: settings, pageTitle } = useAppSelector(
+    (state) => state.settings,
+  );
   const [mounted, setMounted] = useState(false);
   const { setTheme } = useTheme();
 
@@ -89,7 +97,9 @@ const DynamicSettingsProvider = ({ children }: DynamicSettingsProviderProps) => 
       const fullTitle = `${pageTitle ? `${pageTitle} | ` : ""}${app_name || "WhatsApp CRM"} | All-in-One WhatsApp Marketing & Automation Platform with CRM, Campaigns, Live Chat, Lead Generation, Business API SaaS Platform`;
       if (document.title !== fullTitle) document.title = fullTitle;
       if (app_description) {
-        let meta = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+        let meta = document.querySelector(
+          'meta[name="description"]',
+        ) as HTMLMetaElement | null;
         if (!meta) {
           meta = document.createElement("meta");
           meta.setAttribute("name", "description");

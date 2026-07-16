@@ -4,11 +4,9 @@ import { Label } from "@/src/elements/ui/label";
 import { Switch } from "@/src/elements/ui/switch";
 import { useTranslation } from "react-i18next";
 import { Layout } from "lucide-react";
+import { VisibilitySettingsFormProps } from "@/src/types/landingPage";
 
-interface VisibilitySettingsFormProps {
-  status: boolean;
-  onStatusChange: (val: boolean) => void;
-}
+
 
 const VisibilitySettingsForm = ({ status, onStatusChange }: VisibilitySettingsFormProps) => {
   const { t } = useTranslation();

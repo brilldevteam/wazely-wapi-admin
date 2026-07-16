@@ -1,3 +1,7 @@
+import { tabs } from "../data/authPageSetup";
+
+export type TabId = (typeof tabs)[number]["id"];
+
 export interface BulletItem {
   title: string;
   points: string[];
@@ -77,4 +81,10 @@ export interface UpdateAuthPageSetupResponse {
   success: boolean;
   message: string;
   data: AuthPageSetupData;
+}
+
+export interface SidePanelFormProps {
+  data: SidePanelData;
+  onChange: (data: SidePanelData) => void;
+  hideBadge?: boolean;
 }

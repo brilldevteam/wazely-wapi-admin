@@ -1,27 +1,41 @@
 "use client";
 
+import {
+  SECTOR_LABELS,
+  SECTOR_TEMPLATE_CATEGORIES,
+  SectorKey,
+} from "@/src/data/sectorTemplateCategory";
 import { Button } from "@/src/elements/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/src/elements/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/src/elements/ui/dialog";
 import { Label } from "@/src/elements/ui/label";
 import { useEffect, useState } from "react";
-import { SECTOR_LABELS, SectorKey, SECTOR_TEMPLATE_CATEGORIES } from "@/src/data/sectorTemplateCategory";
 
+import { SECTORS_LIST } from "@/src/data/templates";
+import { TemplateFilterModalProps } from "@/src/types/template";
 import { useTranslation } from "react-i18next";
 
-interface TemplateFilterModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApply: (filters: { sector?: string; template_category?: string; status?: string }) => void;
-  currentFilters: { sector?: string; template_category?: string; status?: string };
-}
-
-const SECTORS_LIST = ["healthcare", "ecommerce", "fashion", "financial_service", "general"] as const;
-
-const TemplateFilterModal = ({ isOpen, onClose, onApply, currentFilters = {} }: TemplateFilterModalProps) => {
+const TemplateFilterModal = ({
+  isOpen,
+  onClose,
+  onApply,
+  currentFilters = {},
+}: TemplateFilterModalProps) => {
   const { t } = useTranslation();
-  const [sectorFilter, setSectorFilter] = useState<string>(currentFilters.sector || "all");
-  const [templateCategoryFilter, setTemplateCategoryFilter] = useState<string>(currentFilters.template_category || "all");
-  const [statusFilter, setStatusFilter] = useState<string>(currentFilters.status || "all");
+  const [sectorFilter, setSectorFilter] = useState<string>(
+    currentFilters.sector || "all",
+  );
+  const [templateCategoryFilter, setTemplateCategoryFilter] = useState<string>(
+    currentFilters.template_category || "all",
+  );
+  const [statusFilter, setStatusFilter] = useState<string>(
+    currentFilters.status || "all",
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -37,8 +51,12 @@ const TemplateFilterModal = ({ isOpen, onClose, onApply, currentFilters = {} }: 
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setTemplateCategoryFilter("all");
     } else {
-      const allowedCategories = SECTOR_TEMPLATE_CATEGORIES[sectorFilter as SectorKey] || [];
-      if (templateCategoryFilter !== "all" && !allowedCategories.includes(templateCategoryFilter)) {
+      const allowedCategories =
+        SECTOR_TEMPLATE_CATEGORIES[sectorFilter as SectorKey] || [];
+      if (
+        templateCategoryFilter !== "all" &&
+        !allowedCategories.includes(templateCategoryFilter)
+      ) {
         setTemplateCategoryFilter("all");
       }
     }
@@ -47,7 +65,8 @@ const TemplateFilterModal = ({ isOpen, onClose, onApply, currentFilters = {} }: 
   const handleApply = () => {
     onApply({
       sector: sectorFilter !== "all" ? sectorFilter : undefined,
-      template_category: templateCategoryFilter !== "all" ? templateCategoryFilter : undefined,
+      template_category:
+        templateCategoryFilter !== "all" ? templateCategoryFilter : undefined,
       status: statusFilter !== "all" ? statusFilter : undefined,
     });
     onClose();
@@ -61,7 +80,10 @@ const TemplateFilterModal = ({ isOpen, onClose, onApply, currentFilters = {} }: 
     onClose();
   };
 
-  const availableCategories = sectorFilter !== "all" ? SECTOR_TEMPLATE_CATEGORIES[sectorFilter as SectorKey] || [] : [];
+  const availableCategories =
+    sectorFilter !== "all"
+      ? SECTOR_TEMPLATE_CATEGORIES[sectorFilter as SectorKey] || []
+      : [];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -72,30 +94,55 @@ const TemplateFilterModal = ({ isOpen, onClose, onApply, currentFilters = {} }: 
         <div className="space-y-6 py-4">
           <div className="space-y-2 flex flex-col">
             <Label htmlFor="sector">{t("templates_library_sector")}</Label>
-            <select id="sector" value={sectorFilter} onChange={(e) => setSectorFilter(e.target.value)} className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none">
+            <select
+              id="sector"
+              value={sectorFilter}
+              onChange={(e) => setSectorFilter(e.target.value)}
+              className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none"
+            >
               <option value="all">{t("templates_library_all_sectors")}</option>
               {SECTORS_LIST.map((s) => (
                 <option key={s} value={s}>
-                  {t(`templates_library_sector_${s}`, { defaultValue: SECTOR_LABELS[s as SectorKey] || s })}
+                  {t(`templates_library_sector_${s}`, {
+                    defaultValue: SECTOR_LABELS[s as SectorKey] || s,
+                  })}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="space-y-2 flex flex-col">
-            <Label htmlFor="template_category">{t("templates_library_category")}</Label>
-            <select id="template_category" value={templateCategoryFilter} onChange={(e) => setTemplateCategoryFilter(e.target.value)} disabled={sectorFilter === "all"} className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none disabled:opacity-50 disabled:cursor-not-allowed">
-              <option value="all">{t("templates_library_all_categories")}</option>
+            <Label htmlFor="template_category">
+              {t("templates_library_category")}
+            </Label>
+            <select
+              id="template_category"
+              value={templateCategoryFilter}
+              onChange={(e) => setTemplateCategoryFilter(e.target.value)}
+              disabled={sectorFilter === "all"}
+              className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <option value="all">
+                {t("templates_library_all_categories")}
+              </option>
               {availableCategories.map((cat) => (
                 <option key={cat} value={cat}>
-                  {t(`templates_library_category_${cat}`, { defaultValue: cat.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()) })}
+                  {t(`templates_library_category_${cat}`, {
+                    defaultValue: cat
+                      .replace(/_/g, " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase()),
+                  })}
                 </option>
               ))}
             </select>
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" className="dark:bg-(--card-color) dark:hover:bg-(--dark-sidebar)" onClick={handleReset}>
+          <Button
+            variant="outline"
+            className="dark:bg-(--card-color) dark:hover:bg-(--dark-sidebar)"
+            onClick={handleReset}
+          >
             {t("common_reset")}
           </Button>
           <Button onClick={handleApply} className="dark:text-white">

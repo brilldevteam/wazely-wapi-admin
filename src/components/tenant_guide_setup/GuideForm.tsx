@@ -10,19 +10,13 @@ import { useCreateGuideMutation, useDeleteGuideMutation, useGetGuideByIdQuery, u
 import { getResolvedImageUrl } from "@/src/utils/image";
 import ConfirmModal from "@/src/shared/ConfirmModal";
 import CKEditorComponent from "@/src/shared/CkEditor";
-import { GuideCategory } from "@/src/types/guide";
+import { GuideCategory, GuideFormProps } from "@/src/types/guide";
 import { AlertCircle, Image as ImageIcon, Loader2, Plus, Save, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import Image from "next/image";
 
-interface GuideFormProps {
-  guideId: string | null;
-  categories: GuideCategory[];
-  onSuccess: () => void;
-  onCancel: () => void;
-}
 
 const GuideForm = ({ guideId, categories, onSuccess, onCancel }: GuideFormProps) => {
   const { t } = useTranslation();

@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["unzipper"],
   env: {
     NEXT_PUBLIC_BASE_PATH: BASE_PATH,
-    NEXT_PUBLIC_API_URL: "https://api.wazely.io/api",
+    NEXT_PUBLIC_API_URL: "https://your-backend-domain.com/api",
     NEXT_PUBLIC_API_BASE_URL: BASE_PATH + "/api",
-    NEXT_PUBLIC_STORAGE_URL: "https://api.wazely.io/",
-    NEXT_PUBLIC_FRONT_URL: "https://crm.wazely.io/",
+    NEXT_PUBLIC_STORAGE_URL: "https://your-backend-domain.com",
+    NEXT_PUBLIC_FRONT_URL: "https://your-front-domain",
   },
   redirects: async () => {
     const list: any[] = [

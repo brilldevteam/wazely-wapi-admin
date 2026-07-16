@@ -13,21 +13,12 @@ import {
   useUpdateFaqMutation,
 } from "@/src/redux/api/faqApi";
 import CKEditorComponent from "@/src/shared/CkEditor";
+import { AddFaqPageProps, FaqFormState } from "@/src/types/faq";
 import { ArrowLeft, Check, HelpCircle, MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-
-interface AddFaqPageProps {
-  id?: string;
-}
-
-type FaqFormState = {
-  title: string;
-  description: string;
-  status: boolean;
-};
 
 const AddFaqPage = ({ id }: AddFaqPageProps) => {
   const { t } = useTranslation();
@@ -107,8 +98,8 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
     } catch (error: any) {
       toast.error(
         error?.data?.message ||
-        error?.message ||
-        t(isEditMode ? "faq.error_update" : "faq.error_create"),
+          error?.message ||
+          t(isEditMode ? "faq.error_update" : "faq.error_create"),
       );
     }
   };

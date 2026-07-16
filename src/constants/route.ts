@@ -48,6 +48,7 @@ export const ROUTES = {
 
   // Settings & Config
   Settings: "/system_preferences",
+  Announcement: "/announcement",
   AIModels: "/ai_intelligence",
   Languages: "/language_library",
   Currencies: "/currency_options",

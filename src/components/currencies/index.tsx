@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import CurrencyHeader from "./CurrencyHeader";
 import CurrencyList from "./CurrencyList";
 import { ROUTES } from "@/src/constants";
+import { currencyColumns } from "@/src/data/currencies";
 
 const CurrencyContainer = () => {
   const router = useRouter();
@@ -20,15 +21,7 @@ const CurrencyContainer = () => {
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  const [columns, setColumns] = useState([
-    { id: "default", label: "Default", isVisible: true },
-    { id: "name", label: "Name", isVisible: true },
-    { id: "code", label: "Code", isVisible: true },
-    { id: "symbol", label: "Symbol", isVisible: true },
-    { id: "exchange_rate", label: "Exchange Rate", isVisible: true },
-    { id: "decimal_number", label: "Decimal", isVisible: true },
-    { id: "status", label: "Status", isVisible: true },
-  ]);
+  const [columns, setColumns] = useState(currencyColumns);
 
   const handleColumnToggle = (columnId: string) => {
     setColumns((prev) => prev.map((col) => (col.id === columnId ? { ...col, isVisible: !col.isVisible } : col)));

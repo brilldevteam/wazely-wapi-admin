@@ -12,14 +12,23 @@ type EditorModules = {
   plugins: any[];
 };
 
-const CkEditorInner = ({ value, onChange, placeholder = "Type your answer here...", minHeight = "160px", onReady }: CKEditorComponentProps) => {
+const CkEditorInner = ({
+  value,
+  onChange,
+  placeholder = "Type your answer here...",
+  minHeight = "160px",
+  onReady,
+}: CKEditorComponentProps) => {
   const { t } = useTranslation();
   const [editor, setEditor] = useState<EditorModules | null>(null);
   const editorRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    Promise.all([import("@ckeditor/ckeditor5-react"), import("ckeditor5")]).then(
+    Promise.all([
+      import("@ckeditor/ckeditor5-react"),
+      import("ckeditor5"),
+    ]).then(
       ([
         { CKEditor },
         {
@@ -38,12 +47,13 @@ const CkEditorInner = ({ value, onChange, placeholder = "Type your answer here..
           FontColor,
           FontBackgroundColor,
           Strikethrough,
-          Underline
+          Underline,
         },
       ]) => {
         setEditor({
           CKEditor,
-          DecoupledEditor: DecoupledEditor as unknown as typeof DecoupledEditorType,
+          DecoupledEditor:
+            DecoupledEditor as unknown as typeof DecoupledEditorType,
           plugins: [
             Essentials,
             Paragraph,
@@ -59,10 +69,10 @@ const CkEditorInner = ({ value, onChange, placeholder = "Type your answer here..
             FontColor,
             FontBackgroundColor,
             Strikethrough,
-            Underline
+            Underline,
           ],
         });
-      }
+      },
     );
   }, []);
 
@@ -75,16 +85,24 @@ const CkEditorInner = ({ value, onChange, placeholder = "Type your answer here..
     >
       {editor ? (
         <>
-          <div ref={toolbarRef} className="ck-toolbar-container border-b border-gray-100 dark:border-(--card-border-color) bg-gray-50/50 dark:bg-(--dark-sidebar) p-1" />
+          <div
+            ref={toolbarRef}
+            className="ck-toolbar-container border-b border-gray-100 dark:border-(--card-border-color) bg-gray-50/50 dark:bg-(--dark-sidebar) p-1"
+          />
           <div className="flex-1 flex flex-col" ref={editorRef}>
             <CKEditor
               editor={DecoupledEditor as any}
               data={value}
               onReady={(editorInstance: any) => {
                 if (onReady) onReady(editorInstance);
-                if (toolbarRef.current && editorInstance.ui.view.toolbar?.element) {
+                if (
+                  toolbarRef.current &&
+                  editorInstance.ui.view.toolbar?.element
+                ) {
                   toolbarRef.current.innerHTML = "";
-                  toolbarRef.current.appendChild(editorInstance.ui.view.toolbar.element);
+                  toolbarRef.current.appendChild(
+                    editorInstance.ui.view.toolbar.element,
+                  );
                 }
               }}
               onChange={(_event: any, editorInstance: any) => {
@@ -94,15 +112,33 @@ const CkEditorInner = ({ value, onChange, placeholder = "Type your answer here..
               config={{
                 licenseKey: "GPL",
                 plugins: plugins,
-                placeholder: placeholder || t("start_typing_content", { defaultValue: "Start typing..." }),
+                placeholder:
+                  placeholder ||
+                  t("start_typing_content", {
+                    defaultValue: "Start typing...",
+                  }),
                 toolbar: [
-                  "heading", "|",
-                  "bold", "italic", "strikethrough", "underline", "fontColor", "fontBackgroundColor", "|",
-                  "link", "|",
-                  "bulletedList", "numberedList", "|",
-                  "blockQuote", "insertTable", "|",
-                  "alignment", "|",
-                  "undo", "redo",
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "strikethrough",
+                  "underline",
+                  "fontColor",
+                  "fontBackgroundColor",
+                  "|",
+                  "link",
+                  "|",
+                  "bulletedList",
+                  "numberedList",
+                  "|",
+                  "blockQuote",
+                  "insertTable",
+                  "|",
+                  "alignment",
+                  "|",
+                  "undo",
+                  "redo",
                 ],
               }}
             />

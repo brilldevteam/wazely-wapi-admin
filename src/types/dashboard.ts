@@ -76,9 +76,9 @@ export interface AdminDashboardResponse {
 
 export type DashboardTableData = AdminDashboardData["tables"];
 
-export interface AdminStatCardsProps {
-  data: AdminDashboardData;
-}
+// export interface AdminStatCardsProps {   // unused and same name 
+//   data: AdminDashboardData;
+// }
 
 export interface AdminChartsProps {
   data: AdminDashboardData;
@@ -86,8 +86,40 @@ export interface AdminChartsProps {
 
 export interface DashboardDateFilterProps {
   onFilterChange: (params: {
-    dateRange?: string;
+    dateRange: string;
     startDate?: string;
     endDate?: string;
   }) => void;
+}
+
+export interface AdminChartsProps {
+  planRevenue: Array<{
+    _id: string;
+    totalRevenue: number;
+    count: number;
+  }>;
+  revenueGraph: Array<{
+    _id: string;
+    totalRevenue: number;
+    transactionCount: number;
+  }>;
+}
+
+export interface AdminStatCardsProps {
+  counts: {
+    totalUsers: number;
+    activeSubscriptions: number;
+    totalPlans: number;
+    revenue: {
+      today: number;
+      month: number;
+      total: number;
+    };
+    activeAIModels: number;
+    totalContactInquiries: number;
+  };
+  showPlans?: boolean;
+  showSubscriptions?: boolean;
+  subset?: number[];
+  itemsOnly?: boolean;
 }

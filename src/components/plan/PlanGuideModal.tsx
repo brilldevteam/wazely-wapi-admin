@@ -1,15 +1,28 @@
 "use client";
 
 import { Button } from "@/src/elements/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/src/elements/ui/dialog";
-import { AlertCircle, BookOpen, CheckCircle2, Database, Info, LayoutDashboard, Users, Facebook } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/src/elements/ui/dialog";
+import { PlanGuideModalProps } from "@/src/types/plan";
+import {
+  AlertCircle,
+  BookOpen,
+  CheckCircle2,
+  Database,
+  Facebook,
+  Info,
+  LayoutDashboard,
+  Users,
+} from "lucide-react";
 
-interface PlanGuideModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps) {
+export default function PlanGuideModal({
+  isOpen,
+  onClose,
+}: PlanGuideModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-2xl! max-w-[calc(100%-2rem)]! gap-3 max-h-[85vh] overflow-y-auto p-3 pt-0! rounded-lg dark:bg-(--card-color) dark:border-(--card-border-color) no-scrollbar">
@@ -19,8 +32,12 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
               <BookOpen className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div>
-              <DialogTitle className="sm:text-2xl text-lg text-left rtl:text-right font-bold text-gray-900 dark:text-gray-100 tracking-tight">Plan Creation Guide</DialogTitle>
-              <p className="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 font-medium">Step-by-step instructions for setting up subscription plans</p>
+              <DialogTitle className="sm:text-2xl text-lg text-left rtl:text-right font-bold text-gray-900 dark:text-gray-100 tracking-tight">
+                Plan Creation Guide
+              </DialogTitle>
+              <p className="text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 font-medium">
+                Step-by-step instructions for setting up subscription plans
+              </p>
             </div>
           </div>
         </DialogHeader>
@@ -36,13 +53,25 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
               <div className="flex gap-3 group">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Provide a clear <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">Plan Title</span> and a unique <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">Slug</span>. The slug is automatically generated but can be customized.
+                  Provide a clear{" "}
+                  <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">
+                    Plan Title
+                  </span>{" "}
+                  and a unique{" "}
+                  <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">
+                    Slug
+                  </span>
+                  . The slug is automatically generated but can be customized.
                 </p>
               </div>
               <div className="flex gap-3 group">
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Write a compelling <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">Plan Description</span> to highlight the value proposition to your customers.
+                  Write a compelling{" "}
+                  <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">
+                    Plan Description
+                  </span>{" "}
+                  to highlight the value proposition to your customers.
                 </p>
               </div>
             </div>
@@ -60,7 +89,16 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
                   <Info className="w-4 h-4 text-blue-500" />
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Set the <span className="font-bold text-blue-600 dark:text-blue-400">Price</span> and <span className="font-bold text-blue-600 dark:text-blue-400">Currency</span>. Choose a billing cycle (Monthly, Yearly, etc.) that fits your business model.
+                  Set the{" "}
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
+                    Price
+                  </span>{" "}
+                  and{" "}
+                  <span className="font-bold text-blue-600 dark:text-blue-400">
+                    Currency
+                  </span>
+                  . Choose a billing cycle (Monthly, Yearly, etc.) that fits
+                  your business model.
                 </p>
               </div>
             </div>
@@ -74,7 +112,11 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
             </div>
 
             <div className="space-y-4 pl-0">
-              <p className="text-sm text-gray-600 dark:text-gray-400 px-1 font-medium">Our system maintains strict dependencies to ensure platform stability. Disabling certain core features will automatically deactivate their child features:</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 px-1 font-medium">
+                Our system maintains strict dependencies to ensure platform
+                stability. Disabling certain core features will automatically
+                deactivate their child features:
+              </p>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 {/* Dependency 1 */}
@@ -84,11 +126,19 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
                     Contacts Dependency
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[12px] text-gray-500 dark:text-gray-500 font-bold">Disabling Contacts removes access to:</p>
+                    <p className="text-[12px] text-gray-500 dark:text-gray-500 font-bold">
+                      Disabling Contacts removes access to:
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-white dark:bg-(--page-body-bg) text-[11px] font-bold rounded-lg border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300">Segments</span>
-                      <span className="px-2 py-1 bg-white dark:bg-(--page-body-bg) text-[11px] font-bold rounded-lg border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300">Template Bots</span>
-                      <span className="px-2 py-1 bg-white dark:bg-(--page-body-bg) text-[11px] font-bold rounded-lg border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300">Campaigns</span>
+                      <span className="px-2 py-1 bg-white dark:bg-(--page-body-bg) text-[11px] font-bold rounded-lg border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300">
+                        Segments
+                      </span>
+                      <span className="px-2 py-1 bg-white dark:bg-(--page-body-bg) text-[11px] font-bold rounded-lg border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300">
+                        Template Bots
+                      </span>
+                      <span className="px-2 py-1 bg-white dark:bg-(--page-body-bg) text-[11px] font-bold rounded-lg border border-amber-200 dark:border-amber-900 text-amber-700 dark:text-amber-300">
+                        Campaigns
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -100,9 +150,13 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
                     Agent Dependency
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[12px] text-gray-500 dark:text-gray-500 font-bold">Disabling Agent removes access to:</p>
+                    <p className="text-[12px] text-gray-500 dark:text-gray-500 font-bold">
+                      Disabling Agent removes access to:
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-indigo-200 dark:border-indigo-900 text-indigo-700 dark:text-indigo-300">Teams & Roles</span>
+                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-indigo-200 dark:border-indigo-900 text-indigo-700 dark:text-indigo-300">
+                        Teams & Roles
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -114,11 +168,19 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
                     Facebook Channel Dependency
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[12px] text-gray-500 dark:text-gray-500 font-bold">Disabling Facebook Channel removes access to:</p>
+                    <p className="text-[12px] text-gray-500 dark:text-gray-500 font-bold">
+                      Disabling Facebook Channel removes access to:
+                    </p>
                     <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300">Facebook Ads Campaign</span>
-                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300">Facebook Lead Forms</span>
-                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300">Facebook Subfeatures (Chat, Automation, broadcast, etc.)</span>
+                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300">
+                        Facebook Ads Campaign
+                      </span>
+                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300">
+                        Facebook Lead Forms
+                      </span>
+                      <span className="px-2 py-1 bg-white dark:bg-gray-800 text-[11px] font-bold rounded-lg border border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300">
+                        Facebook Subfeatures (Chat, Automation, broadcast, etc.)
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -135,18 +197,31 @@ export default function PlanGuideModal({ isOpen, onClose }: PlanGuideModalProps)
             <ul className="space-y-2.5">
               <li className="flex flex-wrap gap-2.5 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
                 <div className="w-1.5 h-1.5 bg-primary rounded-full mt-1.5 shrink-0" />
-                Set a <span className="font-bold text-gray-800 dark:text-gray-200">Featured</span> plan to drive more conversions.
+                Set a{" "}
+                <span className="font-bold text-gray-800 dark:text-gray-200">
+                  Featured
+                </span>{" "}
+                plan to drive more conversions.
               </li>
               <li className="flex flex-wrap gap-2.5 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
                 <div className="w-1.5 h-1.5 bg-primary rounded-full mt-1.5 shrink-0" />
-                Use <span className="font-bold text-gray-800 dark:text-gray-200">0</span> in limit fields to grant <span className="italic font-medium">Unlimited</span> access for that feature.
+                Use{" "}
+                <span className="font-bold text-gray-800 dark:text-gray-200">
+                  0
+                </span>{" "}
+                in limit fields to grant{" "}
+                <span className="italic font-medium">Unlimited</span> access for
+                that feature.
               </li>
             </ul>
           </section>
         </div>
 
         <div className="flex justify-end">
-          <Button onClick={onClose} className="px-8 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-11 rounded-lg shadow-lg transition-all active:scale-95">
+          <Button
+            onClick={onClose}
+            className="px-8 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-11 rounded-lg shadow-lg transition-all active:scale-95"
+          >
             Got it!
           </Button>
         </div>

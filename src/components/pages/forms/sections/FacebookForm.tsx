@@ -2,7 +2,7 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
 import { Button } from "@/src/elements/ui/button";
 import { Label } from "@/src/elements/ui/label";
 import { Input } from "@/src/elements/ui/input";
@@ -117,7 +117,7 @@ export const FacebookForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5">Image Asset</label>
+                      <Label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5">Image Asset</Label>
                       <PageMediaUploadField
                         value={feat?.image || ""}
                         onChange={(uploadedUrl) => handleFeatChange(idx, "image", uploadedUrl)}

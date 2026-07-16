@@ -11,6 +11,7 @@ import CommonHeader from "../../shared/CommonHeader";
 import FilterModal from "./FilterModal";
 import SubscriptionPlansSummary from "./SubscriptionPlansSummary";
 import SubscriptionPlansTable from "./SubscriptionPlansTable";
+import { subscriptionColumns } from "@/src/data/subscriptions";
 
 const SubscriptionPlansContainer = () => {
   const { t } = useTranslation();
@@ -23,16 +24,7 @@ const SubscriptionPlansContainer = () => {
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  const [columns, setColumns] = useState([
-    { id: "user", label: "User", isVisible: true, key: "user.name" },
-    { id: "user_email", label: "Email", isVisible: true, key: "user.email" },
-    { id: "plan", label: "Plan", isVisible: true, key: "plan.name" },
-    { id: "amount", label: "Amount", isVisible: true, key: "amount_paid" },
-    { id: "method", label: "Method", isVisible: true, key: "payment_gateway" },
-    { id: "transaction_id", label: "Transaction ID", isVisible: false, key: "transaction_id" },
-    { id: "dates", label: "Dates", isVisible: true, key: "current_period_end" },
-    { id: "status", label: "Status", isVisible: true, key: "status" },
-  ]);
+  const [columns, setColumns] = useState(subscriptionColumns);
 
   const handleColumnToggle = (columnId: string) => {
     setColumns((prev) => prev.map((col) => (col.id === columnId ? { ...col, isVisible: !col.isVisible } : col)));

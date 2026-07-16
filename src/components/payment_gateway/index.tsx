@@ -6,8 +6,9 @@ import RazorpayForm from "./RazorpaySettings";
 import PayPalForm from "./PayPalSettings";
 import PaymentGatewayHeader from "./PaymentGatewayHeader";
 import { Button } from "@/src/elements/ui/button";
+import { GatewayId } from "@/src/types/payment";
 
-type GatewayId = "stripe" | "razorpay" | "paypal";
+
 
 const gateways: { id: GatewayId; name: string; icon: React.ReactNode }[] = [
   {

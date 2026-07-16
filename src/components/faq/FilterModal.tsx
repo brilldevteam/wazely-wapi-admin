@@ -1,23 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { Button } from "@/src/elements/ui/button";
-import { Label } from "@/src/elements/ui/label";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/src/elements/ui/dialog";
-
-interface FilterModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onApply: (filters: { status?: string }) => void;
-  currentFilters?: { status?: string };
-}
+import { Label } from "@/src/elements/ui/label";
+import { FilterModalProps } from "@/src/types/components";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const FilterModal = ({
   isOpen,
@@ -27,7 +21,7 @@ const FilterModal = ({
 }: FilterModalProps) => {
   const { t } = useTranslation();
   const [statusFilter, setStatusFilter] = useState<string>(
-    currentFilters.status || "all"
+    currentFilters.status || "all",
   );
 
   useEffect(() => {
@@ -58,7 +52,12 @@ const FilterModal = ({
         <div className="space-y-6 py-4">
           <div className="space-y-2 flex flex-col">
             <Label htmlFor="status">{t("common_status")}</Label>
-            <select id="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-full h-10 px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none dark:bg-(--card-color) dark:border-(--card-border-color) dark:focus-visible:outline-none">
+            <select
+              id="status"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="w-full h-10 px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none dark:bg-(--card-color) dark:border-(--card-border-color) dark:focus-visible:outline-none"
+            >
               <option value="all">{t("common_all")}</option>
               <option value="active">{t("common_published")}</option>
               <option value="draft">{t("common_draft")}</option>
@@ -66,7 +65,11 @@ const FilterModal = ({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" className="dark:bg-(--card-color) dark:hover:bg-(--dark-sidebar)" onClick={handleReset}>
+          <Button
+            variant="outline"
+            className="dark:bg-(--card-color) dark:hover:bg-(--dark-sidebar)"
+            onClick={handleReset}
+          >
             {t("common_reset")}
           </Button>
           <Button className="dark:text-white" onClick={handleApply}>
@@ -79,5 +82,3 @@ const FilterModal = ({
 };
 
 export default FilterModal;
-
-

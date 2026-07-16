@@ -14,18 +14,9 @@ import { ROUTES } from "@/src/constants";
 import { Label } from "@/src/elements/ui/label";
 import { Input } from "@/src/elements/ui/input";
 import { Textarea } from "@/src/elements/ui/textarea";
+import { TaxFormData, TaxFormProps } from "@/src/types/tax";
 
-interface TaxFormProps {
-  id?: string;
-}
 
-interface TaxFormData {
-  name: string;
-  type: "percentage" | "fixed";
-  rate: string;
-  description: string;
-  is_active: boolean;
-}
 
 const TaxForm = ({ id }: TaxFormProps) => {
   const { t } = useTranslation();

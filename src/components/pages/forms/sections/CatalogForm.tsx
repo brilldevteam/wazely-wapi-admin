@@ -2,7 +2,15 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
+import { Button } from "@/src/elements/ui/button";
+import { Label } from "@/src/elements/ui/label";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { Input } from "@/src/elements/ui/input";
+
+
+
+
 
 export const CatalogForm: React.FC<SharedFormProps> = ({
   data,
@@ -119,8 +127,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["hero", "title"], "Hero Title", "e.g. Turn WhatsApp into a Direct Storefront")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Hero Subtitle</label>
-              <textarea
+              <Label className={labelClass}>Hero Subtitle</Label>
+              <Textarea unstyled
                 value={data?.hero?.subtitle || ""}
                 onChange={(e) => updateField(["hero", "subtitle"], e.target.value)}
                 placeholder="Sub-headline explaining the value proposition..."
@@ -150,8 +158,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["live_demo", "title"], "Sandbox Title", "Interact with the Catalog & Checkout Sandbox")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Sandbox Description</label>
-              <textarea
+              <Label className={labelClass}>Sandbox Description</Label>
+              <Textarea unstyled
                 value={data?.live_demo?.description || ""}
                 onChange={(e) => updateField(["live_demo", "description"], e.target.value)}
                 placeholder="Description for the interactive sandbox..."
@@ -165,21 +173,21 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Products List</label>
+              <Label className={labelClass}>Products List</Label>
               {productsList.map((product: any, idx: number) => (
                 <div key={idx} className="p-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveProduct(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-450 uppercase font-bold">PRODUCT #{idx + 1}</div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Product Name</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Product Name</Label>
+                      <Input unstyled
                         type="text"
                         value={product?.name || ""}
                         onChange={(e) => handleProductChange(idx, "name", e.target.value)}
@@ -188,8 +196,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Category</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Category</Label>
+                      <Input unstyled
                         type="text"
                         value={product?.category || ""}
                         onChange={(e) => handleProductChange(idx, "category", e.target.value)}
@@ -198,8 +206,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Icon / Emoji</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Icon / Emoji</Label>
+                      <Input unstyled
                         type="text"
                         value={product?.image || ""}
                         onChange={(e) => handleProductChange(idx, "image", e.target.value)}
@@ -210,8 +218,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Stock Count</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Stock Count</Label>
+                      <Input unstyled
                         type="number"
                         value={product?.stock !== undefined ? product.stock : ""}
                         onChange={(e) => handleProductChange(idx, "stock", Number(e.target.value))}
@@ -220,8 +228,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Price ($)</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Price ($)</Label>
+                      <Input unstyled
                         type="number"
                         step="0.01"
                         value={product?.price !== undefined ? product.price : ""}
@@ -234,13 +242,13 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddProduct}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Product
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -255,8 +263,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["use_cases", "title"], "Use Cases Title", "Real-Time Catalog Integration Examples")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Use Cases Description</label>
-              <textarea
+              <Label className={labelClass}>Use Cases Description</Label>
+              <Textarea unstyled
                 value={data?.use_cases?.description || ""}
                 onChange={(e) => updateField(["use_cases", "description"], e.target.value)}
                 placeholder="Description of the catalog use cases..."
@@ -266,21 +274,21 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-6 mt-4">
-              <label className={labelClass}>Use Case Tabs</label>
+              <Label className={labelClass}>Use Case Tabs</Label>
               {tabsList.map((tab: any, idx: number) => (
                 <div key={idx} className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveTab(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-450 uppercase font-bold">TAB #{idx + 1}</div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Tab Heading / Number</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Tab Heading / Number</Label>
+                      <Input unstyled
                         type="text"
                         value={tab?.heading || ""}
                         onChange={(e) => handleTabChange(idx, "heading", e.target.value)}
@@ -289,8 +297,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Tab Title</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Tab Title</Label>
+                      <Input unstyled
                         type="text"
                         value={tab?.title || ""}
                         onChange={(e) => handleTabChange(idx, "title", e.target.value)}
@@ -300,8 +308,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Tab Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Tab Description</Label>
+                    <Textarea unstyled
                       value={tab?.description || ""}
                       onChange={(e) => handleTabChange(idx, "description", e.target.value)}
                       placeholder="Use case tab explanation..."
@@ -311,38 +319,38 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                   </div>
 
                   <div>
-                    <label className="text-[10px] font-bold text-gray-450 block mb-1">Bullets</label>
+                    <Label className="text-[10px] font-bold text-gray-450 block mb-1">Bullets</Label>
                     <div className="space-y-2 mb-2">
                       {Array.isArray(tab?.bullets) && tab.bullets.map((bullet: string, bIdx: number) => (
                         <div key={bIdx} className="flex gap-2">
-                          <input
+                          <Input unstyled
                             type="text"
                             value={bullet}
                             onChange={(e) => handleTabBulletChange(idx, bIdx, e.target.value)}
                             placeholder="Bullet point item..."
                             className={inputClass}
                           />
-                          <button
+                          <Button variant="unstyled"
                             type="button"
                             onClick={() => handleRemoveTabBullet(idx, bIdx)}
                             className="p-2.5 rounded-lg border border-red-200 dark:border-red-900/30 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-500 transition-all cursor-pointer"
                           >
                             <Trash2 size={14} />
-                          </button>
+                          </Button>
                         </div>
                       ))}
                     </div>
-                    <button
+                    <Button variant="unstyled"
                       type="button"
                       onClick={() => handleAddTabBullet(idx)}
                       className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 rounded text-xs font-bold text-(--text-green-primary) cursor-pointer"
                     >
                       + Add Bullet
-                    </button>
+                    </Button>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Tab Image Asset</label>
+                    <Label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Tab Image Asset</Label>
                     <PageMediaUploadField
                       value={tab?.image || ""}
                       onChange={(url) => handleTabChange(idx, "image", url)}
@@ -351,13 +359,13 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddTab}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Tab
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -373,20 +381,20 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Capabilities List</label>
+              <Label className={labelClass}>Capabilities List</Label>
               {featuresList.map((feature: any, idx: number) => (
                 <div key={idx} className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveFeature(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-450 uppercase font-bold">FEATURE #{idx + 1}</div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Feature Title</label>
-                    <input
+                    <Label className="text-[10px] font-bold text-gray-400">Feature Title</Label>
+                    <Input unstyled
                       type="text"
                       value={feature?.title || ""}
                       onChange={(e) => handleFeatureChange(idx, "title", e.target.value)}
@@ -395,8 +403,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Feature Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Feature Description</Label>
+                    <Textarea unstyled
                       value={feature?.description || ""}
                       onChange={(e) => handleFeatureChange(idx, "description", e.target.value)}
                       placeholder="Feature description..."
@@ -407,13 +415,13 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddFeature}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Feature
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -429,21 +437,21 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>FAQ Items</label>
+              <Label className={labelClass}>FAQ Items</Label>
               {faqsList.map((faq: any, idx: number) => (
                 <div key={idx} className="p-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveFaq(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-450 uppercase font-bold mb-2">FAQ ITEM #{idx + 1}</div>
                   <div className="grid grid-cols-1 gap-3 max-w-[90%]">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Question</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Question</Label>
+                      <Input unstyled
                         type="text"
                         value={faq?.question || ""}
                         onChange={(e) => handleFaqChange(idx, "question", e.target.value)}
@@ -452,8 +460,8 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Answer</label>
-                      <textarea
+                      <Label className="text-[10px] font-bold text-gray-400">Answer</Label>
+                      <Textarea unstyled
                         value={faq?.answer || ""}
                         onChange={(e) => handleFaqChange(idx, "answer", e.target.value)}
                         placeholder="FAQ Answer..."
@@ -465,13 +473,13 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddFaq}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
-            </button>
+            </Button>
           </div>
         )}
       </div>

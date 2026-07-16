@@ -9,12 +9,9 @@ import Image from "next/image";
 import { Button } from "@/src/elements/ui/button";
 import { Label } from "@/src/elements/ui/label";
 import { Input } from "@/src/elements/ui/input";
+import { PageMediaUploadFieldProps } from "@/src/types/landingPage";
 
-interface PageMediaUploadFieldProps {
-  label?: string;
-  value: string;
-  onChange: (val: string) => void;
-}
+
 
 export function PageMediaUploadField({ label, value, onChange }: PageMediaUploadFieldProps) {
   const [uploadMedia, { isLoading }] = useUploadPageMediaMutation();
@@ -97,14 +94,14 @@ export function PageMediaUploadField({ label, value, onChange }: PageMediaUpload
               </Button>
             </div>
           </div>
-          <button
+          <Button variant="unstyled"
             type="button"
             onClick={() => onChange("")}
             className="p-1.5 bg-red-500 hover:bg-red-650 text-white rounded-full transition-all"
             title="Remove file"
           >
             <X size={14} />
-          </button>
+          </Button>
         </div>
       ) : (
         <div

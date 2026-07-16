@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-  ({ className, type, onKeyDown, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input"> & { unstyled?: boolean }>(
+  ({ className, type, onKeyDown, unstyled, ...props }, ref) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (type === "number") {
         const isControlKey =
@@ -19,6 +19,18 @@ const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
         onKeyDown(e);
       }
     };
+
+    if (unstyled) {
+      return (
+        <input
+          type={type}
+          onKeyDown={handleKeyDown}
+          className={className}
+          ref={ref}
+          {...props}
+        />
+      );
+    }
 
     return (
       <input

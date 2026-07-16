@@ -1,5 +1,5 @@
 import { baseApi } from "./baseApi";
-import { Tax, GetTaxesParams, GetTaxesResponse } from "@/src/types/store";
+import { Tax, GetTaxesParams, GetTaxesResponse } from "@/src/types/tax";
 
 export const taxApi = baseApi.enhanceEndpoints({ addTagTypes: ["Tax"] }).injectEndpoints({
   endpoints: (builder) => ({

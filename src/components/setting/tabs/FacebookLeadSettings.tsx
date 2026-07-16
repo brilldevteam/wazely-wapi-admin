@@ -3,7 +3,6 @@
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import SettingCard from "../shared/SettingCard";
 import { ImageBaseUrl } from "@/src/constants";
@@ -11,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Facebook, Lock, Globe, Eye, EyeOff, Instagram } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/src/elements/ui/button";
+import { AppSettings } from "@/src/types/setting";
 
 const FacebookLeadSettings = () => {
   const { t } = useTranslation();

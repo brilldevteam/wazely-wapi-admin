@@ -1,25 +1,30 @@
 "use client";
 
 import { Button } from "@/src/elements/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/src/elements/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/src/elements/ui/dialog";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/elements/ui/select";
 import { Switch } from "@/src/elements/ui/switch";
-import { Page } from "@/src/types/store";
+import { FlatMenuItem, MenuEditSettingsProps } from "@/src/types/landingPage";
 import { HelpCircle, Info } from "lucide-react";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { AVAILABLE_ICONS, MEGA_MENU_TYPES } from "../../../data/landingPage";
 import ImageSelector from "../shared/ImageSelector";
-import { AVAILABLE_ICONS, MEGA_MENU_TYPES } from "./HeaderFormConstants";
-import { FlatMenuItem, getBadgeColorHex } from "./HeaderFormUtils";
-
-interface MenuEditSettingsProps {
-  selectedItem: FlatMenuItem;
-  pages: Page[];
-  getParentOptions: () => FlatMenuItem[];
-  handleUpdateItem: (field: keyof FlatMenuItem, value: string | boolean | number) => void;
-}
+import { getBadgeColorHex } from "./HeaderFormUtils";
 
 export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
   selectedItem,
@@ -68,16 +73,26 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
           </Label>
           <Select
             value={selectedItem.link_type}
-            onValueChange={(val) => handleUpdateItem("link_type", val as FlatMenuItem["link_type"])}
+            onValueChange={(val) =>
+              handleUpdateItem("link_type", val as FlatMenuItem["link_type"])
+            }
           >
             <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body border-gray-100 dark:border-none rounded-lg text-[13px]">
-              <SelectValue placeholder={t("landing_page_header_select_link_type")} />
+              <SelectValue
+                placeholder={t("landing_page_header_select_link_type")}
+              />
             </SelectTrigger>
             <SelectContent className="dark:bg-(--card-color) border-gray-100 dark:border-(--card-border-color) rounded-lg shadow-2xl">
-              <SelectItem value="Sub" className="rounded-lg dark:hover:bg-(--table-hover)">
+              <SelectItem
+                value="Sub"
+                className="rounded-lg dark:hover:bg-(--table-hover)"
+              >
                 {t("landing_page_header_sub_menu")}
               </SelectItem>
-              <SelectItem value="Link" className="rounded-lg dark:hover:bg-(--table-hover)">
+              <SelectItem
+                value="Link"
+                className="rounded-lg dark:hover:bg-(--table-hover)"
+              >
                 {t("landing_page_header_clickable_link")}
               </SelectItem>
             </SelectContent>
@@ -90,17 +105,26 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
           </Label>
           <Select
             value={selectedItem.parent_id || "_ROOT_"}
-            onValueChange={(val) => handleUpdateItem("parent_id", val === "_ROOT_" ? "" : val)}
+            onValueChange={(val) =>
+              handleUpdateItem("parent_id", val === "_ROOT_" ? "" : val)
+            }
           >
             <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body border-gray-100 dark:border-none rounded-lg text-[13px]">
               <SelectValue placeholder={t("landing_page_header_root_level")} />
             </SelectTrigger>
             <SelectContent className="dark:bg-(--card-color) border-gray-100 dark:border-(--card-border-color) rounded-lg shadow-2xl">
-              <SelectItem value="_ROOT_" className="rounded-lg dark:hover:bg-(--table-hover)">
+              <SelectItem
+                value="_ROOT_"
+                className="rounded-lg dark:hover:bg-(--table-hover)"
+              >
                 {t("landing_page_header_root_level")}
               </SelectItem>
               {getParentOptions().map((opt) => (
-                <SelectItem key={opt.id} value={opt.id} className="rounded-lg dark:hover:bg-(--table-hover)">
+                <SelectItem
+                  key={opt.id}
+                  value={opt.id}
+                  className="rounded-lg dark:hover:bg-(--table-hover)"
+                >
                   {opt.title}
                 </SelectItem>
               ))}
@@ -121,7 +145,9 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
               </div>
               <Switch
                 checked={selectedItem.mega_menu}
-                onCheckedChange={(checked) => handleUpdateItem("mega_menu", checked)}
+                onCheckedChange={(checked) =>
+                  handleUpdateItem("mega_menu", checked)
+                }
                 className="data-[state=checked]:bg-primary"
               />
             </div>
@@ -133,7 +159,8 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                 </Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {MEGA_MENU_TYPES.map((type) => {
-                    const isTypeActive = selectedItem.mega_menu_type === type.value;
+                    const isTypeActive =
+                      selectedItem.mega_menu_type === type.value;
                     let typeLabelKey = "landing_page_header_mega_simple";
                     let typeDescKey = "landing_page_header_mega_simple_desc";
 
@@ -145,7 +172,8 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                       typeDescKey = "landing_page_header_mega_side_banner_desc";
                     } else if (type.value === "Bottom Banner") {
                       typeLabelKey = "landing_page_header_mega_bottom_banner";
-                      typeDescKey = "landing_page_header_mega_bottom_banner_desc";
+                      typeDescKey =
+                        "landing_page_header_mega_bottom_banner_desc";
                     } else if (type.value === "Product Box") {
                       typeLabelKey = "landing_page_header_mega_product_box";
                       typeDescKey = "landing_page_header_mega_product_box_desc";
@@ -157,13 +185,17 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                     return (
                       <div
                         key={type.value}
-                        onClick={() => handleUpdateItem("mega_menu_type", type.value)}
+                        onClick={() =>
+                          handleUpdateItem("mega_menu_type", type.value)
+                        }
                         className={`
                           flex flex-col p-3 rounded-lg border text-left cursor-pointer transition-all duration-300
                           ${isTypeActive ? "border-primary bg-primary/2 shadow-inner dark:bg-(--card-color)" : "border-gray-100 dark:border-none bg-white dark:bg-(--card-color) hover:bg-gray-50 dark:hover:bg-(--table-hover)"}
                         `}
                       >
-                        <span className={`text-[13px] font-bold ${isTypeActive ? "text-primary" : "text-gray-850"}`}>
+                        <span
+                          className={`text-[13px] font-bold ${isTypeActive ? "text-primary" : "text-gray-850"}`}
+                        >
                           {t(typeLabelKey)}
                         </span>
                         <span className="text-[11px] text-gray-450 mt-1 leading-snug">
@@ -191,7 +223,9 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
               </div>
               <Switch
                 checked={selectedItem.target_blank}
-                onCheckedChange={(checked) => handleUpdateItem("target_blank", checked)}
+                onCheckedChange={(checked) =>
+                  handleUpdateItem("target_blank", checked)
+                }
                 className="data-[state=checked]:bg-primary"
               />
             </div>
@@ -206,28 +240,46 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                   if (val === "_CUSTOM_") {
                     handleUpdateItem("page_link", "");
                   } else {
-                    handleUpdateItem("page_link", val);
-                    handleUpdateItem("path", val);
+                    handleUpdateItem({
+                      page_link: val,
+                      path: val,
+                    });
                   }
                 }}
               >
                 <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body border-gray-100 dark:border-none rounded-lg text-[13px]">
-                  <SelectValue placeholder={t("landing_page_header_custom_link")} />
+                  <SelectValue
+                    placeholder={t("landing_page_header_custom_link")}
+                  />
                 </SelectTrigger>
                 <SelectContent className="dark:bg-(--card-color) border-gray-100 dark:border-(--card-border-color) rounded-lg shadow-2xl">
-                  <SelectItem value="_CUSTOM_" className="rounded-lg dark:hover:bg-(--table-hover)">
+                  <SelectItem
+                    value="_CUSTOM_"
+                    className="rounded-lg dark:hover:bg-(--table-hover)"
+                  >
                     {t("landing_page_header_custom_link")}
                   </SelectItem>
-                  <SelectItem value="/" className="rounded-lg dark:hover:bg-(--table-hover)">
+                  <SelectItem
+                    value="/"
+                    className="rounded-lg dark:hover:bg-(--table-hover)"
+                  >
                     {t("landing_page_header_home_page")}
                   </SelectItem>
-                  <SelectItem value="/pricing" className="rounded-lg dark:hover:bg-(--table-hover)">
+                  <SelectItem
+                    value="/pricing"
+                    className="rounded-lg dark:hover:bg-(--table-hover)"
+                  >
                     {t("landing_page_header_pricing_page")}
                   </SelectItem>
                   {pages.map((p) => (
                     <SelectItem
                       key={p._id}
-                      value={p.slug.startsWith("/channel") || p.slug.startsWith("/product") ? p.slug : `/product/${p.slug}`}
+                      value={
+                        p.slug.startsWith("/channel") ||
+                        p.slug.startsWith("/product")
+                          ? p.slug
+                          : `/product/${p.slug}`
+                      }
                       className="rounded-lg dark:hover:bg-(--table-hover)"
                     >
                       {p.title}
@@ -242,14 +294,14 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                 <Label className="text-[12px] font-bold text-gray-700 dark:text-gray-300">
                   {t("landing_page_header_path_label")}
                 </Label>
-                <button
+                <Button variant="unstyled"
                   type="button"
                   onClick={() => setIsInfoModalOpen(true)}
                   className="text-gray-400 hover:text-primary transition-colors focus:outline-none"
                   title="Path Information"
                 >
                   <HelpCircle size={14} />
-                </button>
+                </Button>
               </div>
               <Input
                 value={selectedItem.path}
@@ -265,7 +317,9 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
               </Label>
               <Input
                 value={selectedItem.description || ""}
-                onChange={(e) => handleUpdateItem("description", e.target.value)}
+                onChange={(e) =>
+                  handleUpdateItem("description", e.target.value)
+                }
                 placeholder={t("landing_page_header_description_placeholder")}
                 className="bg-(--input-color) dark:bg-page-body border-gray-100 dark:border-none h-11 text-[13.5px]"
               />
@@ -282,10 +336,11 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                     setVisualType("icon");
                     handleUpdateItem("link_image", "");
                   }}
-                  className={`py-2 text-xs font-semibold rounded-md transition-all duration-200 ${visualType === "icon"
-                    ? "bg-primary text-white shadow-sm"
-                    : "text-gray-700 shadow-none bg-white dark:bg-[unset] dark:text-gray-300 hover:bg-[unset] dark:hover:text-gray-350"
-                    }`}
+                  className={`py-2 text-xs font-semibold rounded-md transition-all duration-200 ${
+                    visualType === "icon"
+                      ? "bg-primary text-white shadow-sm"
+                      : "text-gray-700 shadow-none bg-white dark:bg-[unset] dark:text-gray-300 hover:bg-[unset] dark:hover:text-gray-350"
+                  }`}
                 >
                   {t("landing_page_header_select_icon")}
                 </Button>
@@ -295,10 +350,11 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                     setVisualType("image");
                     handleUpdateItem("icon", "");
                   }}
-                  className={`py-2 text-xs font-semibold rounded-md transition-all duration-200 ${visualType === "image"
-                    ? "bg-primary text-white shadow-sm"
-                    : "text-gray-700 shadow-none bg-white dark:bg-[unset] dark:text-gray-300 hover:bg-[unset] dark:hover:text-gray-350"
-                    }`}
+                  className={`py-2 text-xs font-semibold rounded-md transition-all duration-200 ${
+                    visualType === "image"
+                      ? "bg-primary text-white shadow-sm"
+                      : "text-gray-700 shadow-none bg-white dark:bg-[unset] dark:text-gray-300 hover:bg-[unset] dark:hover:text-gray-350"
+                  }`}
                 >
                   {t("landing_page_header_upload_image")}
                 </Button>
@@ -313,15 +369,22 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                 <Select
                   value={selectedItem.icon || "None"}
                   onValueChange={(val) => {
-                    handleUpdateItem("icon", val === "None" ? "" : val);
-                    handleUpdateItem("link_image", "");
+                    handleUpdateItem({
+                      icon: val === "None" ? "" : val,
+                      link_image: "",
+                    });
                   }}
                 >
                   <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body border-gray-100 dark:border-none rounded-lg text-[13px]">
-                    <SelectValue placeholder={t("landing_page_header_no_icon")} />
+                    <SelectValue
+                      placeholder={t("landing_page_header_no_icon")}
+                    />
                   </SelectTrigger>
                   <SelectContent className="dark:bg-(--card-color) border-gray-100 dark:border-(--card-border-color) rounded-lg shadow-2xl">
-                    <SelectItem value="None" className="rounded-lg dark:hover:bg-(--table-hover)">
+                    <SelectItem
+                      value="None"
+                      className="rounded-lg dark:hover:bg-(--table-hover)"
+                    >
                       {t("landing_page_header_no_icon")}
                     </SelectItem>
                     {AVAILABLE_ICONS.map((ico) => {
@@ -329,7 +392,8 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                       if (ico.value === "Instagram") {
                         iconLabelKey = "landing_page_header_icon_instagram";
                       } else if (ico.value === "MessageSquare") {
-                        iconLabelKey = "landing_page_header_icon_message_square";
+                        iconLabelKey =
+                          "landing_page_header_icon_message_square";
                       } else if (ico.value === "Send") {
                         iconLabelKey = "landing_page_header_icon_paper_plane";
                       } else if (ico.value === "Inbox") {
@@ -351,7 +415,11 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                       }
 
                       return (
-                        <SelectItem key={ico.value} value={ico.value} className="rounded-lg dark:hover:bg-(--table-hover)">
+                        <SelectItem
+                          key={ico.value}
+                          value={ico.value}
+                          className="rounded-lg dark:hover:bg-(--table-hover)"
+                        >
                           {t(iconLabelKey)}
                         </SelectItem>
                       );
@@ -365,8 +433,10 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
                   label={t("landing_page_header_image_preview")}
                   value={selectedItem.link_image || ""}
                   onChange={(url) => {
-                    handleUpdateItem("link_image", url);
-                    handleUpdateItem("icon", "");
+                    handleUpdateItem({
+                      link_image: url,
+                      icon: "",
+                    });
                   }}
                 />
               </div>
@@ -439,34 +509,52 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
 
           <div className="space-y-5 py-4 text-sm leading-relaxed text-gray-650 dark:text-gray-300 font-medium">
             <p>
-              To link a menu item to a custom page created on your site, follow these simple steps:
+              To link a menu item to a custom page created on your site, follow
+              these simple steps:
             </p>
 
             <div className="space-y-4 bg-slate-50 dark:bg-page-body p-4 rounded-xl border border-slate-100 dark:border-slate-800">
               <div className="flex gap-3">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-black shrink-0">1</span>
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-black shrink-0">
+                  1
+                </span>
                 <div>
-                  <h5 className="font-bold text-gray-950 dark:text-gray-50">Create a new page</h5>
+                  <h5 className="font-bold text-gray-950 dark:text-gray-50">
+                    Create a new page
+                  </h5>
                   <p className="text-xs text-gray-400 mt-0.5">
-                    Navigate to <strong className="text-gray-800 dark:text-gray-200">Page Management</strong> and create a page.
+                    Navigate to{" "}
+                    <strong className="text-gray-800 dark:text-gray-200">
+                      Page Management
+                    </strong>{" "}
+                    and create a page.
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-3">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-black shrink-0">2</span>
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-black shrink-0">
+                  2
+                </span>
                 <div>
-                  <h5 className="font-bold text-gray-950 dark:text-gray-50">Get the Page Slug</h5>
+                  <h5 className="font-bold text-gray-950 dark:text-gray-50">
+                    Get the Page Slug
+                  </h5>
                   <p className="text-xs text-gray-400 mt-0.5">
-                    The slug of your created page serves as the endpoint identifier.
+                    The slug of your created page serves as the endpoint
+                    identifier.
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-3">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-black shrink-0">3</span>
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-black shrink-0">
+                  3
+                </span>
                 <div>
-                  <h5 className="font-bold text-gray-950 dark:text-gray-50">Base Route Structure</h5>
+                  <h5 className="font-bold text-gray-950 dark:text-gray-50">
+                    Base Route Structure
+                  </h5>
                   <p className="text-xs text-gray-400 mt-0.5">
                     Your final frontend page URL will match the structure:
                   </p>
@@ -478,12 +566,17 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
             </div>
 
             <p className="text-xs text-gray-400">
-              💡 Tip: In the path field, you can set absolute URLs or relative endpoints like <code className="font-mono text-gray-800 dark:text-gray-200 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">/page/my-about-us</code>.
+              💡 Tip: In the path field, you can set absolute URLs or relative
+              endpoints like{" "}
+              <code className="font-mono text-gray-800 dark:text-gray-200 bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">
+                /page/my-about-us
+              </code>
+              .
             </p>
           </div>
 
           <DialogFooter className="pt-2">
-            <Button 
+            <Button
               className="w-full sm:w-auto bg-primary hover:bg-primary-hover text-white font-bold rounded-lg py-2.5 px-4 shadow-sm"
               onClick={() => setIsInfoModalOpen(false)}
             >

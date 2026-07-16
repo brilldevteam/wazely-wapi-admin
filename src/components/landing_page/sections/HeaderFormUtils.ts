@@ -1,23 +1,4 @@
-import { MenuItem } from "@/src/types/landingPage";
-
-export interface FlatMenuItem {
-  id: string;
-  title: string;
-  link_type: "Sub" | "Link";
-  parent_id: string;
-  mega_menu: boolean;
-  mega_menu_type: "Simple" | "Link With Image" | "Side Banner" | "Bottom Banner" | "Product Box" | "Blog Box";
-  target_blank: boolean;
-  page_link: string;
-  path: string;
-  link_image: string;
-  badge_text: string;
-  badge_color: string;
-  status: boolean;
-  sort_order: number;
-  description?: string;
-  icon?: string;
-}
+import { FlatMenuItem, MenuItem } from "@/src/types/landingPage";
 
 export const flattenTree = (items: MenuItem[], parentId = "", list: FlatMenuItem[] = []): FlatMenuItem[] => {
   if (!items || !Array.isArray(items)) return list;

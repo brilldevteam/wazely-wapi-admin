@@ -4,18 +4,14 @@ import { Skeleton } from "@/src/elements/ui/skeleton";
 import { useGetIsDemoModeQuery } from "@/src/redux/api/authApi";
 import Image from "next/image";
 
-interface DynamicLogoProps {
-  width?: number;
-  height?: number;
-  className?: string;
-  skeletonClassName?: string;
-}
+
 
 const API_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { getUrlWithBasePath } from "@/src/utils";
+import { DynamicLogoProps } from "@/src/types/auth";
 
 const resolveUrl = (url?: string, isDark?: boolean): string => {
   if (!url || url.length <= 0) return getUrlWithBasePath(isDark ? "/assets/logos/logo3.png" : "/assets/logos/logo1.png");

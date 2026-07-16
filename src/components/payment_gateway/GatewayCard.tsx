@@ -3,13 +3,9 @@ import { useTranslation } from "react-i18next";
 import { CheckCircle2, XCircle } from "lucide-react";
 import React from "react";
 import { usePermissions } from "@/src/hooks/usePermissions";
+import { GatewayCardProps } from "@/src/types/payment";
 
-interface GatewayCardProps {
-  title: string;
-  enabled: boolean;
-  onToggle: (enabled: boolean) => void;
-  children: React.ReactNode;
-}
+
 
 const GatewayCard = ({ title, enabled, onToggle, children }: GatewayCardProps) => {
   const { t } = useTranslation();

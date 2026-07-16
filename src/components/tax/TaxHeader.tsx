@@ -4,20 +4,9 @@ import CommonHeader from "@/src/shared/CommonHeader";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/src/constants";
+import { TaxHeaderProps } from "@/src/types/tax";
 
-interface TaxHeaderProps {
-  onSearch: (query: string) => void;
-  searchTerm: string;
-  onFilter?: () => void;
-  onRefresh?: () => void;
-  onExport?: (type: "csv" | "excel" | "pdf") => void;
-  onAddClick?: () => void;
-  isLoading?: boolean;
-  columns?: { id: string; label: string; isVisible: boolean }[];
-  onColumnToggle?: (columnId: string) => void;
-  selectedCount?: number;
-  onBulkDelete?: () => void;
-}
+
 
 const TaxHeader = ({ onSearch, searchTerm, onFilter, onExport, onAddClick, isLoading = false, columns, onColumnToggle, selectedCount, onBulkDelete }: TaxHeaderProps) => {
   const { t } = useTranslation();

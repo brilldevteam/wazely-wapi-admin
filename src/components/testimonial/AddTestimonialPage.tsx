@@ -2,7 +2,6 @@
 "use client";
 
 import { cn, stripHtml } from "@/lib/utils";
-import { getResolvedImageUrl } from "@/src/utils/image";
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
@@ -13,6 +12,8 @@ import {
   useUpdateTestimonialMutation,
 } from "@/src/redux/api/testimonialApi";
 import CKEditorComponent from "@/src/shared/CkEditor";
+import { AddTestimonialPageProps } from "@/src/types/guide";
+import { getResolvedImageUrl } from "@/src/utils/image";
 import {
   ArrowLeft,
   Check,
@@ -21,16 +22,12 @@ import {
   Upload,
   User,
 } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 import { ROUTES } from "../../constants";
-import Image from "next/image";
-
-interface AddTestimonialPageProps {
-  id?: string;
-}
 
 const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
   const { t } = useTranslation();
@@ -118,7 +115,6 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
           router.push(ROUTES.ManageTestimonials);
         }, 1000);
       }
-       
     } catch (error: any) {
       const errorMessage =
         error?.data?.message ||

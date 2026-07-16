@@ -8,8 +8,8 @@ const USER_KEY = "userData";
 const getCookieOptions = () => ({
   path: "/",
   maxAge: 7 * 24 * 60 * 60, // 7 days
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "Strict" as const,
+  secure: window.location.protocol === "https:",
+  sameSite: "Lax" as const,
 });
 
 export const authUtils = {
@@ -23,7 +23,7 @@ export const authUtils = {
     }
   },
 
-  getToken: (): string | null => {
+  getToken: (): string | null => { 
     if (typeof window !== "undefined") {
       // Try cookie first (preferred for SSR compatibility)
       const cookieToken = getCookie(TOKEN_KEY);

@@ -1,8 +1,5 @@
-import PublicPage from "@/src/components/pages/PublicPage";
-
-interface PageProps {
-  params: Promise<{ slug: string }>;
-}
+import PublicPage from "@/src/components/pages/components/PublicPage";
+import { PageProps } from "@/src/types/pageManagement";
 
 const page = async ({ params }: PageProps) => {
   const { slug } = await params;
@@ -10,3 +7,4 @@ const page = async ({ params }: PageProps) => {
 };
 
 export default page;
+ 

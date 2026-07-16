@@ -1,5 +1,6 @@
-import { Page, GetPagesParams, GetPagesResponse } from "@/src/types/store";
+import {  GetPagesParams } from "@/src/types/store";
 import { baseApi } from "./baseApi";
+import { GetPagesResponse, Page } from "@/src/types/landingPage";
 
 export const pageApi = baseApi.enhanceEndpoints({ addTagTypes: ["Page"] }).injectEndpoints({
   endpoints: (builder) => ({

@@ -4,7 +4,7 @@ import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
+import { AppSettings } from "@/src/types/setting";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import { usePendingFiles } from "../shared/SettingsFilesContext";
 import SettingCard from "../shared/SettingCard";

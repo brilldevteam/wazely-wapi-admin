@@ -9,13 +9,9 @@ import { Label } from "@/src/elements/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/src/elements/ui/popover";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { useGetAllFaqsQuery } from "@/src/redux/api/faqApi";
+import { FaqFormProps } from "@/src/types/landingPage";
 import { Check, ChevronsUpDown, HelpCircle, Search, X } from "lucide-react";
 import { useState } from "react";
-
-interface FaqFormProps {
-  data: any;
-  onChange: (data: any) => void;
-}
 
 const FaqForm = ({ data, onChange }: FaqFormProps) => {
   const { data: faqsData } = useGetAllFaqsQuery({});
