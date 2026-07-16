@@ -3,45 +3,51 @@
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/elements/ui/select";
 import { Switch } from "@/src/elements/ui/switch";
 import { Textarea } from "@/src/elements/ui/textarea";
-import { useCreateUserMutation, useGetUserByIdQuery, useUpdateUserMutation } from "@/src/redux/api/userApi";
+import { useGetAllRolesQuery } from "@/src/redux/api/roleApi";
+import {
+  useCreateUserMutation,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+} from "@/src/redux/api/userApi";
+import CountrySelect from "@/src/shared/CountrySelect";
 import { CreateUserPayload, UpdateUserPayload } from "@/src/types/store";
-import { ArrowLeft, Plus, Save, User as UserIcon } from "lucide-react";
+import { AddUserPageProps, FormState } from "@/src/types/user";
+import { Country } from "@/src/utils/countries";
+import {
+  ArrowLeft,
+  Eye,
+  EyeOff,
+  Plus,
+  Save,
+  User as UserIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import CountrySelect from "@/src/shared/CountrySelect";
-import { Country } from "@/src/utils/countries";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
-import { useGetAllRolesQuery } from "@/src/redux/api/roleApi";
 import { ROUTES } from "../../constants";
 import Can from "../shared/Can";
-
-interface AddUserPageProps {
-  id?: string;
-}
-
-type FormState = {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
-  country: string;
-  country_code: string;
-  note: string;
-  role_id: string;
-  status: boolean;
-};
 
 const AddUserPage = ({ id }: AddUserPageProps) => {
   const router = useRouter();
   const isEditMode = !!id;
 
-  const { data: userData, isLoading: isLoadingUser } = useGetUserByIdQuery(id ?? "", { skip: !id });
+  const { data: userData, isLoading: isLoadingUser } = useGetUserByIdQuery(
+    id ?? "",
+    { skip: !id },
+  );
   const { data: rolesData } = useGetAllRolesQuery({});
   const [createUser, { isLoading: isCreating }] = useCreateUserMutation();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+  const [showPassword, setShowPassword] = useState(false);
 
   const roles = rolesData?.data?.roles || [];
   const isSubmitting = isCreating || isUpdating;
@@ -57,11 +63,22 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
         country: u.country ?? "",
         country_code: u.country_code ?? "",
         note: u.note ?? "",
-        role_id: (typeof u.role_id === "object" ? u.role_id?._id : u.role_id) ?? "",
+        role_id:
+          (typeof u.role_id === "object" ? u.role_id?._id : u.role_id) ?? "",
         status: u.status,
       };
     }
-    return { name: "", email: "", password: "", phone: "", country: "", country_code: "", note: "", role_id: "", status: true };
+    return {
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      country: "",
+      country_code: "",
+      note: "",
+      role_id: "",
+      status: true,
+    };
   }, [isEditMode, userData]);
 
   const [form, setForm] = useState<FormState>(initialForm);
@@ -77,18 +94,25 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
         country: u.country ?? "",
         country_code: u.country_code ?? "",
         note: u.note ?? "",
-        role_id: (typeof u.role_id === "object" ? u.role_id?._id : u.role_id) ?? "",
+        role_id:
+          (typeof u.role_id === "object" ? u.role_id?._id : u.role_id) ?? "",
         status: u.status,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
-  const set = (key: keyof FormState, value: string | boolean) => setForm((prev) => ({ ...prev, [key]: value }));
+  const set = (key: keyof FormState, value: string | boolean) =>
+    setForm((prev) => ({ ...prev, [key]: value }));
 
   const cleanPhone = form.phone.replace(/\D/g, "");
-  const isPhoneValid = !cleanPhone || (cleanPhone.length >= 6 && cleanPhone.length <= 15);
-  const isValid = form.name.trim() && form.email.trim() && (isEditMode || form.password.trim()) && isPhoneValid;
+  const isPhoneValid =
+    !cleanPhone || (cleanPhone.length >= 6 && cleanPhone.length <= 15);
+  const isValid =
+    form.name.trim() &&
+    form.email.trim() &&
+    (isEditMode || form.password.trim()) &&
+    isPhoneValid;
 
   const handleSubmit = async () => {
     if (!isValid) return;
@@ -176,20 +200,48 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Name <span className="text-red-500">*</span>
                 </Label>
-                <Input value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="John Doe" className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700" />
+                <Input
+                  value={form.name}
+                  onChange={(e) => set("name", e.target.value)}
+                  placeholder="John Doe"
+                  className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700"
+                />
               </div>
               <div className="space-y-1.5 flex flex-col">
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   Email ID <span className="text-red-500">*</span>
                 </Label>
-                <Input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="john@example.com" className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700" />
+                <Input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => set("email", e.target.value)}
+                  placeholder="john@example.com"
+                  className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700"
+                />
               </div>
               {!isEditMode && (
-                <div className="space-y-1.5 flex flex-col md:col-span-2">
+                <div className="space-y-1.5 flex flex-col md:col-span-2 relative">
                   <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     Account Password <span className="text-red-500">*</span>
                   </Label>
-                  <Input type="password" value={form.password} onChange={(e) => set("password", e.target.value)} placeholder="Min. 8 characters" className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700" />
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={form.password}
+                    onChange={(e) => set("password", e.target.value)}
+                    placeholder="Min. 8 characters"
+                    className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700"
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute bg-transparent shadow-none right-1 -bottom-2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors hover:bg-transparent"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
+                  </Button>
                 </div>
               )}
               <div className="space-y-1.5 flex flex-col">
@@ -206,15 +258,26 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
               </div>
               <div className="grid grid-cols-[80px_1fr] gap-3">
                 <div className="space-y-1.5 flex flex-col">
-                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Country Code</Label>
-                  <Input value={form.country_code} disabled placeholder="+1" className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700 opacity-70 cursor-not-allowed" />
+                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                    Country Code
+                  </Label>
+                  <Input
+                    value={form.country_code}
+                    disabled
+                    placeholder="+1"
+                    className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700 opacity-70 cursor-not-allowed"
+                  />
                 </div>
                 <div className="space-y-1.5 flex flex-col">
-                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-[7px] rtl:ml-0 rtl:mr-[7px]">Phone Number</Label>
+                  <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-[7px] rtl:ml-0 rtl:mr-[7px]">
+                    Phone Number
+                  </Label>
                   <Input
                     type="number"
                     value={form.phone}
-                    onChange={(e) => set("phone", e.target.value.replace(/\D/g, ""))}
+                    onChange={(e) =>
+                      set("phone", e.target.value.replace(/\D/g, ""))
+                    }
                     placeholder="1234567890"
                     className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700"
                   />
@@ -240,7 +303,9 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
           {/* Permissions */}
           <div className="bg-white dark:bg-(--card-color) rounded-lg border border-(--input-border-color) dark:border-(--card-border-color) shadow-sm overflow-hidden">
             <div className="sm:px-6 px-4 py-4 border-b border-gray-100 dark:border-(--card-border-color)">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">User Settings</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                User Settings
+              </h2>
             </div>
             <div className="sm:p-6 p-4 space-y-4">
               <div className="flex flex-col gap-2 py-2 border-b border-gray-100 dark:border-(--card-border-color) pb-4">
@@ -270,15 +335,17 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                     <SelectValue placeholder="Select role" />
                   </SelectTrigger>
                   <SelectContent className="dark:bg-(--card-color) dark:border-(--card-border-color)">
-                    {roles.map((role) => (
-                      <SelectItem
-                        key={role._id}
-                        value={role._id}
-                        className="dark:hover:bg-(--table-hover) cursor-pointer"
-                      >
-                        {role.name}
-                      </SelectItem>
-                    ))}
+                    {roles
+                      .filter((role) => role.name?.toLowerCase() !== "agent")
+                      .map((role) => (
+                        <SelectItem
+                          key={role._id}
+                          value={role._id}
+                          className="dark:hover:bg-(--table-hover) cursor-pointer"
+                        >
+                          {role.name}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -304,13 +371,32 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
         </div>
       </div>
       <div className="flex flex-col mt-4 sm:flex-row items-center justify-end gap-3 pb-8">
-        <Button variant="outline" onClick={() => router.back()} disabled={isSubmitting} className="w-full sm:w-auto px-4.5 py-5 h-11 rounded-lg border-(--input-border-color) dark:border-(--card-border-color) dark:bg-(--card-color) dark:hover:bg-(--table-hover) dark:text-gray-200">
+        <Button
+          variant="outline"
+          onClick={() => router.back()}
+          disabled={isSubmitting}
+          className="w-full sm:w-auto px-4.5 py-5 h-11 rounded-lg border-(--input-border-color) dark:border-(--card-border-color) dark:bg-(--card-color) dark:hover:bg-(--table-hover) dark:text-gray-200"
+        >
           Cancel
         </Button>
         <Can permission={isEditMode ? "update.users" : "create.users"}>
-          <Button onClick={handleSubmit} disabled={isSubmitting || !isValid} className="w-full sm:w-auto px-4.5 py-5 h-11 rounded-lg bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white gap-2 ">
-            {isSubmitting ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
-            {isSubmitting ? (isEditMode ? "Updating..." : "Creating...") : isEditMode ? "Update User" : "Create User"}
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting || !isValid}
+            className="w-full sm:w-auto px-4.5 py-5 h-11 rounded-lg bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white gap-2 "
+          >
+            {isSubmitting ? (
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <Save className="w-4 h-4" />
+            )}
+            {isSubmitting
+              ? isEditMode
+                ? "Updating..."
+                : "Creating..."
+              : isEditMode
+                ? "Update User"
+                : "Create User"}
           </Button>
         </Can>
       </div>

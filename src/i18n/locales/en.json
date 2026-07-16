@@ -52,6 +52,7 @@
   "common_required_field": "This field is required",
   "common_search_placeholder": "Search Anything Here...",
   "common_no_results": "No results found",
+  "common_no_changes": "No changes to save.",
   "common_no_results_for": "No results found for {{query}}",
   "common_search_not_found": "\"{{query}}\" is not found",
   "common_filter_not_found": "No items found for current filters",
@@ -165,6 +166,7 @@
   "nav_global_settings": "Platform Controls",
   "nav_payout_integrations": "Gateway Setup",
   "nav_application_config": "System Preferences",
+  "nav_announcement": "Announcement",
   "nav_smart_engines": "AI Intelligence",
   "nav_linguistic_options": "Language Library",
   "nav_monetary_config": "Currency Options",
@@ -731,6 +733,8 @@
   "payment_transactions_table_no_transactions": "No transactions found.",
   "payment_transactions_table_item": "transaction",
   "payment_transactions_table_item_plural": "transactions",
+  "announcement_title": "Announcements",
+  "announcement_description": "Configure dynamic announcement popup modals and header banners for your platform users.",
   "settings_title": "System Preferences",
   "settings_description": "Manage your app settings and preferences",
   "settings_refreshed": "Settings refreshed",
@@ -1365,5 +1369,6 @@
   "email_template_no_templates": "No email templates found.",
   "view_more": "View More",
   "view_less": "View Less",
-  "plan_delete": "Delete Plan"
+  "plan_delete": "Delete Plan",
+  "common_settings": "Common Settings"
 }

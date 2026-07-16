@@ -1,25 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { ImageIcon, Pencil, Upload, Image as ImageLucide } from "lucide-react";
-import MediaUploadModal from "./MediaUploadModal";
-import Images from "@/src/shared/Image";
 import { Label } from "@/src/elements/ui/label";
+import Images from "@/src/shared/Image";
+import { ImageSelectorProps } from "@/src/types/landingPage";
+import { Image as ImageLucide, Pencil, Upload } from "lucide-react";
+import { useState } from "react";
+import MediaUploadModal from "./MediaUploadModal";
 
-interface ImageSelectorProps {
-  label: string;
-  value: string;
-  onChange: (url: string) => void;
-  placeholder?: string;
-  className?: string;
-}
-
-const ImageSelector = ({ label, value, onChange, placeholder = "Select Image", className = "" }: ImageSelectorProps) => {
+const ImageSelector = ({
+  label,
+  value,
+  onChange,
+  placeholder = "Select Image",
+  className = "",
+}: ImageSelectorProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className={`space-y-2 ${className}`}>
-      {label && <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300 ml-1 mb-1.5 block">{label}</Label>}
+      {label && (
+        <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300 ml-1 mb-1.5 block">
+          {label}
+        </Label>
+      )}
 
       <div
         onClick={() => setIsModalOpen(true)}
@@ -27,7 +30,11 @@ const ImageSelector = ({ label, value, onChange, placeholder = "Select Image", c
       >
         <div className="relative w-16 h-16 rounded-lg bg-white dark:bg-(--card-color) border border-gray-100 dark:border-none shadow-sm flex items-center justify-center overflow-hidden shrink-0 group-hover:scale-105 transition-transform duration-500">
           {value ? (
-            <Images src={value} alt={label} className="w-full h-full object-cover" />
+            <Images
+              src={value}
+              alt={label}
+              className="w-full h-full object-cover"
+            />
           ) : (
             <div className="flex flex-col items-center gap-1.5 opacity-20">
               <ImageLucide className="w-6 h-6 text-gray-400" />
@@ -46,11 +53,20 @@ const ImageSelector = ({ label, value, onChange, placeholder = "Select Image", c
 
         {/* Edit/Upload Icon at Top Right */}
         <div className="absolute top-2 right-2 rtl:right-[unset] rtl:left-2 w-8 h-8 rounded-lg bg-white dark:bg-(--card-color) border border-gray-100 dark:border-(--card-border-color) flex items-center justify-center text-gray-400 group-hover:text-primary group-hover:border-primary/50 transition-all shadow-sm">
-          {value ? <Pencil className="w-3.5 h-3.5" /> : <Upload className="w-3.5 h-3.5" />}
+          {value ? (
+            <Pencil className="w-3.5 h-3.5" />
+          ) : (
+            <Upload className="w-3.5 h-3.5" />
+          )}
         </div>
       </div>
 
-      <MediaUploadModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSelect={onChange} title={`Upload ${label || "Media"}`} />
+      <MediaUploadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSelect={onChange}
+        title={`Upload ${label || "Media"}`}
+      />
     </div>
   );
 };

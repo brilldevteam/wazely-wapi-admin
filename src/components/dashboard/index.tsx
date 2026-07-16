@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/src/elements/ui/button";
+import { Button } from "@/src/elements/ui/button"; 
 import { useGetAdminDashboardQuery } from "@/src/redux/api/adminDashboardApi";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { setPageTitle } from "@/src/redux/reducers/settingsSlice";
@@ -8,12 +8,12 @@ import { RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { usePermissions } from "@/src/hooks/usePermissions";
-import { PlanRevenueChart, RevenueTimelineChart } from "./AdminCharts";
 import AdminStatCards from "./AdminStatCards";
-import { InquiriesTable, NewUsersTable, SubscriptionsTable } from "./AdminTables";
 import { DashboardDateFilter } from "./DashboardDateFilter";
 import { useTranslation } from "react-i18next";
 import SwitchToTenantCard from "./SwitchToTenantCard";
+import { InquiriesTable, NewUsersTable, SubscriptionsTable } from "./adminTables";
+import { PlanRevenueChart, RevenueTimelineChart } from "./adminCharts";
 
 const Dashboard = () => {
   const { t } = useTranslation();
@@ -104,7 +104,7 @@ const Dashboard = () => {
             <SwitchToTenantCard />
           </div>
           <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 content-start">
-            <AdminStatCards counts={counts} itemsOnly showPlans={hasPermission("view.plans")} showSubscriptions={hasPermission("view.subscriptions")} />
+            <AdminStatCards counts={counts} itemsOnly showPlans={hasPermission("view.plans")} showSubscriptions={hasPermission("view.subscriptions")}/>
           </div>
         </div>
 

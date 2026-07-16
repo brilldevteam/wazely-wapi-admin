@@ -39,3 +39,38 @@ export interface UpdateEmailTemplateResponse {
   message: string;
   data: EmailTemplate;
 }
+
+export interface EmailPreviewProps {
+  subject: string;
+  content: string;
+}
+
+export interface EmailTemplateEditContainerProps {
+  id: string;
+}
+
+export interface EmailTemplateFormProps {
+  template: EmailTemplate;
+  onSave: (data: { subject: string; content: string }) => void;
+  isSaving: boolean;
+  onDataChange: (data: { subject: string; content: string }) => void;
+}
+
+export interface EmailTemplateHeaderProps {
+  onSearch: (value: string) => void;
+  searchTerm: string;
+  isLoading: boolean;
+}
+
+export interface EmailTemplateListProps {
+  templates: EmailTemplate[];
+  isLoading: boolean;
+  total: number;
+  page: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  limit: number;
+  onLimitChange: (limit: number) => void;
+  onSortChange: (key: string, order: "asc" | "desc") => void;
+  searchTerm: string;
+}

@@ -1,4 +1,4 @@
-import { CreateRoleRequest, GetPermissionsResponse, GetRoleByIdResponse, GetRolesParams, GetRolesResponse, Role, UpdateRoleRequest } from "@/src/types/store";
+import { CreateRoleRequest, GetPermissionsResponse, GetRoleByIdResponse, GetRolesParams, GetRolesResponse, Role, UpdateRoleRequest } from "@/src/types/role";
 import { baseApi } from "./baseApi";
 
 export const roleApi = baseApi.enhanceEndpoints({ addTagTypes: ["Role", "Permission"] }).injectEndpoints({

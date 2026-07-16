@@ -2,28 +2,11 @@
 
 import { Card, CardContent } from "@/src/elements/ui/card";
 import { useAppSelector } from "@/src/redux/hooks";
+import { AdminStatCardsProps } from "@/src/types/dashboard";
 import { Users, CreditCard, Layout, DollarSign, Cpu, MessageSquare, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import CountUp from "react-countup";
 import { useTranslation } from "react-i18next";
 
-interface AdminStatCardsProps {
-  counts: {
-    totalUsers: number;
-    activeSubscriptions: number;
-    totalPlans: number;
-    revenue: {
-      today: number;
-      month: number;
-      total: number;
-    };
-    activeAIModels: number;
-    totalContactInquiries: number;
-  };
-  showPlans?: boolean;
-  showSubscriptions?: boolean;
-  subset?: number[];
-  itemsOnly?: boolean;
-}
 
 const AdminStatCards = ({ counts, showPlans = true, showSubscriptions = true, subset, itemsOnly = false }: AdminStatCardsProps) => {
   const { t } = useTranslation();

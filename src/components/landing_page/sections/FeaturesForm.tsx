@@ -5,14 +5,11 @@ import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
-import { FeatureItem, FeaturesSection } from "@/src/types/landingPage";
+import { FeatureItem, FeaturesFormProps, FeaturesSection } from "@/src/types/landingPage";
 import { GripVertical, Plus, Rocket, Sparkles, Trash2 } from "lucide-react";
 import ImageSelector from "../shared/ImageSelector";
 
-interface FeaturesFormProps {
-  data: FeaturesSection;
-  onChange: (data: FeaturesSection) => void;
-}
+
 
 const FeaturesForm = ({ data, onChange }: FeaturesFormProps) => {
   const handleChange = (field: keyof FeaturesSection, value: any) => {

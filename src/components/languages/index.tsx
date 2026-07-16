@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import LanguageHeader from "./LanguageHeader";
 import LanguageList from "./LanguageList";
 import { Button } from "@/src/elements/ui/button";
+import { languageColumns } from "@/src/data/language";
 
 const LanguageContainer = () => {
   const [inputValue, setInputValue] = useState("");
@@ -20,14 +21,7 @@ const LanguageContainer = () => {
   const [sortBy, setSortBy] = useState("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  const [columns, setColumns] = useState([
-    { id: "flag", label: "Flag", isVisible: true },
-    { id: "name", label: "Name", isVisible: true },
-    { id: "locale", label: "Locale", isVisible: true },
-    { id: "is_rtl", label: "RTL", isVisible: true },
-    { id: "status", label: "Status", isVisible: true },
-    { id: "actions", label: "Actions", isVisible: true },
-  ]);
+  const [columns, setColumns] = useState(languageColumns);
 
   const handleColumnToggle = (columnId: string) => {
     setColumns((prev) => prev.map((col) => (col.id === columnId ? { ...col, isVisible: !col.isVisible } : col)));

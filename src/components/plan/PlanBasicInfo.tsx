@@ -3,7 +3,7 @@
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
-import { PlanBasicInfoProps } from "@/src/types/components";
+import { PlanBasicInfoProps } from "@/src/types/plan";
 import { CreditCard } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -26,31 +26,68 @@ const PlanBasicInfo = ({ formData, onFieldChange }: PlanBasicInfoProps) => {
           <CreditCard className="w-5 h-5 text-(--text-green-primary)" />
         </div>
         <div>
-          <h2 className="text-xl font-medium text-gray-900 dark:text-white leading-none">{t("plan_basic_info")}</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t("plan_basic_info_desc") || "Set the core identity of your subscription plan"}</p>
+          <h2 className="text-xl font-medium text-gray-900 dark:text-white leading-none">
+            {t("plan_basic_info")}
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            {t("plan_basic_info_desc") ||
+              "Set the core identity of your subscription plan"}
+          </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-2.5 flex flex-col">
-          <Label htmlFor="name" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-            {t("plan_name_label")} <span className="text-red-500 font-bold">*</span>
+          <Label
+            htmlFor="name"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-300"
+          >
+            {t("plan_name_label")}{" "}
+            <span className="text-red-500 font-bold">*</span>
           </Label>
-          <Input id="name" placeholder={t("plan_name_placeholder") || "e.g. Professional Plan"} value={formData.name} onChange={(e) => handleNameChange(e.target.value)} className="dark:bg-page-body dark:border-(--card-border-color) p-3 h-11 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg" />
+          <Input
+            id="name"
+            placeholder={t("plan_name_placeholder") || "e.g. Professional Plan"}
+            value={formData.name}
+            onChange={(e) => handleNameChange(e.target.value)}
+            className="dark:bg-page-body dark:border-(--card-border-color) p-3 h-11 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg"
+          />
         </div>
 
         <div className="space-y-2.5 flex flex-col">
-          <Label htmlFor="slug" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <Label
+            htmlFor="slug"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-300"
+          >
             {t("plan_slug_label")}
           </Label>
-          <Input id="slug" placeholder={t("plan_slug_placeholder") || "pro-plan"} value={formData.slug} disabled className="dark:bg-page-body dark:border-(--card-border-color) p-3 h-11 bg-gray-100/50 border-gray-200 cursor-not-allowed opacity-70 rounded-lg" />
+          <Input
+            id="slug"
+            placeholder={t("plan_slug_placeholder") || "pro-plan"}
+            value={formData.slug}
+            disabled
+            className="dark:bg-page-body dark:border-(--card-border-color) p-3 h-11 bg-gray-100/50 border-gray-200 cursor-not-allowed opacity-70 rounded-lg"
+          />
         </div>
 
         <div className="md:col-span-2 space-y-2.5 flex flex-col">
-          <Label htmlFor="description" className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+          <Label
+            htmlFor="description"
+            className="text-sm font-semibold text-gray-700 dark:text-gray-300"
+          >
             {t("plan_description_label")}
           </Label>
-          <Textarea id="description" placeholder={t("plan_description_placeholder") || "A brief overview of what this plan offers to your customers..."} value={formData.description} onChange={(e) => onFieldChange("description", e.target.value)} className="dark:bg-page-body dark:border-(--card-border-color) min-h-25 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg resize-none p-3" rows={4} />
+          <Textarea
+            id="description"
+            placeholder={
+              t("plan_description_placeholder") ||
+              "A brief overview of what this plan offers to your customers..."
+            }
+            value={formData.description}
+            onChange={(e) => onFieldChange("description", e.target.value)}
+            className="dark:bg-page-body dark:border-(--card-border-color) min-h-25 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg resize-none p-3"
+            rows={4}
+          />
         </div>
       </div>
     </div>

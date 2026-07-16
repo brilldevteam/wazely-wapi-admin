@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  DeleteLanguageResponse,
-  GetLanguageByIdResponse,
-  GetLanguagesParams,
-  GetLanguagesResponse,
-  Language
-} from '@/src/types/store';
+import { DeleteLanguageResponse, GetLanguageByIdResponse, GetLanguagesParams, GetLanguagesResponse, Language } from '@/src/types/language';
 import { baseApi } from './baseApi';
 
 export const languageApi = baseApi.enhanceEndpoints({ addTagTypes: ["Language"] }).injectEndpoints({

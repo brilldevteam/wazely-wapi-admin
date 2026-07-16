@@ -9,18 +9,8 @@ import { Calendar } from "@/src/elements/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/src/elements/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
 import { cn } from "@/lib/utils";
-
-interface DashboardDateFilterProps {
-  onFilterChange: (params: { dateRange: string; startDate?: string; endDate?: string }) => void;
-}
-
-const presets = [
-  { label: "Today", value: "today" },
-  { label: "This Week", value: "this_week" },
-  { label: "This Month", value: "this_month" },
-  { label: "This Year", value: "this_year" },
-  { label: "Custom", value: "custom" },
-];
+import { presets } from "@/src/data/dashboard";
+import { DashboardDateFilterProps } from "@/src/types/dashboard";
 
 export function DashboardDateFilter({ onFilterChange }: DashboardDateFilterProps) {
   const [dateRange, setDateRange] = React.useState<string>("this_year");

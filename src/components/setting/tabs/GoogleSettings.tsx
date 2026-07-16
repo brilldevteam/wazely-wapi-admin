@@ -2,7 +2,7 @@
 
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { AppSettings } from "@/src/redux/api/settingApi";
+import { AppSettings } from "@/src/types/setting";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import { useTranslation } from "react-i18next";

@@ -1,10 +1,5 @@
 import TaxForm from "@/src/components/tax/TaxForm";
-
-interface EditTaxPageProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
+import { EditTaxPageProps } from "@/src/types/taxConfiguration";
 
 const EditTaxPage = async ({ params }: EditTaxPageProps) => {
   const { id } = await params;

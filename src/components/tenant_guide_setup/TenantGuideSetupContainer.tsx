@@ -9,6 +9,8 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import GuideForm from "./GuideForm";
 import GuideList from "./GuideList";
+import { Button } from "@/src/elements/ui/button";
+
 
 const TenantGuideSetupContainer = () => {
   const { t } = useTranslation();
@@ -68,13 +70,13 @@ const TenantGuideSetupContainer = () => {
 
       {/* Mobile Guide Menu Button */}
       <div className="xl:hidden mb-4">
-        <button
+        <Button variant="unstyled"
           onClick={() => setIsMobileMenuOpen(true)}
           className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-xl text-sm font-semibold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95"
         >
           <BookOpen className="w-4 h-4" />
           {t("guide_list_title")}
-        </button>
+        </Button>
       </div>
 
       {/* Content Area — relative so drawer is scoped here */}
@@ -102,12 +104,12 @@ const TenantGuideSetupContainer = () => {
               <BookOpen className="w-5 h-5 text-primary" />
               <span className="font-bold text-gray-900 dark:text-white">{t("guide_list_title")}</span>
             </div>
-            <button
+            <Button variant="unstyled"
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-(--dark-body) transition-colors text-gray-500"
             >
               <X className="w-5 h-5" />
-            </button>
+            </Button>
           </div>
 
           {/* Drawer Content */}

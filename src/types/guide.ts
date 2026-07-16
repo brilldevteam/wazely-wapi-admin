@@ -72,3 +72,25 @@ export interface AllGuidesData {
     itemsPerPage: number;
   };
 }
+
+export interface GuideFormProps {
+  guideId: string | null;
+  categories: GuideCategory[];
+  onSuccess: () => void;
+  onCancel: () => void;
+}
+
+export interface GuideListProps {
+  guides: Guide[];
+  categories: GuideCategory[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  onAddNew: () => void;
+  onReorder: (newGuides: any[], newCategories: any[]) => void;
+  isLoading: boolean;
+  isMobileDrawer?: boolean;
+}
+
+export interface AddTestimonialPageProps {
+  id?: string;
+}

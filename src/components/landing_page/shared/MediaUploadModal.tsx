@@ -9,13 +9,9 @@ import { toast } from "sonner";
 import { useUploadLandingImageMutation } from "@/src/redux/api/landingPageApi";
 import Image from "next/image";
 import { Input } from "@/src/elements/ui/input";
+import { MediaUploadModalProps } from "@/src/types/landingPage";
 
-interface MediaUploadModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSelect: (url: string) => void;
-  title?: string;
-}
+
 
 const MediaUploadModal = ({ isOpen, onClose, onSelect, title = "Upload Media" }: MediaUploadModalProps) => {
   const [file, setFile] = useState<File | null>(null);

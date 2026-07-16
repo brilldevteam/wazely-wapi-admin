@@ -1,4 +1,4 @@
-import VerifyOtpContent from "./VerifyOtpContent";
+import VerifyOtp from "../../../components/auth/VerifyOtp";
 import { Suspense } from "react";
 
 const VerifyOtpPage = () => {
@@ -10,7 +10,7 @@ const VerifyOtpPage = () => {
                 </div>
             </div>
         }>
-            <VerifyOtpContent />
+            <VerifyOtp />
         </Suspense>
     );
 };

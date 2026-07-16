@@ -3,12 +3,12 @@ import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Button } from "@/src/elements/ui/button";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import SettingCard from "../shared/SettingCard";
 import SettingToggle from "../shared/SettingToggle";
 import { Megaphone, AlignLeft, AlignCenter, AlignRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AppSettings } from "@/src/types/setting";
 
 const BannerSettings = ({ isLoading }: { isLoading?: boolean }) => {
   const dispatch = useAppDispatch();
@@ -41,7 +41,7 @@ const BannerSettings = ({ isLoading }: { isLoading?: boolean }) => {
     <div className="space-y-5">
       {/* Real-time Premium Preview */}
       <SettingCard title="Live Banner Preview" description="See how your announcement banner will look on the front-end in real-time.">
-        <div className="border border-gray-100 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50 dark:bg-(--dark-body) flex flex-col gap-4">
+        <div className="border border-gray-100 dark:border-(--card-border-color) rounded-lg sm:p-6 p-4 bg-gray-50 dark:bg-(--dark-body) flex flex-col gap-4">
           <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Live Preview:</p>
           {isBanner ? (
             <div
@@ -123,7 +123,7 @@ const BannerSettings = ({ isLoading }: { isLoading?: boolean }) => {
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">Banner Background Color</Label>
                 <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-page-body rounded-lg transition-colors border border-gray-100 dark:border-(--card-border-color) group">
                   <div className="relative shrink-0 w-8 h-8 rounded-lg overflow-hidden border border-gray-200 dark:border-zinc-700 shadow-sm">
-                    <input
+                    <Input unstyled
                       type="color"
                       value={bannerBgColor}
                       onChange={(e) => onChange("banner_bg_color", e.target.value)}
@@ -146,7 +146,7 @@ const BannerSettings = ({ isLoading }: { isLoading?: boolean }) => {
                 <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">Banner Text Color</Label>
                 <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-page-body rounded-lg transition-colors border border-gray-100 dark:border-(--card-border-color) group">
                   <div className="relative shrink-0 w-8 h-8 rounded-lg overflow-hidden border border-gray-200 dark:border-zinc-700 shadow-sm">
-                    <input
+                    <Input unstyled
                       type="color"
                       value={bannerTextColor}
                       onChange={(e) => onChange("banner_text_color", e.target.value)}

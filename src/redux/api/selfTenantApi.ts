@@ -1,16 +1,7 @@
+import { SwitchToTenantResponse } from "@/src/types/redux";
 import { baseApi } from "./baseApi";
 
-interface SwitchToTenantResponse {
-  success: boolean;
-  message: string;
-  token: string;
-  user: {
-    id: string;
-    email: string;
-    role: string;
-    isSelfTenant: boolean;
-  };
-}
+
 
 const selfTenantApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

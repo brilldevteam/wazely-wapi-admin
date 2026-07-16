@@ -12,8 +12,10 @@ export interface CookieOptions {
 
 const DEFAULT_OPTIONS: CookieOptions = {
   path: "/",
-  sameSite: "Strict",
-  secure: process.env.NODE_ENV === "production",
+  sameSite: "Lax",
+  secure:
+    typeof window !== "undefined" &&
+    window.location.protocol === "https:",
   maxAge: 7 * 24 * 60 * 60,
 };
 

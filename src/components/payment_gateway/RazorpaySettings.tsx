@@ -3,20 +3,24 @@
 
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
-import { useGetRazorpaySettingsQuery, useUpdateRazorpaySettingsMutation } from "@/src/redux/api/paymentGatewayApi";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
-import { Eye, EyeOff, ExternalLink } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import Can from "../shared/Can";
-import { usePermissions } from "@/src/hooks/usePermissions";
 import { Label } from "@/src/elements/ui/label";
+import { usePermissions } from "@/src/hooks/usePermissions";
+import {
+  useGetRazorpaySettingsQuery,
+  useUpdateRazorpaySettingsMutation,
+} from "@/src/redux/api/paymentGatewayApi";
+import { ExternalLink, Eye, EyeOff } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import Can from "../shared/Can";
 
 const RazorpaySettings = () => {
   const { t } = useTranslation();
   const { hasPermission } = usePermissions();
   const { data, isLoading } = useGetRazorpaySettingsQuery();
-  const [updateRazorpaySettings, { isLoading: isUpdating }] = useUpdateRazorpaySettingsMutation();
+  const [updateRazorpaySettings, { isLoading: isUpdating }] =
+    useUpdateRazorpaySettingsMutation();
 
   const RazorpayData = data?.data;
 
@@ -58,15 +62,26 @@ const RazorpaySettings = () => {
         payload.is_razorpay_active = settings.is_razorpay_active;
       }
 
-      if (settings.razorpay_key_id !== RazorpayData?.razorpay_key_id && !settings.razorpay_key_id.includes('****')) {
+      if (
+        settings.razorpay_key_id !== RazorpayData?.razorpay_key_id &&
+        !settings.razorpay_key_id.includes("****")
+      ) {
         payload.razorpay_key_id = settings.razorpay_key_id;
       }
 
-      if (settings.razorpay_key_secret !== (RazorpayData as any)?.razorpay_key_secret && !settings.razorpay_key_secret.includes('****')) {
+      if (
+        settings.razorpay_key_secret !==
+          (RazorpayData as any)?.razorpay_key_secret &&
+        !settings.razorpay_key_secret.includes("****")
+      ) {
         payload.razorpay_key_secret = settings.razorpay_key_secret;
       }
 
-      if (settings.razorpay_webhook_secret !== (RazorpayData as any)?.razorpay_webhook_secret && !settings.razorpay_webhook_secret.includes('****')) {
+      if (
+        settings.razorpay_webhook_secret !==
+          (RazorpayData as any)?.razorpay_webhook_secret &&
+        !settings.razorpay_webhook_secret.includes("****")
+      ) {
         payload.razorpay_webhook_secret = settings.razorpay_webhook_secret;
       }
 
@@ -100,7 +115,14 @@ const RazorpaySettings = () => {
           <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
             Key ID <span className="text-red-400">*</span>
           </Label>
-          <Input value={settings.razorpay_key_id} onChange={(e) => handleInputChange("razorpay_key_id", e.target.value)} placeholder="rzp_test_..." className="h-11 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
+          <Input
+            value={settings.razorpay_key_id}
+            onChange={(e) =>
+              handleInputChange("razorpay_key_id", e.target.value)
+            }
+            placeholder="rzp_test_..."
+            className="h-11 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+          />
         </div>
 
         <div className="space-y-2 flex flex-col">
@@ -108,32 +130,81 @@ const RazorpaySettings = () => {
             Key Secret <span className="text-red-400">*</span>
           </Label>
           <div className="relative">
-            <Input value={settings.razorpay_key_secret} onChange={(e) => handleInputChange("razorpay_key_secret", e.target.value)} type={showSecret ? "text" : "password"} placeholder="Enter Key Secret" className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
-            <Button type="button" tabIndex={-1} onClick={() => setShowSecret(!showSecret)} className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-              {showSecret ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <Input
+              value={settings.razorpay_key_secret}
+              onChange={(e) =>
+                handleInputChange("razorpay_key_secret", e.target.value)
+              }
+              type={showSecret ? "text" : "password"}
+              placeholder="Enter Key Secret"
+              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+            />
+            <Button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setShowSecret(!showSecret)}
+              className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            >
+              {showSecret ? (
+                <EyeOff className="w-4 h-4" />
+              ) : (
+                <Eye className="w-4 h-4" />
+              )}
             </Button>
           </div>
         </div>
       </div>
 
       <div className="space-y-2 flex flex-col">
-        <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Webhook Secret</Label>
+        <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+          Webhook Secret
+        </Label>
         <div className="relative max-w-full">
-          <Input value={settings.razorpay_webhook_secret} onChange={(e) => handleInputChange("razorpay_webhook_secret", e.target.value)} type={showWebhook ? "text" : "password"} placeholder="Enter Webhook Secret" className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
-          <Button type="button" tabIndex={-1} onClick={() => setShowWebhook(!showWebhook)} className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
-            {showWebhook ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          <Input
+            value={settings.razorpay_webhook_secret}
+            onChange={(e) =>
+              handleInputChange("razorpay_webhook_secret", e.target.value)
+            }
+            type={showWebhook ? "text" : "password"}
+            placeholder="Enter Webhook Secret"
+            className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+          />
+          <Button
+            type="button"
+            tabIndex={-1}
+            onClick={() => setShowWebhook(!showWebhook)}
+            className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+          >
+            {showWebhook ? (
+              <EyeOff className="w-4 h-4" />
+            ) : (
+              <Eye className="w-4 h-4" />
+            )}
           </Button>
         </div>
-        <p className="text-xs text-slate-400 dark:text-slate-500">Used to validate incoming Razorpay webhook events</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500">
+          Used to validate incoming Razorpay webhook events
+        </p>
       </div>
 
       <div className="flex items-start justify-between py-4 px-5 border border-(--input-border-color) dark:border-none rounded-lg bg-slate-50/50 dark:bg-page-body">
         <div>
-          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t("gateway_enable_gateway")}</p>
-          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{t("gateway_enable_gateway_desc")}</p>
+          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+            {t("gateway_enable_gateway")}
+          </p>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+            {t("gateway_enable_gateway_desc")}
+          </p>
         </div>
         <div className="relative flex items-center shrink-0 ml-4">
-          <Input id="razorpay-enable" type="checkbox" checked={settings.is_razorpay_active} onChange={(e) => handleToggle(e.target.checked)} disabled={!hasPermission("update.payment_gateways")} className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-(--text-green-primary) cursor-pointer disabled:cursor-not-allowed" />
+          <Input
+            id="razorpay-enable"
+            type="checkbox"
+            checked={settings.is_razorpay_active}
+            onChange={(e) => handleToggle(e.target.checked)}
+            disabled={!hasPermission("update.payment_gateways")}
+            className="w-4 h-4 rounded border-slate-300 dark:border-slate-600 accent-(--text-green-primary) cursor-pointer disabled:cursor-not-allowed"
+          />
         </div>
       </div>
 
@@ -141,29 +212,56 @@ const RazorpaySettings = () => {
         <div className="flex items-center gap-2">
           <svg viewBox="0 0 52 22" className="w-10 h-4 shrink-0" fill="none">
             <rect width="52" height="22" rx="3" fill="#072654" />
-            <text x="6" y="15" fontSize="9" fontWeight="bold" fill="#3395FF" fontFamily="sans-serif">
+            <text
+              x="6"
+              y="15"
+              fontSize="9"
+              fontWeight="bold"
+              fill="#3395FF"
+              fontFamily="sans-serif"
+            >
               Razorpay
             </text>
           </svg>
-          <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">Razorpay Configuration</p>
+          <p className="text-sm font-semibold text-blue-700 dark:text-blue-400">
+            Razorpay Configuration
+          </p>
         </div>
-        <p className="text-xs text-blue-600/80 dark:text-blue-400/70">Get your Razorpay credentials from the Razorpay Dashboard. You&apos;ll need both Test and Live credentials.</p>
+        <p className="text-xs text-blue-600/80 dark:text-blue-400/70">
+          Get your Razorpay credentials from the Razorpay Dashboard. You&apos;ll
+          need both Test and Live credentials.
+        </p>
         <ul className="space-y-0.5">
           <li className="text-xs text-slate-600 dark:text-slate-400">
-            • Test keys start with <code className="bg-blue-100 dark:bg-blue-900/40 px-1 py-0.5 rounded text-[10px] font-mono">rzp_test_</code>
+            • Test keys start with{" "}
+            <code className="bg-blue-100 dark:bg-blue-900/40 px-1 py-0.5 rounded text-[10px] font-mono">
+              rzp_test_
+            </code>
           </li>
           <li className="text-xs text-slate-600 dark:text-slate-400">
-            • Live keys start with <code className="bg-blue-100 dark:bg-blue-900/40 px-1 py-0.5 rounded text-[10px] font-mono">rzp_live_</code>
+            • Live keys start with{" "}
+            <code className="bg-blue-100 dark:bg-blue-900/40 px-1 py-0.5 rounded text-[10px] font-mono">
+              rzp_live_
+            </code>
           </li>
         </ul>
-        <a href="https://dashboard.razorpay.com/app/keys" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline mt-1">
+        <a
+          href="https://dashboard.razorpay.com/app/keys"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-medium hover:underline mt-1"
+        >
           Get Razorpay API Keys <ExternalLink className="w-3 h-3" />
         </a>
       </div>
 
       <div className="flex justify-end">
         <Can permission="update.payment_gateways">
-          <Button onClick={handleUpdate} disabled={isUpdating} className="h-9 px-7 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60">
+          <Button
+            onClick={handleUpdate}
+            disabled={isUpdating}
+            className="h-9 px-7 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60"
+          >
             {isUpdating ? (
               <span className="flex items-center gap-2">
                 <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

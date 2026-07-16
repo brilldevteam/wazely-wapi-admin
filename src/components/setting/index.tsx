@@ -2,30 +2,48 @@
 "use client";
 
 import { Button } from "@/src/elements/ui/button";
-import { useGetSettingsQuery, useUpdateSettingsMutation } from "@/src/redux/api/settingApi";
+import {
+  useGetSettingsQuery,
+  useUpdateSettingsMutation,
+} from "@/src/redux/api/settingApi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { resetDirty, setSettings } from "@/src/redux/reducers/settingsSlice";
 import CommonHeader from "@/src/shared/CommonHeader";
-import Can from "../shared/Can";
+import {
+  BarChart2,
+  Cloud,
+  Facebook,
+  FileCheck,
+  Globe, Mail,
+  MessageCircle,
+  MessageSquare, Palette,
+  RefreshCw,
+  Save,
+  Share2,
+  ShieldCheck,
+  Wrench
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { SettingsFilesProvider, usePendingFiles } from "./shared/SettingsFilesContext";
+import Can from "../shared/Can";
+import {
+  SettingsFilesProvider,
+  usePendingFiles,
+} from "./shared/SettingsFilesContext";
+import AWSSettings from "./tabs/AWSSettings";
 import BrandingSettings from "./tabs/BrandingSettings";
+import ChannelsSettings from "./tabs/ChannelsSettings";
 import EmailSettings from "./tabs/EmailSettings";
+import FacebookLeadSettings from "./tabs/FacebookLeadSettings";
 import GeneralSettings from "./tabs/GeneralSettings";
 import GoogleSettings from "./tabs/GoogleSettings";
 import LimitsSettings from "./tabs/LimitsSettings";
 import MaintenanceSettings from "./tabs/MaintenanceSettings";
-import WhatsAppSettings from "./tabs/WhatsAppSettings";
-import AWSSettings from "./tabs/AWSSettings";
 import OTPSettings from "./tabs/OTPSettings";
-import FacebookLeadSettings from "./tabs/FacebookLeadSettings";
-import BannerSettings from "./tabs/BannerSettings";
-import ChannelsSettings from "./tabs/ChannelsSettings";
 import SignupAgreementSettings from "./tabs/SignupAgreementSettings";
+import WhatsAppSettings from "./tabs/WhatsAppSettings";
 import WidgetSettings from "./tabs/WidgetSettings";
-import { BarChart2, Globe, Mail, MessageSquare, Palette, RefreshCw, Save, Wrench, Cloud, ShieldCheck, Facebook, Megaphone, Share2, FileCheck, MessageCircle } from "lucide-react";
 
 const tabs = [
   { id: "general", label: "General", icon: Globe, description: "App info & preferences" },
@@ -38,7 +56,6 @@ const tabs = [
   { id: "aws", label: "AWS", icon: Cloud, description: "AWS S3 configuration" },
   { id: "limits", label: "Limits", icon: BarChart2, description: "File & group limits" },
   { id: "otp", label: "OTP Delivery", icon: ShieldCheck, description: "OTP delivery methods" },
-  { id: "banner", label: "Header Banner", icon: Megaphone, description: "Manage announcement banner" },
   { id: "widget", label: "Landing Widget", icon: MessageCircle, description: "Configure dynamic landing widgets & redirects" },
   { id: "maintenance", label: "Maintenance", icon: Wrench, description: "Maintenance & error pages" },
   { id: "signup_agreement", label: "Signup Customization", icon: FileCheck, description: "Signup agree line customization" },
@@ -52,7 +69,8 @@ const SettingInner = () => {
   const dispatch = useAppDispatch();
   const pendingFiles = usePendingFiles();
   const { data, isLoading, refetch } = useGetSettingsQuery();
-  const [updateSettings, { isLoading: isUpdating }] = useUpdateSettingsMutation();
+  const [updateSettings, { isLoading: isUpdating }] =
+    useUpdateSettingsMutation();
   const settingsData = useAppSelector((state) => state.settings.data);
   const isDirty = useAppSelector((state) => state.settings.isDirty);
   const errors = useAppSelector((state) => state.settings.errors);
@@ -80,7 +98,10 @@ const SettingInner = () => {
         const isFilePending = pendingFiles.current.has(key);
 
         // If the field has a pending file or the value has changed, include it
-        if (isFilePending || JSON.stringify(value) !== JSON.stringify(originalValue)) {
+        if (
+          isFilePending ||
+          JSON.stringify(value) !== JSON.stringify(originalValue)
+        ) {
           (changedFields as any)[key] = value;
         }
       });
@@ -155,8 +176,6 @@ const SettingInner = () => {
         return <OTPSettings />;
       case "facebook_lead":
         return <FacebookLeadSettings />;
-      case "banner":
-        return <BannerSettings isLoading={isUpdating} />;
       case "widget":
         return <WidgetSettings isLoading={isUpdating} />;
       case "maintenance":
@@ -170,7 +189,12 @@ const SettingInner = () => {
 
   return (
     <div className="flex flex-col min-h-full">
-      <CommonHeader title={t("settings_title")} description={t("settings_description")} onRefresh={handleRefresh} isLoading={isLoading} />
+      <CommonHeader
+        title={t("settings_title")}
+        description={t("settings_description")}
+        onRefresh={handleRefresh}
+        isLoading={isLoading}
+      />
 
       <div className="min-[1400px]:hidden mb-4 bg-white dark:bg-(--card-color) rounded-lg border border-gray-100 dark:border-(--card-border-color) shadow-sm">
         <div className="overflow-x-auto table-custom-scrollbar">
@@ -178,8 +202,14 @@ const SettingInner = () => {
             {tabs.map(({ id, icon: Icon }) => {
               const isActive = activeTab === id;
               return (
-                <Button key={id} onClick={() => setActiveTab(id)} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 whitespace-nowrap ${isActive ? "bg-(--text-green-primary)/10 hover:bg-(--primary)/10 text-(--text-green-primary)" : "text-gray-600 bg-[unset]! shadow-none! dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) hover:text-gray-900 dark:hover:text-gray-100"}`}>
-                  <div className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-(--text-green-primary)/15 text-(--text-green-primary)" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white"}`}>
+                <Button
+                  key={id}
+                  onClick={() => setActiveTab(id)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 whitespace-nowrap ${isActive ? "bg-(--text-green-primary)/10 hover:bg-(--primary)/10 text-(--text-green-primary)" : "text-gray-600 bg-[unset]! shadow-none! dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) hover:text-gray-900 dark:hover:text-gray-100"}`}
+                >
+                  <div
+                    className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-(--text-green-primary)/15 text-(--text-green-primary)" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white"}`}
+                  >
                     <Icon className="w-3.5 h-3.5" />
                   </div>
                   <span>{t(`settings_tabs_${id}`)}</span>
@@ -197,15 +227,29 @@ const SettingInner = () => {
               {tabs.map(({ id, icon: Icon }) => {
                 const isActive = activeTab === id;
                 return (
-                  <Button key={id} onClick={() => setActiveTab(id)} className={`w-full flex items-center gap-3 h-14 px-3 py-2.5 rounded-lg text-left transition-all duration-150 group ${isActive ? "bg-(--text-green-primary)/10! hover:bg-(--text-green-primary)/10! text-(--text-green-primary)" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) bg-[unset]! shadow-[unset]! hover:text-gray-900 dark:hover:text-gray-100"}`}>
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-(--text-green-primary)/15 text-(--text-green-primary)" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white group-hover:bg-gray-200 dark:group-hover:bg-(--card-color)"}`}>
+                  <Button
+                    key={id}
+                    onClick={() => setActiveTab(id)}
+                    className={`w-full flex items-center gap-3 h-14 px-3 py-2.5 rounded-lg text-left transition-all duration-150 group ${isActive ? "bg-(--text-green-primary)/10! hover:bg-(--text-green-primary)/10! text-(--text-green-primary)" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) bg-[unset]! shadow-[unset]! hover:text-gray-900 dark:hover:text-gray-100"}`}
+                  >
+                    <div
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-(--text-green-primary)/15 text-(--text-green-primary)" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white group-hover:bg-gray-200 dark:group-hover:bg-(--card-color)"}`}
+                    >
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-medium truncate ${isActive ? "text-(--text-green-primary)" : ""}`}>{t(`settings_tabs_${id}`)}</p>
-                      <p className="text-xs text-gray-400 dark:text-gray-500 truncate">{t(`settings_tabs_${id}_desc`)}</p>
+                      <p
+                        className={`text-sm font-medium truncate ${isActive ? "text-(--text-green-primary)" : ""}`}
+                      >
+                        {t(`settings_tabs_${id}`)}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 truncate">
+                        {t(`settings_tabs_${id}_desc`)}
+                      </p>
                     </div>
-                    {isActive && <div className="w-1 h-4 rounded-full bg-(--text-green-primary) shrink-0" />}
+                    {isActive && (
+                      <div className="w-1 h-4 rounded-full bg-(--text-green-primary) shrink-0" />
+                    )}
                   </Button>
                 );
               })}
@@ -222,20 +266,48 @@ const SettingInner = () => {
                 <activeTabInfo.icon className="w-4 h-4 sm:w-5 sm:h-5 text-(--text-green-primary)" />
               </div>
               <div>
-                <h2 className="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-100">{t(`settings_tabs_${activeTab}`)}</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{t(`settings_tabs_${activeTab}_desc`)}</p>
+                <h2 className="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-100">
+                  {t(`settings_tabs_${activeTab}`)}
+                </h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {t(`settings_tabs_${activeTab}_desc`)}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
-              {isDirty && <span className="text-xs text-amber-500 dark:text-amber-400 font-medium px-2 py-1.5 bg-amber-50 dark:bg-transparent rounded-lg border border-amber-200 dark:border-amber-600">{t("settings_unsaved_changes")}</span>}
-              <Button variant="outline" size="sm" onClick={handleRefresh} className="h-9 px-3 sm:px-4 gap-1.5 border-(--input-border-color) dark:border-none dark:bg-page-body text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-(--table-hover)">
-                <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-                <span className="hidden sm:inline text-sm">{t("common_refresh")}</span>
+              {isDirty && (
+                <span className="text-xs text-amber-500 dark:text-amber-400 font-medium px-2 py-1.5 bg-amber-50 dark:bg-transparent rounded-lg border border-amber-200 dark:border-amber-600">
+                  {t("settings_unsaved_changes")}
+                </span>
+              )}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRefresh}
+                className="h-9 px-3 sm:px-4 gap-1.5 border-(--input-border-color) dark:border-none dark:bg-page-body text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-(--table-hover)"
+              >
+                <RefreshCw
+                  className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`}
+                />
+                <span className="hidden sm:inline text-sm">
+                  {t("common_refresh")}
+                </span>
               </Button>
               <Can permission="update.settings">
-                <Button size="sm" onClick={handleSave} disabled={isUpdating || hasErrors} className="h-9 px-3 sm:px-4 gap-1.5 bg-primary rounded-lg hover:bg-primary/90 text-white shadow-sm shadow-primary/20">
-                  {isUpdating ? <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-3.5 h-3.5" />}
-                  <span className="text-sm">{isUpdating ? t("common_saving") : t("common_save_changes")}</span>
+                <Button
+                  size="sm"
+                  onClick={handleSave}
+                  disabled={isUpdating || hasErrors}
+                  className="h-9 px-3 sm:px-4 gap-1.5 bg-primary rounded-lg hover:bg-primary/90 text-white shadow-sm shadow-primary/20"
+                >
+                  {isUpdating ? (
+                    <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <Save className="w-3.5 h-3.5" />
+                  )}
+                  <span className="text-sm">
+                    {isUpdating ? t("common_saving") : t("common_save_changes")}
+                  </span>
                 </Button>
               </Can>
             </div>
@@ -245,7 +317,9 @@ const SettingInner = () => {
             <div className="flex items-center justify-center h-64 bg-white dark:bg-(--card-color) rounded-xl border border-gray-100 dark:border-(--card-border-color)">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-8 h-8 border-2 border-gray-200 dark:border-zinc-700 border-t-(--text-green-primary) rounded-full animate-spin" />
-                <p className="text-sm text-gray-500 dark:text-gray-400">{t("settings_loading")}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {t("settings_loading")}
+                </p>
               </div>
             </div>
           ) : (

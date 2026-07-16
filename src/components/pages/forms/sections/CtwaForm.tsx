@@ -2,7 +2,15 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
+import { Button } from "@/src/elements/ui/button";
+import { Label } from "@/src/elements/ui/label";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { Input } from "@/src/elements/ui/input";
+
+
+
+
 
 export const CtwaForm: React.FC<SharedFormProps> = ({
   data,
@@ -97,8 +105,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["hero", "title"], "Hero Title", "e.g. Turn Facebook & Instagram ads into live WhatsApp conversations")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Hero Description</label>
-              <textarea
+              <Label className={labelClass}>Hero Description</Label>
+              <Textarea unstyled
                 value={data?.hero?.description || ""}
                 onChange={(e) => updateField(["hero", "description"], e.target.value)}
                 placeholder="Overview details explaining the value proposition..."
@@ -130,23 +138,23 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Structure Steps</label>
+              <Label className={labelClass}>Structure Steps</Label>
               {structureSteps.map((step: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveStructureStep(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">LEVEL #{idx + 1}</div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Step Title</label>
-                    <input
+                    <Label className="text-[10px] font-bold text-gray-400">Step Title</Label>
+                    <Input unstyled
                       type="text"
                       value={step?.title || ""}
                       onChange={(e) => handleStructureStepChange(idx, "title", e.target.value)}
@@ -155,8 +163,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Step Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Step Description</Label>
+                    <Textarea unstyled
                       value={step?.description || ""}
                       onChange={(e) => handleStructureStepChange(idx, "description", e.target.value)}
                       placeholder="Details about this step..."
@@ -167,13 +175,13 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddStructureStep}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Level Card
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -189,24 +197,24 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Feature Items</label>
+              <Label className={labelClass}>Feature Items</Label>
               {featuresItems.map((item: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveFeature(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">FEATURE #{idx + 1}</div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Title</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Title</Label>
+                      <Input unstyled
                         type="text"
                         value={item?.title || ""}
                         onChange={(e) => handleFeatureChange(idx, "title", e.target.value)}
@@ -215,8 +223,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</Label>
+                      <Input unstyled
                         type="text"
                         value={item?.icon || ""}
                         onChange={(e) => handleFeatureChange(idx, "icon", e.target.value)}
@@ -225,7 +233,7 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Feature Image (optional)</label>
+                      <Label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Feature Image (optional)</Label>
                       <PageMediaUploadField
                         value={item?.image || ""}
                         onChange={(uploadedUrl) => handleFeatureChange(idx, "image", uploadedUrl)}
@@ -233,8 +241,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Description</Label>
+                    <Textarea unstyled
                       value={item?.description || ""}
                       onChange={(e) => handleFeatureChange(idx, "description", e.target.value)}
                       placeholder="Brief details about this feature..."
@@ -245,13 +253,13 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddFeature}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Feature Card
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -266,8 +274,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["steps_launch", "title"], "Section Title", "Three simple steps to launch")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Section Description</label>
-              <textarea
+              <Label className={labelClass}>Section Description</Label>
+              <Textarea unstyled
                 value={data?.steps_launch?.description || ""}
                 onChange={(e) => updateField(["steps_launch", "description"], e.target.value)}
                 placeholder="Launch process overview details..."
@@ -277,23 +285,23 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Wizard Steps</label>
+              <Label className={labelClass}>Wizard Steps</Label>
               {launchSteps.map((step: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveLaunchStep(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">WIZARD STEP #{idx + 1}</div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Step Title</label>
-                    <input
+                    <Label className="text-[10px] font-bold text-gray-400">Step Title</Label>
+                    <Input unstyled
                       type="text"
                       value={step?.title || ""}
                       onChange={(e) => handleLaunchStepChange(idx, "title", e.target.value)}
@@ -302,8 +310,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Step Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Step Description</Label>
+                    <Textarea unstyled
                       value={step?.description || ""}
                       onChange={(e) => handleLaunchStepChange(idx, "description", e.target.value)}
                       placeholder="Details about what to do in this wizard step..."
@@ -314,13 +322,13 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddLaunchStep}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Wizard Step
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -335,21 +343,21 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["faqs", "title"], "FAQs Section Title", "Click to WhatsApp Ads — common questions")}
             </div>
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>FAQ Items</label>
+              <Label className={labelClass}>FAQ Items</Label>
               {faqList.map((faq: any, idx: number) => (
                 <div key={idx} className="p-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveFaq(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold mb-2">FAQ ITEM #{idx + 1}</div>
                   <div className="grid grid-cols-1 gap-3 max-w-[90%]">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Question</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Question</Label>
+                      <Input unstyled
                         type="text"
                         value={faq?.question || ""}
                         onChange={(e) => handleFaqChange(idx, "question", e.target.value)}
@@ -358,8 +366,8 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Answer</label>
-                      <textarea
+                      <Label className="text-[10px] font-bold text-gray-400">Answer</Label>
+                      <Textarea unstyled
                         value={faq?.answer || ""}
                         onChange={(e) => handleFaqChange(idx, "answer", e.target.value)}
                         placeholder="FAQ answer text..."
@@ -371,13 +379,13 @@ export const CtwaForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddFaq}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
-            </button>
+            </Button>
           </div>
         )}
       </div>

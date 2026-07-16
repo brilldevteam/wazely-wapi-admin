@@ -1,3 +1,7 @@
+import { Currency } from "./currencies";
+import { Role } from "./role";
+import { Tax } from "./tax";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Faq {
   _id: string;
@@ -489,73 +493,6 @@ export interface GetSubscriptionsResponse {
   };
 }
 
-export interface Language {
-  _id: string;
-  name: string;
-  locale: string;
-  is_rtl: boolean;
-  is_active: boolean;
-  translation_json: any;
-  flag: string;
-  is_default: boolean;
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface GetLanguagesParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  status?: boolean;
-  sort_by?: string;
-  sort_order?: "ASC" | "DESC";
-}
-
-export interface GetLanguagesResponse {
-  success: boolean;
-  data: {
-    languages: Language[];
-    pagination: PaginationInfo;
-  };
-}
-
-export interface GetLanguageByIdResponse {
-  success: boolean;
-  data: Language;
-}
-
-export interface CreateLanguageRequest {
-  name: string;
-  locale: string;
-  is_rtl?: boolean;
-  is_active?: boolean;
-  translation_json?: File;
-  flag?: File;
-}
-
-export type UpdateLanguageRequest = Partial<CreateLanguageRequest>;
-
-export interface DeleteLanguageResponse {
-  success: boolean;
-  message: string;
-  data: {
-    deletedCount: number;
-    deletedIds: string[];
-  };
-}
-
-export interface Currency {
-  _id: string;
-  name: string;
-  code: string;
-  symbol: string;
-  exchange_rate: number;
-  decimal_number: number;
-  is_active: boolean;
-  is_default?: boolean;
-  created_at?: string;
-  updated_at?: string;
-}
 
 export interface GetCurrenciesParams {
   page?: number;
@@ -884,26 +821,7 @@ export interface GetShortLinksResponse {
   };
 }
 
-export interface PageColorConfig {
-  primary_color?: string;
-  gradient?: string;
-}
 
-export interface Page {
-  _id: string;
-  title: string;
-  slug: string;
-  content: string;
-  meta_title?: string;
-  meta_description?: string;
-  meta_image?: string;
-  status: boolean;
-  sort_order?: number;
-  color_config?: PageColorConfig;
-  system_reserved?: boolean;
-  created_at?: string;
-  updated_at?: string;
-}
 
 export interface GetPagesParams {
   page?: number;
@@ -914,42 +832,6 @@ export interface GetPagesParams {
   sort_order?: "ASC" | "DESC";
 }
 
-export interface GetPagesResponse {
-  success: boolean;
-  data: {
-    pages: Page[];
-    pagination: PaginationInfo;
-  };
-}
-
-export interface Tax {
-  _id: string;
-  name: string;
-  rate: number;
-  type: "percentage" | "fixed";
-  description?: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface GetTaxesParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  is_active?: boolean;
-  sort_by?: string;
-  sort_order?: "ASC" | "DESC";
-}
-
-export interface GetTaxesResponse {
-  success: boolean;
-  data: {
-    taxes: Tax[];
-    total: number;
-    pagination?: PaginationInfo;
-  };
-}
 
 export interface PermissionSubmodule {
   name: string;
@@ -964,53 +846,4 @@ export interface Permission {
   submodules: PermissionSubmodule[];
   createdAt?: string;
   updatedAt?: string;
-}
-
-export interface Role {
-  _id: string;
-  name: string;
-  description?: string;
-  status: "active" | "inactive";
-  sort_order?: number;
-  system_reserved?: boolean;
-  permissions?: string[];
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface GetRolesParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  status?: string;
-  sort_by?: string;
-  sort_order?: string;
-}
-
-export interface GetRolesResponse {
-  success: boolean;
-  data: {
-    roles: Role[];
-    pagination: PaginationInfo;
-  };
-}
-
-export interface GetRoleByIdResponse {
-  success: boolean;
-  data: Role & { permissions: string[] };
-}
-
-export interface GetPermissionsResponse {
-  success: boolean;
-  data: Permission[];
-}
-
-export interface CreateRoleRequest {
-  name: string;
-  description?: string;
-  status?: "active" | "inactive";
-  sort_order?: number;
-  permissions?: string[];
-}
-
-export type UpdateRoleRequest = Partial<CreateRoleRequest>;
+} 

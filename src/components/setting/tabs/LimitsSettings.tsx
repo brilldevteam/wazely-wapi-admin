@@ -3,13 +3,14 @@ import * as yup from "yup";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
+import { AppSettings } from "@/src/types/setting";
 import { updateSettingField, updateSettingError } from "@/src/redux/reducers/settingsSlice";
 import SettingCard from "../shared/SettingCard";
 import TagInput from "../shared/TagInput";
 import { useState, useEffect } from "react";
 import SettingToggle from "../shared/SettingToggle";
 import { useTranslation } from "react-i18next";
+import { fileLimits } from "@/src/data/setting";
 
 const LimitsSettings = ({ isLoading }: { isLoading?: boolean }) => {
   const { t } = useTranslation();
@@ -90,13 +91,7 @@ const LimitsSettings = ({ isLoading }: { isLoading?: boolean }) => {
     };
   }, []);
 
-  const fileLimits: { key: keyof AppSettings; label: string }[] = [
-    { key: "document_file_limit", label: "Document Limit (MB)" },
-    { key: "audio_file_limit", label: "Audio Limit (MB)" },
-    { key: "video_file_limit", label: "Video Limit (MB)" },
-    { key: "image_file_limit", label: "Image Limit (MB)" },
-    { key: "multiple_file_share_limit", label: "Multi-file Share Limit" },
-  ];
+  
 
   return (
     <div className="space-y-5">

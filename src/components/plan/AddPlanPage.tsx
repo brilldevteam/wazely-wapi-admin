@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { planFormData, platforms } from "@/src/data/Plans";
 import { Button } from "@/src/elements/ui/button";
-import { useCreatePlanMutation, useGetPlanByIdQuery, useUpdatePlanMutation } from "@/src/redux/api/planApi";
+import {
+  useCreatePlanMutation,
+  useGetPlanByIdQuery,
+  useUpdatePlanMutation,
+} from "@/src/redux/api/planApi";
 import { useGetSettingsQuery } from "@/src/redux/api/settingApi";
-import { ArrowLeft, Check } from "lucide-react";
+import { AddPlansPageProps } from "@/src/types/plan";
+import { ArrowLeft, BookOpen, Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,14 +18,9 @@ import { toast } from "sonner";
 import { ROUTES } from "../../constants";
 import PlanBasicInfo from "./PlanBasicInfo";
 import PlanFeatures from "./PlanFeatures";
+import PlanGuideModal from "./PlanGuideModal";
 import PlanPricing from "./PlanPricing";
 import PlanStatus from "./PlanStatus";
-import { BookOpen } from "lucide-react";
-import PlanGuideModal from "./PlanGuideModal";
-
-interface AddPlansPageProps {
-  id?: string;
-}
 
 const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
   const { t } = useTranslation();
@@ -30,93 +31,27 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
   const [createPlan, { isLoading: isCreating }] = useCreatePlanMutation();
   const [updatePlan, { isLoading: isUpdating }] = useUpdatePlanMutation();
 
-  const { data: planData, isLoading: isLoadingPlan, error: planError } = useGetPlanByIdQuery(planId || "", { skip: !planId });
+  const {
+    data: planData,
+    isLoading: isLoadingPlan,
+    error: planError,
+  } = useGetPlanByIdQuery(planId || "", { skip: !planId });
   const { data: settingsData } = useGetSettingsQuery();
-  const omnichannelPlatforms = settingsData?.omnichannel_platforms || ["facebook", "instagram", "telegram", "twitter"];
+  const omnichannelPlatforms = settingsData?.omnichannel_platforms || platforms;
 
   const isLoading = isCreating || isUpdating || isLoadingPlan;
   const initializedRef = useRef(false);
   const [guideModalOpen, setGuideModalOpen] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    slug: "",
-    description: "",
-    price: "",
-    original_price: "",
-    currency: "",
-    billing_cycle: "monthly" as "monthly" | "yearly" | "lifetime" | "free Trial",
-    trial_days: "0",
-    is_featured: false,
-    is_active: true,
-    sort_order: "0",
-    taxes: [] as string[],
-    features: {
-      contacts: "",
-      template_bots: "",
-      message_bots: "",
-      campaigns: "",
-      ai_prompts: "",
-      staff: "1",
-      conversations: "",
-      bot_flow: "",
-      rest_api: true,
-      whatsapp_webhook: true,
-      auto_replies: false,
-      analytics: false,
-      priority_support: false,
-      omnichannel_facebook: false,
-      fb_chat: false,
-      fb_automation: false,
-      fb_campaign: false,
-      fb_template: false,
-      fb_keyword: false,
-      fb_comment_dm: false,
-      fb_retrigger: false,
-      omnichannel_instagram: false,
-      ig_chat: false,
-      ig_automation: false,
-      ig_campaign: false,
-      ig_template: false,
-      ig_keyword: false,
-      ig_comment_dm: false,
-      ig_retrigger: false,
-      omnichannel_telegram: false,
-      tg_chat: false,
-      tg_automation: false,
-      tg_campaign: false,
-      tg_template: false,
-      tg_keyword: false,
-      omnichannel_twitter: false,
-      tw_chat: false,
-      tw_automation: false,
-      tw_campaign: false,
-      tw_template: false,
-      tw_keyword: false,
-      custom_fields: "",
-      tags: "",
-      teams: "",
-      forms: "",
-      whatsapp_calling: "",
-      appointment_bookings: "",
-      facebookAds_campaign: "",
-      kanban_funnels: "",
-      segments: "",
-      google_account: "",
-      quick_replies: "",
-      workspaces: "",
-      facebook_lead: "",
-      document_file_limit: "",
-      audio_file_limit: "",
-      video_file_limit: "",
-      image_file_limit: "",
-      multiple_file_share_limit: "",
-    },
-    enabled_features: {} as Record<string, boolean>,
-  });
+  const [formData, setFormData] = useState(planFormData);
 
   useEffect(() => {
-    if (isEditMode && !isLoadingPlan && planData?.data && !initializedRef.current) {
+    if (
+      isEditMode &&
+      !isLoadingPlan &&
+      planData?.data &&
+      !initializedRef.current
+    ) {
       const plan = planData.data;
       initializedRef.current = true;
 
@@ -126,22 +61,52 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
           slug: plan.slug || "",
           description: plan.description || "",
           price: plan.price != null ? plan.price.toString() : "",
-          original_price: plan.original_price != null ? plan.original_price.toString() : "",
-          currency: typeof plan.currency === "string" ? plan.currency : plan.currency?._id || "",
+          original_price:
+            plan.original_price != null ? plan.original_price.toString() : "",
+          currency:
+            typeof plan.currency === "string"
+              ? plan.currency
+              : plan.currency?._id || "",
           billing_cycle: (plan.billing_cycle as any) || "monthly",
-          trial_days: plan.trial_days != null ? plan.trial_days.toString() : "0",
+          trial_days:
+            plan.trial_days != null ? plan.trial_days.toString() : "0",
           is_featured: plan.is_featured ?? false,
           is_active: plan.is_active ?? true,
-          sort_order: plan.sort_order != null ? plan.sort_order.toString() : "0",
+          sort_order:
+            plan.sort_order != null ? plan.sort_order.toString() : "0",
           features: {
-            contacts: plan.features?.contacts != null ? plan.features.contacts.toString() : "",
-            template_bots: plan.features?.template_bots != null ? plan.features.template_bots.toString() : "",
-            message_bots: plan.features?.message_bots != null ? plan.features.message_bots.toString() : "",
-            campaigns: plan.features?.campaigns != null ? plan.features.campaigns.toString() : "",
-            ai_prompts: plan.features?.ai_prompts != null ? plan.features.ai_prompts.toString() : "",
-            staff: plan.features?.staff != null ? plan.features.staff.toString() : "1",
-            conversations: plan.features?.conversations != null ? plan.features.conversations.toString() : "",
-            bot_flow: plan.features?.bot_flow != null ? plan.features.bot_flow.toString() : "",
+            contacts:
+              plan.features?.contacts != null
+                ? plan.features.contacts.toString()
+                : "",
+            template_bots:
+              plan.features?.template_bots != null
+                ? plan.features.template_bots.toString()
+                : "",
+            message_bots:
+              plan.features?.message_bots != null
+                ? plan.features.message_bots.toString()
+                : "",
+            campaigns:
+              plan.features?.campaigns != null
+                ? plan.features.campaigns.toString()
+                : "",
+            ai_prompts:
+              plan.features?.ai_prompts != null
+                ? plan.features.ai_prompts.toString()
+                : "",
+            staff:
+              plan.features?.staff != null
+                ? plan.features.staff.toString()
+                : "1",
+            conversations:
+              plan.features?.conversations != null
+                ? plan.features.conversations.toString()
+                : "",
+            bot_flow:
+              plan.features?.bot_flow != null
+                ? plan.features.bot_flow.toString()
+                : "",
             rest_api: plan.features?.rest_api ?? true,
             whatsapp_webhook: plan.features?.whatsapp_webhook ?? true,
             auto_replies: plan.features?.auto_replies ?? false,
@@ -155,7 +120,8 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
             fb_keyword: plan.features?.fb_keyword ?? false,
             fb_comment_dm: plan.features?.fb_comment_dm ?? false,
             fb_retrigger: plan.features?.fb_retrigger ?? false,
-            omnichannel_instagram: plan.features?.omnichannel_instagram ?? false,
+            omnichannel_instagram:
+              plan.features?.omnichannel_instagram ?? false,
             ig_chat: plan.features?.ig_chat ?? false,
             ig_automation: plan.features?.ig_automation ?? false,
             ig_campaign: plan.features?.ig_campaign ?? false,
@@ -175,27 +141,81 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
             tw_campaign: plan.features?.tw_campaign ?? false,
             tw_template: plan.features?.tw_template ?? false,
             tw_keyword: plan.features?.tw_keyword ?? false,
-            custom_fields: plan.features?.custom_fields != null ? plan.features.custom_fields.toString() : "",
-            tags: plan.features?.tags != null ? plan.features.tags.toString() : "",
-            teams: plan.features?.teams != null ? plan.features.teams.toString() : "",
-            forms: plan.features?.forms != null ? plan.features.forms.toString() : "",
-            whatsapp_calling: plan.features?.whatsapp_calling != null ? plan.features.whatsapp_calling.toString() : "",
-            appointment_bookings: plan.features?.appointment_bookings != null ? plan.features.appointment_bookings.toString() : "",
-            facebookAds_campaign: plan.features?.facebookAds_campaign != null ? plan.features.facebookAds_campaign.toString() : "",
-            kanban_funnels: plan.features?.kanban_funnels != null ? plan.features.kanban_funnels.toString() : "",
-            segments: plan.features?.segments != null ? plan.features.segments.toString() : "",
-            google_account: plan.features?.google_account != null ? plan.features.google_account.toString() : "",
-            quick_replies: plan.features?.quick_replies != null ? plan.features.quick_replies.toString() : "",
-            workspaces: plan.features?.workspaces != null ? plan.features.workspaces.toString() : "",
-            facebook_lead: plan.features?.facebook_lead != null ? plan.features.facebook_lead.toString() : "",
-            document_file_limit: plan.features?.document_file_limit != null ? plan.features.document_file_limit.toString() : "",
-            audio_file_limit: plan.features?.audio_file_limit != null ? plan.features.audio_file_limit.toString() : "",
-            video_file_limit: plan.features?.video_file_limit != null ? plan.features.video_file_limit.toString() : "",
-            image_file_limit: plan.features?.image_file_limit != null ? plan.features.image_file_limit.toString() : "",
-            multiple_file_share_limit: plan.features?.multiple_file_share_limit != null ? plan.features.multiple_file_share_limit.toString() : "",
+            custom_fields:
+              plan.features?.custom_fields != null
+                ? plan.features.custom_fields.toString()
+                : "",
+            tags:
+              plan.features?.tags != null ? plan.features.tags.toString() : "",
+            teams:
+              plan.features?.teams != null
+                ? plan.features.teams.toString()
+                : "",
+            forms:
+              plan.features?.forms != null
+                ? plan.features.forms.toString()
+                : "",
+            whatsapp_calling:
+              plan.features?.whatsapp_calling != null
+                ? plan.features.whatsapp_calling.toString()
+                : "",
+            appointment_bookings:
+              plan.features?.appointment_bookings != null
+                ? plan.features.appointment_bookings.toString()
+                : "",
+            facebookAds_campaign:
+              plan.features?.facebookAds_campaign != null
+                ? plan.features.facebookAds_campaign.toString()
+                : "",
+            kanban_funnels:
+              plan.features?.kanban_funnels != null
+                ? plan.features.kanban_funnels.toString()
+                : "",
+            segments:
+              plan.features?.segments != null
+                ? plan.features.segments.toString()
+                : "",
+            google_account:
+              plan.features?.google_account != null
+                ? plan.features.google_account.toString()
+                : "",
+            quick_replies:
+              plan.features?.quick_replies != null
+                ? plan.features.quick_replies.toString()
+                : "",
+            workspaces:
+              plan.features?.workspaces != null
+                ? plan.features.workspaces.toString()
+                : "",
+            facebook_lead:
+              plan.features?.facebook_lead != null
+                ? plan.features.facebook_lead.toString()
+                : "",
+            document_file_limit:
+              plan.features?.document_file_limit != null
+                ? plan.features.document_file_limit.toString()
+                : "",
+            audio_file_limit:
+              plan.features?.audio_file_limit != null
+                ? plan.features.audio_file_limit.toString()
+                : "",
+            video_file_limit:
+              plan.features?.video_file_limit != null
+                ? plan.features.video_file_limit.toString()
+                : "",
+            image_file_limit:
+              plan.features?.image_file_limit != null
+                ? plan.features.image_file_limit.toString()
+                : "",
+            multiple_file_share_limit:
+              plan.features?.multiple_file_share_limit != null
+                ? plan.features.multiple_file_share_limit.toString()
+                : "",
           },
           enabled_features: plan.enabled_features || {},
-          taxes: plan.taxes ? plan.taxes.map((t: any) => (typeof t === "string" ? t : t._id)) : [],
+          taxes: plan.taxes
+            ? plan.taxes.map((t: any) => (typeof t === "string" ? t : t._id))
+            : [],
         });
       }, 0);
     } else if (isEditMode && !isLoadingPlan && planError) {
@@ -255,7 +275,9 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
   const handleSubmit = async () => {
     if (!formData.name || !formData.price || !formData.currency) {
       if (!formData.currency) {
-        toast.error(t("plan_error_select_currency") || "Please select a currency");
+        toast.error(
+          t("plan_error_select_currency") || "Please select a currency",
+        );
       }
       return;
     }
@@ -266,7 +288,9 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
         slug: formData.slug || formData.name.toLowerCase().replace(/\s+/g, "-"),
         description: formData.description || undefined,
         price: parseFloat(formData.price),
-        original_price: formData.original_price ? parseFloat(formData.original_price) : undefined,
+        original_price: formData.original_price
+          ? parseFloat(formData.original_price)
+          : undefined,
         currency: formData.currency,
         billing_cycle: formData.billing_cycle,
         trial_days: parseInt(formData.trial_days) || 0,
@@ -275,14 +299,28 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
         sort_order: parseInt(formData.sort_order) || 0,
         taxes: formData.billing_cycle === "free Trial" ? [] : formData.taxes,
         features: {
-          contacts: formData.features.contacts ? parseInt(formData.features.contacts) : undefined,
-          template_bots: formData.features.template_bots ? parseInt(formData.features.template_bots) : undefined,
-          message_bots: formData.features.message_bots ? parseInt(formData.features.message_bots) : undefined,
-          campaigns: formData.features.campaigns ? parseInt(formData.features.campaigns) : undefined,
-          ai_prompts: formData.features.ai_prompts ? parseInt(formData.features.ai_prompts) : undefined,
+          contacts: formData.features.contacts
+            ? parseInt(formData.features.contacts)
+            : undefined,
+          template_bots: formData.features.template_bots
+            ? parseInt(formData.features.template_bots)
+            : undefined,
+          message_bots: formData.features.message_bots
+            ? parseInt(formData.features.message_bots)
+            : undefined,
+          campaigns: formData.features.campaigns
+            ? parseInt(formData.features.campaigns)
+            : undefined,
+          ai_prompts: formData.features.ai_prompts
+            ? parseInt(formData.features.ai_prompts)
+            : undefined,
           staff: parseInt(formData.features.staff) || 1,
-          conversations: formData.features.conversations ? parseInt(formData.features.conversations) : undefined,
-          bot_flow: formData.features.bot_flow ? parseInt(formData.features.bot_flow) : undefined,
+          conversations: formData.features.conversations
+            ? parseInt(formData.features.conversations)
+            : undefined,
+          bot_flow: formData.features.bot_flow
+            ? parseInt(formData.features.bot_flow)
+            : undefined,
           rest_api: formData.features.rest_api,
           whatsapp_webhook: formData.features.whatsapp_webhook,
           auto_replies: formData.features.auto_replies,
@@ -316,24 +354,60 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
           tw_campaign: formData.features.tw_campaign,
           tw_template: formData.features.tw_template,
           tw_keyword: formData.features.tw_keyword,
-          custom_fields: formData.features.custom_fields ? parseInt(formData.features.custom_fields) : undefined,
-          tags: formData.features.tags ? parseInt(formData.features.tags) : undefined,
-          teams: formData.features.teams ? parseInt(formData.features.teams) : undefined,
-          forms: formData.features.forms ? parseInt(formData.features.forms) : undefined,
-          whatsapp_calling: formData.features.whatsapp_calling ? parseInt(formData.features.whatsapp_calling) : undefined,
-          appointment_bookings: formData.features.appointment_bookings ? parseInt(formData.features.appointment_bookings) : undefined,
-          facebookAds_campaign: formData.features.facebookAds_campaign ? parseInt(formData.features.facebookAds_campaign) : undefined,
-          kanban_funnels: formData.features.kanban_funnels ? parseInt(formData.features.kanban_funnels) : undefined,
-          segments: formData.features.segments ? parseInt(formData.features.segments) : undefined,
-          google_account: formData.features.google_account ? parseInt(formData.features.google_account) : undefined,
-          quick_replies: formData.features.quick_replies ? parseInt(formData.features.quick_replies) : undefined,
-          workspaces: formData.features.workspaces ? parseInt(formData.features.workspaces) : undefined,
-          facebook_lead: formData.features.facebook_lead ? parseInt(formData.features.facebook_lead) : undefined,
-          document_file_limit: formData.features.document_file_limit ? parseInt(formData.features.document_file_limit) : undefined,
-          audio_file_limit: formData.features.audio_file_limit ? parseInt(formData.features.audio_file_limit) : undefined,
-          video_file_limit: formData.features.video_file_limit ? parseInt(formData.features.video_file_limit) : undefined,
-          image_file_limit: formData.features.image_file_limit ? parseInt(formData.features.image_file_limit) : undefined,
-          multiple_file_share_limit: formData.features.multiple_file_share_limit ? parseInt(formData.features.multiple_file_share_limit) : undefined,
+          custom_fields: formData.features.custom_fields
+            ? parseInt(formData.features.custom_fields)
+            : undefined,
+          tags: formData.features.tags
+            ? parseInt(formData.features.tags)
+            : undefined,
+          teams: formData.features.teams
+            ? parseInt(formData.features.teams)
+            : undefined,
+          forms: formData.features.forms
+            ? parseInt(formData.features.forms)
+            : undefined,
+          whatsapp_calling: formData.features.whatsapp_calling
+            ? parseInt(formData.features.whatsapp_calling)
+            : undefined,
+          appointment_bookings: formData.features.appointment_bookings
+            ? parseInt(formData.features.appointment_bookings)
+            : undefined,
+          facebookAds_campaign: formData.features.facebookAds_campaign
+            ? parseInt(formData.features.facebookAds_campaign)
+            : undefined,
+          kanban_funnels: formData.features.kanban_funnels
+            ? parseInt(formData.features.kanban_funnels)
+            : undefined,
+          segments: formData.features.segments
+            ? parseInt(formData.features.segments)
+            : undefined,
+          google_account: formData.features.google_account
+            ? parseInt(formData.features.google_account)
+            : undefined,
+          quick_replies: formData.features.quick_replies
+            ? parseInt(formData.features.quick_replies)
+            : undefined,
+          workspaces: formData.features.workspaces
+            ? parseInt(formData.features.workspaces)
+            : undefined,
+          facebook_lead: formData.features.facebook_lead
+            ? parseInt(formData.features.facebook_lead)
+            : undefined,
+          document_file_limit: formData.features.document_file_limit
+            ? parseInt(formData.features.document_file_limit)
+            : undefined,
+          audio_file_limit: formData.features.audio_file_limit
+            ? parseInt(formData.features.audio_file_limit)
+            : undefined,
+          video_file_limit: formData.features.video_file_limit
+            ? parseInt(formData.features.video_file_limit)
+            : undefined,
+          image_file_limit: formData.features.image_file_limit
+            ? parseInt(formData.features.image_file_limit)
+            : undefined,
+          multiple_file_share_limit: formData.features.multiple_file_share_limit
+            ? parseInt(formData.features.multiple_file_share_limit)
+            : undefined,
         },
         enabled_features: formData.enabled_features,
       };
@@ -352,9 +426,14 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
         }, 1000);
       }
     } catch (error: any) {
-      console.error(`Failed to ${isEditMode ? "update" : "create"} plan:`, error);
+      console.error(
+        `Failed to ${isEditMode ? "update" : "create"} plan:`,
+        error,
+      );
 
-      let errorMessage = t(isEditMode ? "plan_error_update" : "plan_error_create");
+      let errorMessage = t(
+        isEditMode ? "plan_error_update" : "plan_error_create",
+      );
 
       if (error?.data?.message) {
         errorMessage = error.data.message;
@@ -459,16 +538,36 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
 
         {/* Bottom Action Footer (Sticky-ish for mobile) */}
         <div className="flex items-center justify-end gap-3 pt-6 border-t border-gray-100 dark:border-(--card-border-color) mt-4">
-          <Button variant="outline" onClick={handleCancel} className="px-4.5 py-5 dark:border-none text-gray-700 dark:text-gray-300 dark:bg-page-body dark:hover:bg-(--dark-sidebar) font-medium" disabled={isLoading}>
+          <Button
+            variant="outline"
+            onClick={handleCancel}
+            className="px-4.5 py-5 dark:border-none text-gray-700 dark:text-gray-300 dark:bg-page-body dark:hover:bg-(--dark-sidebar) font-medium"
+            disabled={isLoading}
+          >
             {t("common_cancel")}
           </Button>
-          <Button onClick={handleSubmit} className="px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-semibold shadow-sm transition-all active:scale-95 disabled:opacity-50" disabled={isLoading || !formData.name || !formData.price || isLoadingPlan}>
+          <Button
+            onClick={handleSubmit}
+            className="px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-semibold shadow-sm transition-all active:scale-95 disabled:opacity-50"
+            disabled={
+              isLoading || !formData.name || !formData.price || isLoadingPlan
+            }
+          >
             <Check className="w-4 h-4 mr-2" />
-            {isLoading ? (isEditMode ? t("plan_updating") : t("plan_creating")) : isEditMode ? t("plan_update_button") : t("plan_save_button")}
+            {isLoading
+              ? isEditMode
+                ? t("plan_updating")
+                : t("plan_creating")
+              : isEditMode
+                ? t("plan_update_button")
+                : t("plan_save_button")}
           </Button>
         </div>
       </div>
-      <PlanGuideModal isOpen={guideModalOpen} onClose={() => setGuideModalOpen(false)} />
+      <PlanGuideModal
+        isOpen={guideModalOpen}
+        onClose={() => setGuideModalOpen(false)}
+      />
     </div>
   );
 };

@@ -306,7 +306,7 @@ const PlanSnippets = () => {
               </Label>
               <div className="flex flex-wrap gap-2">
                 {THEME_COLORS.map((color) => (
-                  <button
+                  <Button variant="unstyled"
                     key={color.value}
                     type="button"
                     onClick={() => setThemeColor(color.value)}

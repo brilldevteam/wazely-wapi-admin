@@ -5,27 +5,37 @@ import { ROUTES } from "@/src/constants";
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/elements/ui/select";
 import { Switch } from "@/src/elements/ui/switch";
-import { useCreateCurrencyMutation, useGetCurrencyByIdQuery, useUpdateCurrencyMutation } from "@/src/redux/api/currencyApi";
+import {
+  useCreateCurrencyMutation,
+  useGetCurrencyByIdQuery,
+  useUpdateCurrencyMutation,
+} from "@/src/redux/api/currencyApi";
+import { CurrencyFormProps } from "@/src/types/currencies";
 import { currencies } from "@/src/utils/currencies";
 import { ArrowLeft, Check, Coins } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-
-interface CurrencyFormProps {
-  id?: string;
-}
 
 const CurrencyForm = ({ id }: CurrencyFormProps) => {
   const router = useRouter();
   const isEditMode = !!id;
 
-  const [createCurrency, { isLoading: isCreating }] = useCreateCurrencyMutation();
-  const [updateCurrency, { isLoading: isUpdating }] = useUpdateCurrencyMutation();
-  const { data: currencyData, isLoading: isLoadingCurrency } = useGetCurrencyByIdQuery(id || "", { skip: !isEditMode });
+  const [createCurrency, { isLoading: isCreating }] =
+    useCreateCurrencyMutation();
+  const [updateCurrency, { isLoading: isUpdating }] =
+    useUpdateCurrencyMutation();
+  const { data: currencyData, isLoading: isLoadingCurrency } =
+    useGetCurrencyByIdQuery(id || "", { skip: !isEditMode });
 
   const { t } = useTranslation();
   const [name, setName] = useState("");
@@ -60,7 +70,9 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
         setCustomCurrencyCode(curr.code);
       }
 
-      const standardSymbols = Array.from(new Set(currencies.map((c) => c.symbol)));
+      const standardSymbols = Array.from(
+        new Set(currencies.map((c) => c.symbol)),
+      );
       const isStandardSymbol = standardSymbols.includes(curr.symbol);
       if (isStandardSymbol) {
         setSelectedCurrencySymbol(curr.symbol);
@@ -122,7 +134,12 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
       }
       router.push(ROUTES.Currencies);
     } catch (error: any) {
-      toast.error(error?.data?.message || error?.data?.error || error?.error || "Something went wrong.");
+      toast.error(
+        error?.data?.message ||
+          error?.data?.error ||
+          error?.error ||
+          "Something went wrong.",
+      );
     }
   };
 
@@ -142,10 +159,14 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold text-(--text-green-primary) mb-1">
-            {isEditMode ? t("currencies_edit_title") : t("currencies_add_title")}
+            {isEditMode
+              ? t("currencies_edit_title")
+              : t("currencies_add_title")}
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed">
-            {isEditMode ? t("currencies_edit_subtitle") : t("currencies_add_subtitle")}
+            {isEditMode
+              ? t("currencies_edit_subtitle")
+              : t("currencies_add_subtitle")}
           </p>
         </div>
       </div>
@@ -160,13 +181,18 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Coins className="w-5 h-5 shadow-inner" />
                 </div>
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Currency Settings</h2>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  Currency Settings
+                </h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Code Select */}
                 <div className="space-y-2 flex flex-col">
-                  <Label htmlFor="code" className="text-sm font-medium text-gray-900 dark:text-gray-400">
+                  <Label
+                    htmlFor="code"
+                    className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
                     Currency Code <span className="text-red-500">*</span>
                   </Label>
                   <Select
@@ -181,10 +207,14 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                         setCode(val);
                         const selected = currencies.find((c) => c.code === val);
                         if (selected) {
-                          const isSystemName = currencies.some((c) => c.name === name) || name === "";
+                          const isSystemName =
+                            currencies.some((c) => c.name === name) ||
+                            name === "";
                           if (isSystemName) setName(selected.name);
 
-                          const isSystemSymbol = currencies.some((c) => c.symbol === symbol) || symbol === "";
+                          const isSystemSymbol =
+                            currencies.some((c) => c.symbol === symbol) ||
+                            symbol === "";
                           if (isSystemSymbol) {
                             setSelectedCurrencySymbol(selected.symbol);
                             setSymbol(selected.symbol);
@@ -198,11 +228,19 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     </SelectTrigger>
                     <SelectContent className="max-h-64 dark:bg-(--card-color)">
                       {currencies.map((curr) => (
-                        <SelectItem className="dark:hover:bg-(--table-hover)" key={curr.code} value={curr.code}>
+                        <SelectItem
+                          className="dark:hover:bg-(--table-hover)"
+                          key={curr.code}
+                          value={curr.code}
+                        >
                           {curr.code} - {curr.name}
                         </SelectItem>
                       ))}
-                      <SelectItem className="dark:hover:bg-(--table-hover)" key="other" value="other">
+                      <SelectItem
+                        className="dark:hover:bg-(--table-hover)"
+                        key="other"
+                        value="other"
+                      >
                         Other
                       </SelectItem>
                     </SelectContent>
@@ -211,7 +249,10 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
 
                 {/* Symbol Select */}
                 <div className="space-y-2 flex flex-col">
-                  <Label htmlFor="symbol" className="text-sm font-medium text-gray-900 dark:text-gray-400">
+                  <Label
+                    htmlFor="symbol"
+                    className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
                     Currency Symbol <span className="text-red-500">*</span>
                   </Label>
                   <Select
@@ -229,12 +270,22 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                       <SelectValue placeholder="Select symbol" />
                     </SelectTrigger>
                     <SelectContent className="max-h-64 dark:bg-(--card-color)">
-                      {Array.from(new Set(currencies.map((c) => c.symbol))).map((s) => (
-                        <SelectItem className="dark:hover:bg-(--table-hover)" key={s} value={s}>
-                          {s}
-                        </SelectItem>
-                      ))}
-                      <SelectItem className="dark:hover:bg-(--table-hover)" key="other" value="other">
+                      {Array.from(new Set(currencies.map((c) => c.symbol))).map(
+                        (s) => (
+                          <SelectItem
+                            className="dark:hover:bg-(--table-hover)"
+                            key={s}
+                            value={s}
+                          >
+                            {s}
+                          </SelectItem>
+                        ),
+                      )}
+                      <SelectItem
+                        className="dark:hover:bg-(--table-hover)"
+                        key="other"
+                        value="other"
+                      >
                         Other
                       </SelectItem>
                     </SelectContent>
@@ -244,8 +295,12 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                 {/* Custom Currency Code Input (Only visible when "Other" is selected) */}
                 {selectedCurrencyCode === "other" && (
                   <div className="space-y-2 flex flex-col transition-all duration-300 ease-in-out animate-in fade-in slide-in-from-top-2">
-                    <Label htmlFor="customCurrencyCode" className="text-sm font-medium text-gray-900 dark:text-gray-400">
-                      Custom Currency Code <span className="text-red-500">*</span>
+                    <Label
+                      htmlFor="customCurrencyCode"
+                      className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                    >
+                      Custom Currency Code{" "}
+                      <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       id="customCurrencyCode"
@@ -268,8 +323,12 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                 {/* Custom Currency Symbol Input (Only visible when "Other" is selected) */}
                 {selectedCurrencySymbol === "other" && (
                   <div className="space-y-2 flex flex-col transition-all duration-300 ease-in-out animate-in fade-in slide-in-from-top-2">
-                    <Label htmlFor="customCurrencySymbol" className="text-sm font-medium text-gray-900 dark:text-gray-400">
-                      Custom Currency Symbol <span className="text-red-500">*</span>
+                    <Label
+                      htmlFor="customCurrencySymbol"
+                      className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                    >
+                      Custom Currency Symbol{" "}
+                      <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       id="customCurrencySymbol"
@@ -284,14 +343,18 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                       required
                     />
                     <p className="text-xs text-gray-400">
-                      Enter the visual symbol representing the currency (e.g., 'د.ك').
+                      Enter the visual symbol representing the currency (e.g.,
+                      'د.ك').
                     </p>
                   </div>
                 )}
 
                 {/* Name Input */}
                 <div className="space-y-2 flex flex-col md:col-span-2">
-                  <Label htmlFor="name" className="text-sm font-medium text-gray-900 dark:text-gray-400">
+                  <Label
+                    htmlFor="name"
+                    className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
                     Currency Name <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -306,8 +369,12 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
 
                 {/* Exchange Rate */}
                 <div className="space-y-2 flex flex-col">
-                  <Label htmlFor="exchangeRate" className="text-sm font-medium text-gray-900 dark:text-gray-400">
-                    Exchange Rate (1 USD = ?) <span className="text-red-500">*</span>
+                  <Label
+                    htmlFor="exchangeRate"
+                    className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
+                    Exchange Rate (1 USD = ?){" "}
+                    <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     id="exchangeRate"
@@ -323,7 +390,10 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
 
                 {/* Decimal Places */}
                 <div className="space-y-2 flex flex-col">
-                  <Label htmlFor="decimalNumber" className="text-sm font-medium text-gray-900 dark:text-gray-400">
+                  <Label
+                    htmlFor="decimalNumber"
+                    className="text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
                     Decimal Places <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -351,7 +421,10 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
               <div className="sm:p-6 p-4 space-y-4">
                 <div className="flex items-center justify-between py-2">
                   <div>
-                    <Label htmlFor="isActive" className="text-sm font-semibold text-gray-900 dark:text-gray-200">
+                    <Label
+                      htmlFor="isActive"
+                      className="text-sm font-semibold text-gray-900 dark:text-gray-200"
+                    >
                       Active Status
                     </Label>
                     <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
@@ -392,8 +465,12 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
               <Check className="w-5 h-5 text-white" />
             )}
             {isLoading
-              ? isEditMode ? "Saving..." : "Creating..."
-              : isEditMode ? "Save Changes" : "Add Currency"}
+              ? isEditMode
+                ? "Saving..."
+                : "Creating..."
+              : isEditMode
+                ? "Save Changes"
+                : "Add Currency"}
           </Button>
         </div>
       </form>

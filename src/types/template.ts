@@ -221,3 +221,35 @@ export interface TemplatePreviewBubbleProps {
 export interface AdminTemplateFormProps {
   templateId?: string;
 }
+
+export interface TemplateFilterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApply: (filters: { sector?: string; template_category?: string; status?: string }) => void;
+  currentFilters: { sector?: string; template_category?: string; status?: string };
+}
+
+export interface Template {
+  _id: string;
+  template_name: string;
+  category: string;
+  status: string;
+  language: string;
+  message_body: string;
+  body_variables: { key: string; example: string }[];
+  template_type: string;
+  waba_id: string;
+}
+
+export interface GetTemplatesParams {
+  waba_id?: string;
+  category?: string;
+  status?: string;
+  search?: string;
+}
+
+export interface GetTemplatesResponse {
+  success: boolean;
+  count: number;
+  data: Template[];
+}

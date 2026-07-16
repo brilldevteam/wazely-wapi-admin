@@ -16,8 +16,14 @@ export interface DynamicSettingsProviderProps {
   children: React.ReactNode;
 }
 
+// export interface SearchResult {  // unused
+//   id: string;
+//   label: string;
+//   href?: string;
+// }
 export interface SearchResult {
-  id: string;
   label: string;
-  href?: string;
+  path: string;
+  icon: string;
+  parentLabel?: string;
 }

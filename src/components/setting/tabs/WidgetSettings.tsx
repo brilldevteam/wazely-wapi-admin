@@ -2,11 +2,13 @@
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
+import { AppSettings } from "@/src/types/setting";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import SettingCard from "../shared/SettingCard";
 import SettingToggle from "../shared/SettingToggle";
 import { useState } from "react";
+import { Button } from "@/src/elements/ui/button";
+
 import { 
   MessageCircle, 
   MessageSquare, 
@@ -49,8 +51,8 @@ const WidgetSettings = ({ isLoading }: { isLoading?: boolean }) => {
         title="Live Widget Preview" 
         description="Interact with the live preview to see how the floating widget will behave on the landing page."
       >
-        <div className="border border-gray-100 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50 dark:bg-(--dark-body) flex flex-col gap-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Live Preview:</p>
+        <div className="border border-gray-100 dark:border-(--card-border-color) rounded-lg sm:p-6 p-4 bg-gray-50 dark:bg-(--dark-body) flex flex-col gap-4">
+          <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500">Live Preview:</p>
           
           {widgetEnabled ? (
             <div className="relative h-48 border border-dashed border-gray-200 dark:border-zinc-700 rounded-lg bg-white dark:bg-(--card-color) flex items-center justify-center overflow-hidden">
@@ -59,7 +61,7 @@ const WidgetSettings = ({ isLoading }: { isLoading?: boolean }) => {
               {/* Floating Widget Mockup */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3">
                 <div className="relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => setIsPreviewOpen(!isPreviewOpen)}
                     className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
@@ -67,10 +69,10 @@ const WidgetSettings = ({ isLoading }: { isLoading?: boolean }) => {
                     }`}
                   >
                     {isPreviewOpen ? <span className="font-bold text-sm">X</span> : <MessageCircle size={22} />}
-                  </button>
+                  </Button>
                   {isPreviewOpen && (
                     <div className="absolute top-full left-0 mt-1 w-max bg-zinc-800 text-[8px] text-zinc-400 py-0.5 px-1.5 rounded shadow-sm border border-zinc-700 select-none whitespace-nowrap">
-                      Widget by <span className="font-semibold text-primary">{settings.app_name || "Wapi"}</span>
+                      Widget by <span className="font-semibold text-primary">{settings.app_name || "."}</span>
                     </div>
                   )}
                 </div>

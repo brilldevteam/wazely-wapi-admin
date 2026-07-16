@@ -4,17 +4,15 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import { useBulkDeleteTaxesMutation, useDeleteTaxMutation, useGetAllTaxesQuery } from "@/src/redux/api/taxApi";
+import {
+  useBulkDeleteTaxesMutation,
+  useDeleteTaxMutation,
+  useGetAllTaxesQuery,
+} from "@/src/redux/api/taxApi";
 import ConfirmModal from "@/src/shared/ConfirmModal";
-import { Tax } from "@/src/types/store";
+import { ColumnItem, Tax } from "@/src/types/tax";
 import TaxHeader from "./TaxHeader";
 import TaxList from "./TaxList";
-
-interface ColumnItem {
-  id: string;
-  label: string;
-  isVisible: boolean;
-}
 
 const TaxContainer = () => {
   const { t } = useTranslation();
@@ -30,11 +28,19 @@ const TaxContainer = () => {
     { id: "name", label: t("tax_column_name") || "Name", isVisible: true },
     { id: "rate", label: t("tax_column_rate") || "Rate", isVisible: true },
     { id: "type", label: t("tax_column_type") || "Type", isVisible: true },
-    { id: "status", label: t("tax_column_status") || "Status", isVisible: true },
+    {
+      id: "status",
+      label: t("tax_column_status") || "Status",
+      isVisible: true,
+    },
   ]);
 
   const handleColumnToggle = (columnId: string) => {
-    setColumns((prev) => prev.map((col) => (col.id === columnId ? { ...col, isVisible: !col.isVisible } : col)));
+    setColumns((prev) =>
+      prev.map((col) =>
+        col.id === columnId ? { ...col, isVisible: !col.isVisible } : col,
+      ),
+    );
   };
 
   const { data: taxesData, isLoading } = useGetAllTaxesQuery({
@@ -46,7 +52,8 @@ const TaxContainer = () => {
   });
 
   const [deleteTax] = useDeleteTaxMutation();
-  const [bulkDeleteTaxes, { isLoading: isBulkDeleting }] = useBulkDeleteTaxesMutation();
+  const [bulkDeleteTaxes, { isLoading: isBulkDeleting }] =
+    useBulkDeleteTaxesMutation();
 
   const handleSearch = (query: string) => {
     setSearchTerm(query);
@@ -66,36 +73,86 @@ const TaxContainer = () => {
     try {
       await deleteTax(tax._id).unwrap();
       toast.success(t("tax_delete_success") || "Tax deleted successfully");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.data?.message || t("tax_delete_error") || "Failed to delete tax");
+      toast.error(
+        error?.data?.message || t("tax_delete_error") || "Failed to delete tax",
+      );
     }
   };
 
   const handleBulkDelete = async () => {
     try {
       await bulkDeleteTaxes(selectedIds).unwrap();
-      toast.success(t("tax_bulk_delete_success") || "Taxes deleted successfully");
+      toast.success(
+        t("tax_bulk_delete_success") || "Taxes deleted successfully",
+      );
       setSelectedIds([]);
       setIsBulkDeleteModalOpen(false);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error(error?.data?.message || t("tax_bulk_delete_error") || "Failed to delete taxes");
+      toast.error(
+        error?.data?.message ||
+          t("tax_bulk_delete_error") ||
+          "Failed to delete taxes",
+      );
     }
   };
 
-  const handleSortChange = (newSortBy: string, newSortOrder: "asc" | "desc") => {
+  const handleSortChange = (
+    newSortBy: string,
+    newSortOrder: "asc" | "desc",
+  ) => {
     setSortBy(newSortBy);
     setSortOrder(newSortOrder);
   };
 
   return (
     <div className="space-y-6">
-      <TaxHeader searchTerm={searchTerm} onSearch={handleSearch} isLoading={isLoading} selectedCount={selectedIds.length} onBulkDelete={() => setIsBulkDeleteModalOpen(true)} columns={columns} onColumnToggle={handleColumnToggle} onRefresh={() => setPage(1)} />
+      <TaxHeader
+        searchTerm={searchTerm}
+        onSearch={handleSearch}
+        isLoading={isLoading}
+        selectedCount={selectedIds.length}
+        onBulkDelete={() => setIsBulkDeleteModalOpen(true)}
+        columns={columns}
+        onColumnToggle={handleColumnToggle}
+        onRefresh={() => setPage(1)}
+      />
 
-      <TaxList taxes={taxesData?.data.taxes || []} isLoading={isLoading} total={taxesData?.data.total || 0} page={page} totalPages={Math.ceil((taxesData?.data.total || 0) / limit)} onPageChange={handlePageChange} limit={limit} onLimitChange={handleLimitChange} onDelete={handleDelete} onBulkDelete={() => setIsBulkDeleteModalOpen(true)} selectedIds={selectedIds} onSelectionChange={setSelectedIds} onSortChange={handleSortChange} visibleColumns={columns.filter((c) => c.isVisible).map((c) => c.id)} searchTerm={searchTerm} />
+      <TaxList
+        taxes={taxesData?.data.taxes || []}
+        isLoading={isLoading}
+        total={taxesData?.data.total || 0}
+        page={page}
+        totalPages={Math.ceil((taxesData?.data.total || 0) / limit)}
+        onPageChange={handlePageChange}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        onDelete={handleDelete}
+        onBulkDelete={() => setIsBulkDeleteModalOpen(true)}
+        selectedIds={selectedIds}
+        onSelectionChange={setSelectedIds}
+        onSortChange={handleSortChange}
+        visibleColumns={columns.filter((c) => c.isVisible).map((c) => c.id)}
+        searchTerm={searchTerm}
+      />
 
-      <ConfirmModal isOpen={isBulkDeleteModalOpen} onClose={() => setIsBulkDeleteModalOpen(false)} onConfirm={handleBulkDelete} isLoading={isBulkDeleting} title={t("tax_bulk_delete_modal_title") || "Delete Multiple Taxes"} subtitle={t("tax_bulk_delete_modal_subtitle", { count: selectedIds.length }) || `Are you sure you want to delete ${selectedIds.length} selected taxes?`} confirmText={t("common_delete")} cancelText={t("common_cancel")} variant="danger" loadingText="Deleting..." />
+      <ConfirmModal
+        isOpen={isBulkDeleteModalOpen}
+        onClose={() => setIsBulkDeleteModalOpen(false)}
+        onConfirm={handleBulkDelete}
+        isLoading={isBulkDeleting}
+        title={t("tax_bulk_delete_modal_title") || "Delete Multiple Taxes"}
+        subtitle={
+          t("tax_bulk_delete_modal_subtitle", { count: selectedIds.length }) ||
+          `Are you sure you want to delete ${selectedIds.length} selected taxes?`
+        }
+        confirmText={t("common_delete")}
+        cancelText={t("common_cancel")}
+        variant="danger"
+        loadingText="Deleting..."
+      />
     </div>
   );
 };

@@ -146,3 +146,17 @@ export interface DataTableProps<T> {
   actionPermissions?: string[];
   canDelete?: (row: T) => boolean;
 }
+
+export interface CanProps {
+  permission?: string;
+  anyPermission?: string[];
+  module?: string;
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+}
+
+export interface FlagProps {
+  countryCode: string;
+  className?: string;
+  size?: number;
+}

@@ -1,19 +1,31 @@
 "use client";
 
+import { booleanFeatures, numericFeatures } from "@/src/data/Plans";
 import { Button } from "@/src/elements/ui/button";
+import { useAppSelector } from "@/src/redux/hooks";
 import ConfirmModal from "@/src/shared/ConfirmModal";
-import { PlanCardProps } from "@/src/types/components";
-import { Check, Pencil, Trash2, Zap, ChevronDown, ChevronUp } from "lucide-react";
+import { PlanCardProps } from "@/src/types/plan";
+import { PlanFeatures } from "@/src/types/store";
+import {
+  Check,
+  ChevronDown,
+  ChevronUp,
+  Pencil,
+  Trash2,
+  Zap,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "@/src/redux/hooks";
-import { numericFeatures, booleanFeatures } from "@/src/data/Plans";
-import { PlanFeatures } from "@/src/types/store";
 import { ROUTES } from "../../constants";
 import Can from "../shared/Can";
 
-const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) => {
+const PlanCard = ({
+  plan,
+  onDelete,
+  isLoading,
+  isHighlighted,
+}: PlanCardProps) => {
   const router = useRouter();
   const { t } = useTranslation();
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -36,7 +48,10 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
     }
   };
 
-  const formatPrice = (price: number, currency: string = defaultCurrencyCode) => {
+  const formatPrice = (
+    price: number,
+    currency: string = defaultCurrencyCode,
+  ) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: currency,
@@ -79,14 +94,17 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
 
         const label = t(`plan_features_${feature.id}`);
         const cleanLabel = label.split("(")[0].trim();
-        const displayValue = value === 0 ? t("plan_features_unlimited") || "Unlimited" : value;
+        const displayValue =
+          value === 0 ? t("plan_features_unlimited") || "Unlimited" : value;
         return `${displayValue} ${cleanLabel}`;
       })
       .filter(Boolean) as string[];
   };
 
   const getCapabilitiesList = () => {
-    return booleanFeatures.filter((feature) => !!plan.features[feature.id as keyof PlanFeatures]).map((feature) => t(`plan_features_${feature.id}`));
+    return booleanFeatures
+      .filter((feature) => !!plan.features[feature.id as keyof PlanFeatures])
+      .map((feature) => t(`plan_features_${feature.id}`));
   };
 
   const features = getFeaturesList();
@@ -94,7 +112,9 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
 
   const LIMIT = 6;
   const showFeatures = isExpanded ? features : features.slice(0, LIMIT);
-  const showCapabilities = isExpanded ? capabilities : capabilities.slice(0, LIMIT);
+  const showCapabilities = isExpanded
+    ? capabilities
+    : capabilities.slice(0, LIMIT);
   const hasMore = features.length > LIMIT || capabilities.length > LIMIT;
 
   return (
@@ -119,15 +139,30 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
 
         {/* ── ZONE 1: Plan Header (always fully visible) ── */}
         <div className="text-center mb-5 shrink-0">
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 truncate">{plan.name}</h3>
-          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">{plan.description || t("plan_perfect_plan")}</p>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 truncate">
+            {plan.name}
+          </h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+            {plan.description || t("plan_perfect_plan")}
+          </p>
           <div className="flex items-baseline justify-center gap-1">
-            <span className="text-4xl font-medium text-slate-900 dark:text-white">{plan.currency.symbol}</span>
-            <span className="text-5xl font-bold text-slate-900 dark:text-white">{formatPrice(plan.price, plan.currency.code).replace(/[^0-9.,]/g, "")}</span>
-            <span className="text-slate-600 dark:text-slate-400 text-sm">{getBillingCycleDays(plan.billing_cycle, plan.trial_days)}</span>
+            <span className="text-4xl font-medium text-slate-900 dark:text-white">
+              {plan.currency.symbol}
+            </span>
+            <span className="text-5xl font-bold text-slate-900 dark:text-white">
+              {formatPrice(plan.price, plan.currency.code).replace(
+                /[^0-9.,]/g,
+                "",
+              )}
+            </span>
+            <span className="text-slate-600 dark:text-slate-400 text-sm">
+              {getBillingCycleDays(plan.billing_cycle, plan.trial_days)}
+            </span>
           </div>
           {plan.original_price && plan.original_price > plan.price && (
-            <p className="text-sm text-slate-400 dark:text-slate-500 mt-1 line-through">{formatPrice(plan.original_price, plan.currency.code)}</p>
+            <p className="text-sm text-slate-400 dark:text-slate-500 mt-1 line-through">
+              {formatPrice(plan.original_price, plan.currency.code)}
+            </p>
           )}
         </div>
 
@@ -139,14 +174,18 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
           {/* Usage Limits */}
           {showFeatures.length > 0 && (
             <div className="mb-4">
-              <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">{t("plan_usage_limits")}</h4>
+              <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">
+                {t("plan_usage_limits")}
+              </h4>
               <ul className="grid grid-cols-2 gap-x-3 gap-y-3">
                 {showFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start gap-1.5">
                     <div className="mt-0.5 w-4 h-4 shrink-0 rounded-full flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/20">
                       <Check className="w-2 h-2 text-(--text-green-primary)" />
                     </div>
-                    <span className="text-xs text-slate-700 dark:text-slate-300 leading-tight">{feature}</span>
+                    <span className="text-xs text-slate-700 dark:text-slate-300 leading-tight">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -156,14 +195,18 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
           {/* Capabilities */}
           {showCapabilities.length > 0 && (
             <div className="mb-2">
-              <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">{t("plan_capabilities")}</h4>
+              <h4 className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">
+                {t("plan_capabilities")}
+              </h4>
               <ul className="grid grid-cols-2 gap-x-3 gap-y-3">
                 {showCapabilities.map((feature, index) => (
                   <li key={index} className="flex items-start gap-1.5">
                     <div className="mt-0.5 w-4 h-4 shrink-0 rounded-full flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/20">
                       <Check className="w-2 h-2 text-(--text-green-primary)" />
                     </div>
-                    <span className="text-xs text-slate-700 dark:text-slate-300 leading-tight">{feature}</span>
+                    <span className="text-xs text-slate-700 dark:text-slate-300 leading-tight">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -175,7 +218,7 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
         <div className="shrink-0 mt-4">
           {/* View More / Less toggle */}
           {hasMore && (
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
@@ -194,7 +237,7 @@ const PlanCard = ({ plan, onDelete, isLoading, isHighlighted }: PlanCardProps) =
                   <ChevronDown className="h-3.5 w-3.5" />
                 </>
               )}
-            </button>
+            </Button>
           )}
 
           {/* Action Buttons */}

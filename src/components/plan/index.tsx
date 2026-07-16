@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useDeletePlanMutation, useGetAllPlansQuery, useSyncPlansMutation } from "@/src/redux/api/planApi";
+import {
+  useDeletePlanMutation,
+  useGetAllPlansQuery,
+  useSyncPlansMutation,
+} from "@/src/redux/api/planApi";
 import { useState } from "react";
 import { toast } from "sonner";
-import PlanList from "./PlanList";
-import PlanHeader from "./PlanHeader";
 import FreeTrialModal from "./FreeTrialModal";
+import PlanHeader from "./PlanHeader";
+import PlanList from "./PlanList";
 
 const PlanContainer = () => {
   const { data, isLoading, refetch, isFetching } = useGetAllPlansQuery({
@@ -30,7 +34,9 @@ const PlanContainer = () => {
     try {
       const res = await syncPlans().unwrap();
       if (res.success) {
-        toast.success(res.message || "Plans synchronized to gateways successfully");
+        toast.success(
+          res.message || "Plans synchronized to gateways successfully",
+        );
       }
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to sync plans to gateways");
@@ -39,11 +45,23 @@ const PlanContainer = () => {
 
   return (
     <div>
-      <PlanHeader isLoading={isFetching} onFreeTrialClick={() => setIsFreeTrialModalOpen(true)} onSyncClick={handleSyncPlans} isSyncing={isSyncing} />
+      <PlanHeader
+        isLoading={isFetching}
+        onFreeTrialClick={() => setIsFreeTrialModalOpen(true)}
+        onSyncClick={handleSyncPlans}
+        isSyncing={isSyncing}
+      />
 
-      <PlanList plans={data?.data.plans || []} onDelete={handleDeletePlan} isLoading={isLoading || isDeleting || isFetching} />
+      <PlanList
+        plans={data?.data.plans || []}
+        onDelete={handleDeletePlan}
+        isLoading={isLoading || isDeleting || isFetching}
+      />
 
-      <FreeTrialModal isOpen={isFreeTrialModalOpen} onClose={() => setIsFreeTrialModalOpen(false)} />
+      <FreeTrialModal
+        isOpen={isFreeTrialModalOpen}
+        onClose={() => setIsFreeTrialModalOpen(false)}
+      />
     </div>
   );
 };

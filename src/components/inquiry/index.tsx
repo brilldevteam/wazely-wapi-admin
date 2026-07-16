@@ -1,9 +1,7 @@
-import InquiryContainer from './InquiryContainer'
-import React from 'react'
+import InquiryContainer from "./InquiryContainer";
 
 const Inquiry = () => {
-  return <InquiryContainer />
-}
+  return <InquiryContainer />;
+};
 
-export default Inquiry
- 
+export default Inquiry;

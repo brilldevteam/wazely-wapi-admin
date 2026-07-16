@@ -3,16 +3,11 @@
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import CKEditorComponent from "@/src/shared/CkEditor";
+import { PageContentFormProps } from "@/src/types/landingPage";
 import { FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-interface PageContentFormProps {
-  title: string;
-  slug: string;
-  content: string;
-  onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onContentChange: (value: string) => void;
-}
+
 
 const PageContentForm = ({
   title,

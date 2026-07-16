@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useGetAllModelsQuery, useBulkDeleteModelsMutation, useToggleModelStatusMutation } from "@/src/redux/api/aiModelApi";
 import { toast } from "sonner";
 import CommonHeader from "@/src/shared/CommonHeader";
-import AIModelsList from "./AIModelsList";
+import AIModelsList from "./components/AIModelsList";
 import { useRouter } from "next/navigation";
 import { AIModel } from "@/src/types/store";
 import { ROUTES } from "@/src/constants";

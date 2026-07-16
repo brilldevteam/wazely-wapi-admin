@@ -2,7 +2,7 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
 import { Button } from "@/src/elements/ui/button";
 import { Label } from "@/src/elements/ui/label";
 import { Input } from "@/src/elements/ui/input";
@@ -328,7 +328,7 @@ export const SharedInboxForm: React.FC<SharedFormProps> = ({
               />
             </div>
             <div className="space-y-6 mt-4">
-              <label className={labelClass}>Metric Counters</label>
+              <Label className={labelClass}>Metric Counters</Label>
               <div className="grid grid-cols-1 gap-4">
                 {counterList.map((c: any, idx: number) => (
                   <div key={idx} className="p-5 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) relative space-y-3">

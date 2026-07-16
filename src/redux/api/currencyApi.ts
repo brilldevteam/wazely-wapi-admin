@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Currency, DeleteCurrencyResponse, GetCurrenciesParams, GetCurrenciesResponse, GetCurrencyByIdResponse } from "@/src/types/store";
+import {  DeleteCurrencyResponse, GetCurrenciesParams, GetCurrenciesResponse, GetCurrencyByIdResponse } from "@/src/types/store";
 import { baseApi } from "./baseApi";
+import { Currency } from "@/src/types/currencies";
 
 export const currencyApi = baseApi.enhanceEndpoints({ addTagTypes: ["Currency"] }).injectEndpoints({
   endpoints: (builder) => ({

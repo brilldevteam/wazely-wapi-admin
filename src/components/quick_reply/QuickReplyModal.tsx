@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -11,18 +9,13 @@ import {
   AlertDialogTitle,
 } from "@/src/elements/ui/alert-dialog";
 import { Button } from "@/src/elements/ui/button";
-import { Textarea } from "@/src/elements/ui/textarea";
-import { Label } from "@/src/elements/ui/label";
-import { Loader2, X } from "lucide-react";
 import { Checkbox } from "@/src/elements/ui/checkbox";
-
-interface QuickReplyModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (data: { content: string; is_admin_reply: boolean }) => void;
-  editData?: { _id: string; content: string; is_admin_reply: boolean } | null;
-  isLoading: boolean;
-}
+import { Label } from "@/src/elements/ui/label";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { QuickReplyModalProps } from "@/src/types/quickReply";
+import { Loader2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const QuickReplyModal = ({
   isOpen,
@@ -57,7 +50,9 @@ const QuickReplyModal = ({
         <AlertDialogHeader className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-1 text-left rtl:text-right">
             <AlertDialogTitle>
-              {editData ? t("quick_reply_edit_reply") : t("quick_reply_add_reply")}
+              {editData
+                ? t("quick_reply_edit_reply")
+                : t("quick_reply_add_reply")}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {t("quick_reply_description")}
@@ -116,7 +111,11 @@ const QuickReplyModal = ({
             >
               {t("common_cancel")}
             </Button>
-            <Button type="submit" className="h-11 px-4.5 py-5 text-white" disabled={isLoading || !content.trim()}>
+            <Button
+              type="submit"
+              className="h-11 px-4.5 py-5 text-white"
+              disabled={isLoading || !content.trim()}
+            >
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               {editData ? t("common_update") : t("common_add")}
             </Button>

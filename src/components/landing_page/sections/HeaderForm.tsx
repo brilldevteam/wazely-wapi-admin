@@ -1,21 +1,31 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Input } from "@/src/elements/ui/input";
 import { Button } from "@/src/elements/ui/button";
-import { Plus, Trash2, ChevronUp, ChevronDown, Search, Folder, Link2 } from "lucide-react";
-import ImageSelector from "../shared/ImageSelector";
+import { Input } from "@/src/elements/ui/input";
 import { useGetPagesQuery } from "@/src/redux/api/pageApi";
-import { HeaderSection, MenuItem } from "@/src/types/landingPage";
-import { Page } from "@/src/types/store";
-import { FlatMenuItem, flattenTree, buildTree, getBadgeStyle } from "./HeaderFormUtils";
+import {
+  FlatMenuItem,
+  HeaderFormProps,
+  Page
+} from "@/src/types/landingPage";
+import {
+  ChevronDown,
+  ChevronUp,
+  Folder,
+  Link2,
+  Plus,
+  Search,
+  Trash2,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import ImageSelector from "../shared/ImageSelector";
+import {
+  buildTree,
+  flattenTree,
+  getBadgeStyle,
+} from "./HeaderFormUtils";
 import { MenuEditSettings } from "./MenuEditSettings";
-
-interface HeaderFormProps {
-  data: HeaderSection;
-  onChange: (data: HeaderSection) => void;
-}
 
 const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
   const { t } = useTranslation();
@@ -75,17 +85,34 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
     triggerChange(updated);
   };
 
-  const handleUpdateItem = (field: keyof FlatMenuItem, value: string | boolean | number) => {
+  const handleUpdateItem = (
+    fieldOrUpdates: keyof FlatMenuItem | Partial<FlatMenuItem>,
+    value?: string | boolean | number,
+  ) => {
     if (!selectedId) return;
     const updated = flatItems.map((item) => {
       if (item.id === selectedId) {
-        const updatedItem = { ...item, [field]: value };
-        if (field === "link_type") {
-          if (value === "Sub") {
-            updatedItem.path = "";
-            updatedItem.page_link = "";
-          } else {
-            updatedItem.mega_menu = false;
+        let updatedItem = { ...item };
+        if (typeof fieldOrUpdates === "object") {
+          updatedItem = { ...updatedItem, ...fieldOrUpdates };
+          if ("link_type" in fieldOrUpdates) {
+            const val = fieldOrUpdates.link_type;
+            if (val === "Sub") {
+              updatedItem.path = "";
+              updatedItem.page_link = "";
+            } else {
+              updatedItem.mega_menu = false;
+            }
+          }
+        } else {
+          updatedItem = { ...updatedItem, [fieldOrUpdates]: value };
+          if (fieldOrUpdates === "link_type") {
+            if (value === "Sub") {
+              updatedItem.path = "";
+              updatedItem.page_link = "";
+            } else {
+              updatedItem.mega_menu = false;
+            }
           }
         }
         return updatedItem;
@@ -129,16 +156,20 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
     if (direction === "up" && currentIndex > 0) {
       const prevSibling = siblings[currentIndex - 1];
       const updated = flatItems.map((item) => {
-        if (item.id === id) return { ...item, sort_order: prevSibling.sort_order };
-        if (item.id === prevSibling.id) return { ...item, sort_order: targetItem.sort_order };
+        if (item.id === id)
+          return { ...item, sort_order: prevSibling.sort_order };
+        if (item.id === prevSibling.id)
+          return { ...item, sort_order: targetItem.sort_order };
         return item;
       });
       triggerChange(updated);
     } else if (direction === "down" && currentIndex < siblings.length - 1) {
       const nextSibling = siblings[currentIndex + 1];
       const updated = flatItems.map((item) => {
-        if (item.id === id) return { ...item, sort_order: nextSibling.sort_order };
-        if (item.id === nextSibling.id) return { ...item, sort_order: targetItem.sort_order };
+        if (item.id === id)
+          return { ...item, sort_order: nextSibling.sort_order };
+        if (item.id === nextSibling.id)
+          return { ...item, sort_order: targetItem.sort_order };
         return item;
       });
       triggerChange(updated);
@@ -166,10 +197,16 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
           >
             <div className="flex items-center gap-3 min-w-0 flex-1">
               <div className="text-gray-400 shrink-0 select-none flex items-center justify-center w-5 h-5">
-                {isSub ? <Folder className="w-4 h-4 text-amber-500" /> : <Link2 className="w-4 h-4 text-sky-500" />}
+                {isSub ? (
+                  <Folder className="w-4 h-4 text-amber-500" />
+                ) : (
+                  <Link2 className="w-4 h-4 text-sky-500" />
+                )}
               </div>
               <div className="min-w-0">
-                <span className="text-[14px] font-semibold truncate block">{item.title}</span>
+                <span className="text-[14px] font-semibold truncate block">
+                  {item.title}
+                </span>
                 {item.badge_text && (
                   <span
                     style={getBadgeStyle(item.badge_color)}
@@ -242,7 +279,12 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
       }
     }
 
-    return flatItems.filter((item) => item.link_type === "Sub" && item.id !== selectedId && !childrenIds.has(item.id));
+    return flatItems.filter(
+      (item) =>
+        item.link_type === "Sub" &&
+        item.id !== selectedId &&
+        !childrenIds.has(item.id),
+    );
   };
 
   return (
@@ -292,7 +334,9 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
             ) : (
               <div className="py-16 text-center text-gray-400">
                 <Folder className="w-10 h-10 mx-auto mb-2 opacity-10" />
-                <p className="text-[13px] font-medium">{t("landing_page_header_no_items")}</p>
+                <p className="text-[13px] font-medium">
+                  {t("landing_page_header_no_items")}
+                </p>
               </div>
             )}
           </div>
@@ -309,8 +353,12 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
           ) : (
             <div className="py-24 text-center text-gray-400">
               <Folder className="w-12 h-12 mx-auto mb-3 opacity-10" />
-              <p className="text-[14px] font-semibold">{t("landing_page_header_select_item")}</p>
-              <p className="text-sm text-gray-400 mt-1">{t("landing_page_header_select_item_desc")}</p>
+              <p className="text-[14px] font-semibold">
+                {t("landing_page_header_select_item")}
+              </p>
+              <p className="text-sm text-gray-400 mt-1">
+                {t("landing_page_header_select_item_desc")}
+              </p>
             </div>
           )}
         </div>

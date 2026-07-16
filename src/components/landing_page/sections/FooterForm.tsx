@@ -6,12 +6,9 @@ import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { Button } from "@/src/elements/ui/button";
 import { Plus, Trash2, Twitter, Linkedin, Facebook, Instagram, Share2, Shield } from "lucide-react";
-import { FooterSection } from "@/src/types/landingPage";
+import { FooterFormProps, FooterSection } from "@/src/types/landingPage";
 
-interface FooterFormProps {
-  data: FooterSection;
-  onChange: (data: FooterSection) => void;
-}
+
 
 const FooterForm = ({ data, onChange }: FooterFormProps) => {
   const handleChange = (field: keyof FooterSection, value: any) => {

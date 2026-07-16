@@ -1,11 +1,12 @@
-import AddTestimonialPage from '@/src/components/testimonial/AddTestimonialPage'
-import React from 'react'
+import AddTestimonialPage from "@/src/components/testimonial/AddTestimonialPage";
 
-const EditTestimonial = async ({ params }: { params: Promise<{ id: string }> }) => {
+const EditTestimonial = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const { id } = await params;
-  return (
-    <AddTestimonialPage id={id} />
-  )
-}
+  return <AddTestimonialPage id={id} />;
+};
 
-export default EditTestimonial
+export default EditTestimonial;

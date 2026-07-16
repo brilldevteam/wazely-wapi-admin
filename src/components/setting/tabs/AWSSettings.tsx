@@ -2,7 +2,6 @@
 
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { AppSettings } from "@/src/redux/api/settingApi";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import { Eye, EyeOff } from "lucide-react";
@@ -11,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import SettingCard from "../shared/SettingCard";
 import SettingToggle from "../shared/SettingToggle";
 import { Button } from "@/src/elements/ui/button";
+import { AppSettings } from "@/src/types/setting";
 
 const AWSSettings = () => {
   const { t } = useTranslation();

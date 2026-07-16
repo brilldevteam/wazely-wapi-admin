@@ -1,5 +1,6 @@
 "use client";
 
+import { colorMap } from "@/src/data/subscriptions";
 import { Card, CardContent } from "@/src/elements/ui/card";
 import { SubscriptionPlansSummaryProps } from "@/src/types/components";
 import { CheckCircle, Clock, CreditCard, LayoutGrid, XCircle } from "lucide-react";
@@ -62,13 +63,7 @@ const SubscriptionPlansSummary = ({ totalSubscriptions, activeSubscriptions, exp
     },
   ];
 
-  const colorMap: Record<string, string> = {
-    blue: "bg-blue-100/50 dark:bg-blue-900/20",
-    purple: "bg-purple-100/50 dark:bg-purple-900/20",
-    emerald: "bg-emerald-100/50 dark:bg-emerald-900/20",
-    rose: "bg-rose-100/50 dark:bg-rose-900/20",
-    amber: "bg-amber-100/50 dark:bg-amber-900/20",
-  };
+  
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
