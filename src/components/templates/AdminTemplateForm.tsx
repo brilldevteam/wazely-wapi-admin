@@ -10,7 +10,7 @@ import { AuthenticationSection } from "./form/sections/AuthenticationSection";
 import { CarouselProductSection } from "./form/sections/CarouselProductSection";
 import { CarouselMediaSection } from "./form/sections/CarouselMediaSection";
 import { FormLivePreview } from "./form/FormLivePreview";
-import { useAdminTemplateForm } from "./form/hooks/useAdminTemplateForm";
+import { makeId, useAdminTemplateForm } from "./form/hooks/useAdminTemplateForm";
 import { ArrowLeft, Eye, LayoutTemplate, Loader2, Phone, Save } from "lucide-react";
 import { AdminTemplateFormProps } from "@/src/types/template";
 import { INTERACTIVE_ACTIONS, TEMPLATE_TYPES } from "@/src/data/templates";
@@ -68,7 +68,7 @@ export const AdminTemplateForm = ({ templateId }: AdminTemplateFormProps) => {
             templateName={formData.template_name}
             setTemplateName={(v) => setFormData((p: any) => ({ ...p, template_name: v }))}
             marketingType={formData.marketing_type}
-            setMarketingType={(v) => setFormData((p: any) => ({ ...p, marketing_type: v, interactive_type: "none", buttons: [] }))}
+            setMarketingType={(v) => setFormData((p: any) => ({ ...p, marketing_type: v, interactive_type: "none", buttons: v === "coupon_code" ? [{ id: makeId(), type: "copy_code", text: "Copy Code" }] : [] }))}
             offerText={formData.offer_text}
             setOfferText={(v) => setFormData((p: any) => ({ ...p, offer_text: v }))}
             sector={formData.sector}
