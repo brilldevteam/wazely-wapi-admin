@@ -6,16 +6,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { useTestMailMutation, AppSettings } from "@/src/redux/api/settingApi";
+import { useTestMailMutation } from "@/src/redux/api/settingApi";
 import { toast } from "sonner";
 import { Loader2, Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-interface TestMailModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  smtpSettings: Partial<AppSettings>;
-}
+import { TestMailModalProps } from "@/src/types/setting";
 
 const TestMailModal = ({ isOpen, onClose, smtpSettings }: TestMailModalProps) => {
   const { t } = useTranslation();

@@ -160,7 +160,7 @@ export default function Sidebar() {
     if (isVisuallyCollapsed) {
       return (
         (isDark
-          ? settings?.sidebar_dark_logo_url
+          ? settings?.sidebar_dark_logo_url || "/assets/logos/sidebarLogoDark.png"
           : settings?.sidebar_light_logo_url) || "/assets/logos/sidebarLogo.png"
       );
     }

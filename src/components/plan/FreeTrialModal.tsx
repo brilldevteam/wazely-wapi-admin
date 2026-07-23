@@ -1,24 +1,24 @@
 "use client";
 
+import { Input } from "@/src/elements/ui/input";
+import { Label } from "@/src/elements/ui/label";
+import {
+  useGetSettingsQuery,
+  useUpdateSettingsMutation,
+} from "@/src/redux/api/settingApi";
+import FormDialog from "@/src/shared/FormDialog";
+import { FreeTrialModalProps } from "@/src/types/plan";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import * as yup from "yup";
-import { Label } from "@/src/elements/ui/label";
-import { Input } from "@/src/elements/ui/input";
-import { useGetSettingsQuery, useUpdateSettingsMutation } from "@/src/redux/api/settingApi";
-import FormDialog from "@/src/shared/FormDialog";
 import SettingToggle from "../setting/shared/SettingToggle";
-
-interface FreeTrialModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 const FreeTrialModal = ({ isOpen, onClose }: FreeTrialModalProps) => {
   const { t } = useTranslation();
   const { data: settings, isFetching } = useGetSettingsQuery();
-  const [updateSettings, { isLoading: isUpdating }] = useUpdateSettingsMutation();
+  const [updateSettings, { isLoading: isUpdating }] =
+    useUpdateSettingsMutation();
 
   const [formData, setFormData] = useState({
     free_trial_enabled: false,
@@ -49,10 +49,12 @@ const FreeTrialModal = ({ isOpen, onClose }: FreeTrialModalProps) => {
     e.preventDefault();
     try {
       if (formData.free_trial_enabled) {
-        await validationSchema.validate({ free_trial_days: formData.free_trial_days });
+        await validationSchema.validate({
+          free_trial_days: formData.free_trial_days,
+        });
       }
       setErrors({});
-      
+
       await updateSettings(formData).unwrap();
       toast.success(t("settings_save_success"));
       onClose();

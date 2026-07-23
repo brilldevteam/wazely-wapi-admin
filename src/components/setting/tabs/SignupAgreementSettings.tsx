@@ -2,7 +2,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
+import { AppSettings } from "@/src/types/setting";
 import { updateSettingField } from "@/src/redux/reducers/settingsSlice";
 import SettingCard from "../shared/SettingCard";
 import SettingToggle from "../shared/SettingToggle";

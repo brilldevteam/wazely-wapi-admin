@@ -5,13 +5,8 @@ import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
+import { SEOSettingsFormProps } from "@/src/types/landingPage";
 
-interface SEOSettingsFormProps {
-  metaTitle: string;
-  metaDescription: string;
-  onMetaTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onMetaDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
 
 const SEOSettingsForm = ({
   metaTitle,

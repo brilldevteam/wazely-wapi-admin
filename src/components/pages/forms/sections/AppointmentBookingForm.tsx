@@ -2,7 +2,7 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { Button } from "@/src/elements/ui/button";
 import { Label } from "@/src/elements/ui/label";
@@ -146,7 +146,7 @@ export const AppointmentBookingForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-6 mt-4">
-              <label className={labelClass}>Booking Steps</label>
+              <Label className={labelClass}>Booking Steps</Label>
               {journeySteps.map((step: any, idx: number) => (
                 <div key={idx} className="sm:p-5 p-4 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative">
                   <Button

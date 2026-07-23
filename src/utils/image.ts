@@ -44,6 +44,10 @@ export const getResolvedImageUrl = (src: any, fallbackSrc?: string): string => {
                 return fallbackSrc || defaultPlaceholder;
             }
 
+            if (sourceString.startsWith("uploads/")) {
+                sourceString = "/" + sourceString;
+            }
+
             // Rule 1: Absolute URLs (http, https, blob, data)
             if (isAbsoluteUrl(sourceString)) {
                 return sourceString;
@@ -65,7 +69,8 @@ export const getResolvedImageUrl = (src: any, fallbackSrc?: string): string => {
             }
 
             // Ensure ImageBaseUrl ends with / for consistency
-            const baseUrl = (ImageBaseUrl || "").endsWith("/") ? ImageBaseUrl : `${ImageBaseUrl}/`;
+            const storageUrl = ImageBaseUrl || "";
+            const baseUrl = storageUrl.endsWith("/") ? storageUrl : `${storageUrl}/`;
 
             // Rule 4: Uploads directory (Requirement)
             if (sourceString.startsWith("/uploads/")) {

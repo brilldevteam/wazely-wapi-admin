@@ -26,3 +26,22 @@ export const INTERACTIVE_ACTIONS = [
   { label: 'Quick Replies', value: 'quick_reply' },
   { label: 'All', value: 'all' },
 ];
+
+
+export const CATEGORY_COLORS: Record<string, string> = {
+  UTILITY: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400",
+  MARKETING:
+    "bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-400",
+  AUTHENTICATION:
+    "bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400",
+};
+
+export const PLATFORM_COLORS: Record<string, string> = {
+  whatsapp: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400",
+  telegram: "bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-400",
+  facebook: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400",
+  instagram: "bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-400",
+  twitter: "bg-gray-100 text-slate-800 dark:bg-white/10 dark:text-neutral-300",
+};
+
+export const SECTORS_LIST = ["healthcare", "ecommerce", "fashion", "financial_service", "general"] as const;

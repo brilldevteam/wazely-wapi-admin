@@ -5,13 +5,8 @@ import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { Switch } from "@/src/elements/ui/switch";
-import { ContactSection } from "@/src/types/landingPage";
+import { ContactFormProps, ContactSection } from "@/src/types/landingPage";
 import { Phone, Mail, MessageSquare } from "lucide-react";
-
-interface ContactFormProps {
-  data: ContactSection;
-  onChange: (data: ContactSection) => void;
-}
 
 const ContactForm = ({ data, onChange }: ContactFormProps) => {
   const handleChange = (field: keyof ContactSection, value: any) => {

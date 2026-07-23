@@ -1,11 +1,8 @@
 "use client";
 
 import { AdminTemplateForm } from "@/src/components/templates/AdminTemplateForm";
+import { EditTemplatePageProps } from "@/src/types/pages";
 import { use } from "react";
-
-interface EditTemplatePageProps {
-  params: Promise<{ id: string }>;
-}
 
 const EditTemplatePage = ({ params }: EditTemplatePageProps) => {
   const { id } = use(params);

@@ -1,4 +1,4 @@
-import { Award, BookOpen, CreditCard, Currency, Diamond, DiamondPlus, FileText, Form, Globe, HandCoins, HelpCircle, Home, Languages, LayoutDashboard, LayoutTemplate, Link, MailOpen, MailWarning, MessageSquare, Receipt, Settings, ShieldCheck, ShieldUser, ShoppingCart, Signpost, Sparkles, ThumbsUp, Users } from "lucide-react";
+import { Award, BookOpen, CreditCard, Currency, Diamond, DiamondPlus, FileText, Form, Globe, HandCoins, HelpCircle, Home, Languages, LayoutDashboard, LayoutTemplate, Link, MailOpen, MailWarning, MessageSquare, Receipt, Settings, ShieldCheck, ShieldUser, ShoppingCart, Signpost, Sparkles, ThumbsUp, Users, Megaphone } from "lucide-react";
 import { ROUTES } from "../constants";
 
 export interface MenuItem {
@@ -174,6 +174,12 @@ export const sidebarMenuData: MenuSection[] = [
         permission: "view.settings",
       },
       {
+        icon: "Megaphone",
+        label: "nav_announcement",
+        path: ROUTES.Announcement,
+        permission: "view.settings",
+      },
+      {
         icon: "Sparkles",
         label: "nav_smart_engines",
         path: ROUTES.AIModels,
@@ -237,4 +243,5 @@ export const iconMap = {
   BookOpen,
   Signpost,
   MailOpen,
+  Megaphone,
 };

@@ -1,16 +1,7 @@
+import { StartImpersonationResponse } from "@/src/types/redux";
 import { baseApi } from "./baseApi";
 
-interface StartImpersonationResponse {
-  success: boolean;
-  message: string;
-  token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-  };
-}
+
 
 const impersonationApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

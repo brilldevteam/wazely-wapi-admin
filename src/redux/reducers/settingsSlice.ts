@@ -1,13 +1,5 @@
+import { AppSettings, SettingsState } from "@/src/types/setting";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppSettings } from "../api/settingApi";
-
-interface SettingsState {
-  data: Partial<AppSettings>;
-  errors: Record<string, string>;
-  isDirty: boolean;
-  pageTitle: string;
-  isSettingsLoaded: boolean;
-}
 
 const initialState: SettingsState = {
   data: {},

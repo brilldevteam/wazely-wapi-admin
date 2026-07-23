@@ -8,11 +8,12 @@ import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Button } from "@/src/elements/ui/button";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings, useGetSettingsQuery } from "@/src/redux/api/settingApi";
+import { useGetSettingsQuery } from "@/src/redux/api/settingApi";
 import { updateSettingField, updateSettingError } from "@/src/redux/reducers/settingsSlice";
 import SettingCard from "../shared/SettingCard";
 import TestMailModal from "../modals/TestMailModal";
 import { Mail, Eye, EyeOff } from "lucide-react";
+import { AppSettings } from "@/src/types/setting";
 
 const EmailSettings = () => {
   const { t } = useTranslation();

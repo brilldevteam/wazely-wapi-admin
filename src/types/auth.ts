@@ -1,3 +1,4 @@
+
 export interface User {
   id: string;
   name: string;
@@ -95,3 +96,11 @@ export interface ProfileResponse {
   success: boolean;
   user: User;
 }
+
+export interface DynamicLogoProps {
+  width?: number;
+  height?: number;
+  className?: string;
+  skeletonClassName?: string;
+} 
+

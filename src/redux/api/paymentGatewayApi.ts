@@ -1,5 +1,5 @@
 import { baseApi } from "./baseApi";
-import type { StripeSettings, RazorpaySettings, PayPalSettings } from "@/src/types/paymentGateway";
+import type { StripeSettings, RazorpaySettings, PayPalSettings } from "@/src/types/payment";
 
 // Re-export for backward compatibility
 export type { StripeSettings, RazorpaySettings, PayPalSettings };

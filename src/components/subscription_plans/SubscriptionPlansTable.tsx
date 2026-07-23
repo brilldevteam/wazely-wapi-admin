@@ -199,17 +199,6 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
 
     return (
       <div className="flex items-center gap-1.5">
-        {hasReceipt && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-10 h-10 border-none text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg dark:hover:bg-blue-900/20 transition-all shadow-xs dark:bg-page-body"
-            onClick={() => handleDownloadReceipt(sub.transaction_receipt!, sub._id, sub.transaction_id)}
-            title="Download Receipt"
-          >
-            <Download className="w-5 h-5" />
-          </Button>
-        )}
         {isManualOrAdmin && isPending ? (
           <>
             <Can permission="update.subscriptions">
@@ -230,7 +219,18 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
             </Button>
           </Can>
         ) : (
-          !hasReceipt && <span className="text-gray-500 dark:text-gray-600 text-center">-</span>
+          !hasReceipt && <span className="text-gray-500 dark:text-gray-600 text-center ml-4">-</span>
+        )}
+        {hasReceipt && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-10 h-10 border-none text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg dark:hover:bg-blue-900/20 transition-all shadow-xs dark:bg-page-body"
+            onClick={() => handleDownloadReceipt(sub.transaction_receipt!, sub._id, sub.transaction_id)}
+            title="Download Receipt"
+          >
+            <Download className="w-5 h-5" />
+          </Button>
         )}
       </div>
     );

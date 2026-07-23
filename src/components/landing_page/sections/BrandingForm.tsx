@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { Button } from "@/src/elements/ui/button";
-import { Plus, Trash2, Building2 } from "lucide-react";
-import { HeroSection } from "@/src/types/landingPage";
-import ImageSelector from "../shared/ImageSelector";
+import { BrandingFormProps } from "@/src/types/landingPage";
+import { Building2, Plus, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-interface BrandingFormProps {
-  data: HeroSection;
-  onChange: (data: HeroSection) => void;
-}
+import ImageSelector from "../shared/ImageSelector";
 
 const BrandingForm = ({ data, onChange }: BrandingFormProps) => {
   const { t } = useTranslation();
@@ -41,14 +36,18 @@ const BrandingForm = ({ data, onChange }: BrandingFormProps) => {
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Trusted Label */}
       <div className="space-y-2 flex flex-col max-w-xl">
-        <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">{t("landing_page_branding_trusted_label")}</Label>
+        <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">
+          {t("landing_page_branding_trusted_label")}
+        </Label>
         <Input
           value={trustedLabel}
           onChange={(e) => handleLabelChange(e.target.value)}
           placeholder={t("landing_page_branding_trusted_placeholder")}
           className="bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-(--card-border-color) h-11 text-[14px] focus:ring-primary/20"
         />
-        <p className="text-[12px] text-gray-400">{t("landing_page_branding_trusted_hint")}</p>
+        <p className="text-[12px] text-gray-400">
+          {t("landing_page_branding_trusted_hint")}
+        </p>
       </div>
 
       {/* Brand Logos */}
@@ -59,8 +58,12 @@ const BrandingForm = ({ data, onChange }: BrandingFormProps) => {
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">{t("landing_page_branding_title")}</h3>
-              <p className="text-[12px] text-gray-400">{t("landing_page_branding_desc")}</p>
+              <h3 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">
+                {t("landing_page_branding_title")}
+              </h3>
+              <p className="text-[12px] text-gray-400">
+                {t("landing_page_branding_desc")}
+              </p>
             </div>
           </div>
           <Button
@@ -88,7 +91,9 @@ const BrandingForm = ({ data, onChange }: BrandingFormProps) => {
               </Button>
 
               <ImageSelector
-                label={t("landing_page_branding_logo_num", { index: index + 1 })}
+                label={t("landing_page_branding_logo_num", {
+                  index: index + 1,
+                })}
                 value={logoUrl}
                 onChange={(url) => handleLogoChange(index, url)}
                 className="space-y-2!"
@@ -99,8 +104,14 @@ const BrandingForm = ({ data, onChange }: BrandingFormProps) => {
           {logos.length === 0 && (
             <div className="col-span-full py-16 border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg flex flex-col items-center justify-center text-gray-400 dark:bg-(--page-body-bg) bg-gray-50/30">
               <Building2 className="w-10 h-10 mb-3 opacity-10" />
-              <p className="text-[13px] font-medium">{t("landing_page_branding_empty")}</p>
-              <Button onClick={addLogo} variant="link" className="text-primary mt-1">
+              <p className="text-[13px] font-medium">
+                {t("landing_page_branding_empty")}
+              </p>
+              <Button
+                onClick={addLogo}
+                variant="link"
+                className="text-primary mt-1"
+              >
                 {t("landing_page_branding_empty_action")}
               </Button>
             </div>

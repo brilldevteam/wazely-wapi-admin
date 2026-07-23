@@ -24,7 +24,7 @@ const PayPalSettings = () => {
   const [settings, setSettings] = useState({
     is_paypal_active: false,
     paypal_client_id: "",
-    paypal_secret_key: "",
+    paypal_client_secret: "",
     paypal_mode: "sandbox" as "sandbox" | "live",
   });
 
@@ -36,7 +36,7 @@ const PayPalSettings = () => {
       setSettings({
         is_paypal_active: PayPalData.is_paypal_active || false,
         paypal_client_id: PayPalData.paypal_client_id || "",
-        paypal_secret_key: PayPalData.paypal_secret_key_set ? "" : PayPalData.paypal_secret_key || "",
+        paypal_client_secret: (PayPalData as any).paypal_client_secret_set ? "********" : "",
         paypal_mode: (PayPalData.paypal_mode as "sandbox" | "live") || "sandbox",
       });
     }
@@ -62,8 +62,8 @@ const PayPalSettings = () => {
         payload.paypal_client_id = settings.paypal_client_id;
       }
 
-      if (settings.paypal_secret_key !== (PayPalData as any)?.paypal_secret_key && settings.paypal_secret_key !== "" && !settings.paypal_secret_key.includes("****")) {
-        payload.paypal_secret_key = settings.paypal_secret_key;
+      if (settings.paypal_client_secret !== "********" && settings.paypal_client_secret !== "" && !settings.paypal_client_secret.includes("****")) {
+        payload.paypal_client_secret = settings.paypal_client_secret;
       }
 
       if (settings.paypal_mode !== (PayPalData as any)?.paypal_mode) {
@@ -108,7 +108,7 @@ const PayPalSettings = () => {
             Secret Key <span className="text-red-400">*</span>
           </Label>
           <div className="relative">
-            <Input value={settings.paypal_secret_key} onChange={(e) => handleInputChange("paypal_secret_key", e.target.value)} type={showSk ? "text" : "password"} placeholder="Enter PayPal Secret Key" className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
+            <Input value={settings.paypal_client_secret} onChange={(e) => handleInputChange("paypal_client_secret", e.target.value)} type={showSk ? "text" : "password"} placeholder="Enter PayPal Secret Key" className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
             <Button type="button" tabIndex={-1} onClick={() => setShowSk(!showSk)} className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               {showSk ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </Button>

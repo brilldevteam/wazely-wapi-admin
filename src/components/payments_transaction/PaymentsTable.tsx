@@ -3,25 +3,14 @@
 import { Badge } from "@/src/elements/ui/badge";
 import { Button } from "@/src/elements/ui/button";
 import DataTable from "@/src/shared/DataTable";
+import { PaymentHistory, PaymentsTableProps } from "@/src/types/payment";
 import { ColumnDef } from "@/src/types/shared";
-import { PaginationInfo, PaymentHistory } from "@/src/types/store";
 import { format } from "date-fns";
 import { Download } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-interface PaymentsTableProps {
-  payments: PaymentHistory[];
-  isLoading: boolean;
-  pagination?: PaginationInfo;
-  onPageChange: (page: number) => void;
-  onLimitChange: (limit: number) => void;
-  page: number;
-  limit: number;
-  onSortChange?: (sortBy: string, sortOrder: "asc" | "desc") => void;
-  visibleColumns?: string[];
-  searchTerm?: string;
-}
+
 
 const PaymentsTable = ({ payments, isLoading, pagination, onPageChange, onLimitChange, page, limit, onSortChange, visibleColumns, searchTerm }: PaymentsTableProps) => {
   const { t } = useTranslation();

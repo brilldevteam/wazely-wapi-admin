@@ -4,19 +4,26 @@
 import { cn, getObjId } from "@/lib/utils";
 import { Badge } from "@/src/elements/ui/badge";
 import { Button } from "@/src/elements/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/src/elements/ui/command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/src/elements/ui/command";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "@/src/elements/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/src/elements/ui/popover";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { useGetAllPlansQuery } from "@/src/redux/api/planApi";
-import { Check, ChevronsUpDown, X, Tag, CreditCard } from "lucide-react";
+import { PricingFormProps } from "@/src/types/landingPage";
+import { Check, ChevronsUpDown, CreditCard, Tag, X } from "lucide-react";
 import { useState } from "react";
-
-interface PricingFormProps {
-  data: any;
-  onChange: (data: any) => void;
-}
 
 const PricingForm = ({ data, onChange }: PricingFormProps) => {
   const { data: plansData } = useGetAllPlansQuery({});
@@ -33,7 +40,7 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
     if (isSelected) {
       handleChange(
         "plans",
-        selectedPlans.filter((p: any) => getObjId(p) !== planId)
+        selectedPlans.filter((p: any) => getObjId(p) !== planId),
       );
     } else {
       handleChange("plans", [...selectedPlans, planId]);
@@ -45,7 +52,9 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
       <div className="grid grid-cols-1 [@media(min-width:1421px)]:grid-cols-12 gap-10">
         <div className="[@media(min-width:1421px)]:col-span-6 space-y-6">
           <div className="space-y-2.5 flex flex-col">
-            <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">Section Badge</Label>
+            <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">
+              Section Badge
+            </Label>
             <Input
               value={data.badge}
               onChange={(e) => handleChange("badge", e.target.value)}
@@ -54,7 +63,9 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
             />
           </div>
           <div className="space-y-2.5 flex flex-col">
-            <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">Section Title</Label>
+            <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">
+              Section Title
+            </Label>
             <Input
               value={data.title}
               onChange={(e) => handleChange("title", e.target.value)}
@@ -66,7 +77,9 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
 
         <div className="[@media(min-width:1421px)]:col-span-6">
           <div className="space-y-2.5 flex flex-col">
-            <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">Brief Description</Label>
+            <Label className="text-[13px] font-bold text-gray-700 dark:text-gray-300">
+              Brief Description
+            </Label>
             <Textarea
               value={data.description}
               onChange={(e) => handleChange("description", e.target.value)}
@@ -85,8 +98,13 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
               <CreditCard className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">Plan Catalog Integration</h3>
-              <p className="text-[12px] text-gray-400">Select the specific plans you want to expose on your landing page</p>
+              <h3 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">
+                Plan Catalog Integration
+              </h3>
+              <p className="text-[12px] text-gray-400">
+                Select the specific plans you want to expose on your landing
+                page
+              </p>
             </div>
           </div>
         </div>
@@ -102,28 +120,60 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
               >
                 <div className="flex items-center gap-3">
                   <Tag className="w-4 h-4 opacity-40 dark:hover:bg-(--table-hover)" />
-                  <span>{selectedPlans.length > 0 ? `${selectedPlans.length} plans selected for display` : "Choose subscription plans..."}</span>
+                  <span>
+                    {selectedPlans.length > 0
+                      ? `${selectedPlans.length} plans selected for display`
+                      : "Choose subscription plans..."}
+                  </span>
                 </div>
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-40" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 rounded-lg border-gray-100 dark:border-(--card-border-color) shadow-2xl overflow-hidden" align="start">
+            <PopoverContent
+              className="w-[var(--radix-popover-trigger-width)] p-0 rounded-lg border-gray-100 dark:border-(--card-border-color) shadow-2xl overflow-hidden"
+              align="start"
+            >
               <Command className="dark:bg-page-body">
-                <CommandInput placeholder="Search catalog..." className="h-12 border-none ring-0" />
+                <CommandInput
+                  placeholder="Search catalog..."
+                  className="h-12 border-none ring-0"
+                />
                 <CommandList className="p-1">
-                  <CommandEmpty className="py-6 text-center text-xs text-gray-400">No matching plans found in system.</CommandEmpty>
+                  <CommandEmpty className="py-6 text-center text-xs text-gray-400">
+                    No matching plans found in system.
+                  </CommandEmpty>
                   <CommandGroup>
                     {plansData?.data?.plans.map((plan) => {
-                      const isSelected = selectedPlans.some((p: any) => (typeof p === "string" ? p === plan._id : p._id === plan._id));
+                      const isSelected = selectedPlans.some((p: any) =>
+                        typeof p === "string"
+                          ? p === plan._id
+                          : p._id === plan._id,
+                      );
                       return (
-                        <CommandItem key={plan._id} onSelect={() => togglePlan(plan._id)} className="rounded-xl flex items-center justify-between p-3 cursor-pointer mb-1 hover:bg-gray-50 dark:hover:bg-(--table-hover)">
+                        <CommandItem
+                          key={plan._id}
+                          onSelect={() => togglePlan(plan._id)}
+                          className="rounded-xl flex items-center justify-between p-3 cursor-pointer mb-1 hover:bg-gray-50 dark:hover:bg-(--table-hover)"
+                        >
                           <div className="flex flex-col">
-                            <span className="font-bold text-[14px]">{plan.name}</span>
+                            <span className="font-bold text-[14px]">
+                              {plan.name}
+                            </span>
                             <span className="text-[11px] text-gray-400 font-medium">
-                              {typeof plan.currency === "string" ? plan.currency : plan.currency?.code} {plan.price} billed {plan.billing_cycle}
+                              {typeof plan.currency === "string"
+                                ? plan.currency
+                                : plan.currency?.code}{" "}
+                              {plan.price} billed {plan.billing_cycle}
                             </span>
                           </div>
-                          <div className={cn("w-6 h-6 rounded-full flex items-center justify-center transition-all", isSelected ? "bg-primary text-white scale-110" : "bg-gray-100 opacity-20")}>
+                          <div
+                            className={cn(
+                              "w-6 h-6 rounded-full flex items-center justify-center transition-all",
+                              isSelected
+                                ? "bg-primary text-white scale-110"
+                                : "bg-gray-100 dark:bg-(--table-hover)",
+                            )}
+                          >
                             <Check className="w-3.5 h-3.5" />
                           </div>
                         </CommandItem>
@@ -137,23 +187,39 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 [@media(min-width:1421px)]:grid-cols-3 gap-3">
             {plansData?.data?.plans
-              .filter((p) => selectedPlans.some((sp: any) => getObjId(sp) === p._id))
+              .filter((p) =>
+                selectedPlans.some((sp: any) => getObjId(sp) === p._id),
+              )
               .map((plan) => (
-                <Badge key={plan._id} variant="secondary" className="pl-4 pr-1.5 py-3 gap-2.5 bg-white dark:hover:bg-(--table-hover) dark:bg-(--dark-body) border border-gray-100 dark:border-none shadow-sm rounded-lg transition-all hover:border-primary/20 flex justify-between items-center h-auto">
+                <Badge
+                  key={plan._id}
+                  variant="secondary"
+                  className="pl-4 pr-1.5 py-3 gap-2.5 bg-white dark:hover:bg-(--table-hover) dark:bg-(--dark-body) border border-gray-100 dark:border-none shadow-sm rounded-lg transition-all hover:border-primary/20 flex justify-between items-center h-auto"
+                >
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[13px] font-bold text-gray-700 dark:text-gray-300 truncate">{plan.name}</span>
+                    <span className="text-[13px] font-bold text-gray-700 dark:text-gray-300 truncate">
+                      {plan.name}
+                    </span>
                     <span className="text-[10px] text-gray-400 font-black tracking-widest uppercase mt-0.5">
-                      {typeof plan.currency === "string" ? plan.currency : plan.currency?.symbol}{plan.price}
+                      {typeof plan.currency === "string"
+                        ? plan.currency
+                        : plan.currency?.symbol}
+                      {plan.price}
                     </span>
                   </div>
-                  <Button onClick={() => togglePlan(plan._id)} className="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-500 dark:hover:bg-red-900/20 hover:text-white flex items-center justify-center transition-all shrink-0">
+                  <Button
+                    onClick={() => togglePlan(plan._id)}
+                    className="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-500 dark:hover:bg-red-900/20 hover:text-white flex items-center justify-center transition-all shrink-0"
+                  >
                     <X className="w-4 h-4" />
                   </Button>
                 </Badge>
               ))}
             {selectedPlans.length === 0 && (
               <div className="w-full p-8 border dark:bg-(--page-body-bg) border-dashed border-gray-100 dark:border-(--card-border-color) rounded-lg flex items-center justify-center bg-gray-50/20 text-gray-400">
-                <p className="text-[12px] italic">No active plans targeted for this section</p>
+                <p className="text-[12px] italic">
+                  No active plans targeted for this section
+                </p>
               </div>
             )}
           </div>

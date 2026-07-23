@@ -4,12 +4,13 @@ import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
-import { AppSettings } from "@/src/redux/api/settingApi";
 import { updateSettingField, updateSettingError } from "@/src/redux/reducers/settingsSlice";
+
 import SettingCard from "../shared/SettingCard";
 import SettingToggle from "../shared/SettingToggle";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { AppSettings } from "@/src/types/setting";
 
 const GeneralSettings = ({ isLoading }: { isLoading?: boolean }) => {
   const { t } = useTranslation();

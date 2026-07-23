@@ -1,6 +1,4 @@
-"use client";
-
-import PagesContainer from "@/src/components/pages";
+import PagesContainer from "@/src/components/pages/components";
 
 const PagesPage = () => {
   return <PagesContainer />;

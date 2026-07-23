@@ -2,7 +2,15 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
+import { Button } from "@/src/elements/ui/button";
+import { Label } from "@/src/elements/ui/label";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { Input } from "@/src/elements/ui/input";
+
+
+
+
 
 export const AutomationForm: React.FC<SharedFormProps> = ({
   data,
@@ -108,8 +116,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["hero", "title"], "Hero Title", "e.g. Automate Conversations Visually Without Any Code")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Hero Subtitle</label>
-              <textarea
+              <Label className={labelClass}>Hero Subtitle</Label>
+              <Textarea unstyled
                 value={data?.hero?.subtitle || ""}
                 onChange={(e) => updateField(["hero", "subtitle"], e.target.value)}
                 placeholder="Sub-headline explaining the value proposition..."
@@ -139,8 +147,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["flow_nodes", "title"], "Section Title", "All Conversational Flow Nodes")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Section Description</label>
-              <textarea
+              <Label className={labelClass}>Section Description</Label>
+              <Textarea unstyled
                 value={data?.flow_nodes?.description || ""}
                 onChange={(e) => updateField(["flow_nodes", "description"], e.target.value)}
                 placeholder="Section overview details..."
@@ -150,24 +158,24 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Flow Nodes</label>
+              <Label className={labelClass}>Flow Nodes</Label>
               {nodesList.map((node: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveNode(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">NODE #{idx + 1}</div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Node Name</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Node Name</Label>
+                      <Input unstyled
                         type="text"
                         value={node?.name || ""}
                         onChange={(e) => handleNodeChange(idx, "name", e.target.value)}
@@ -176,8 +184,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Category Tag</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Category Tag</Label>
+                      <Input unstyled
                         type="text"
                         value={node?.category || ""}
                         onChange={(e) => handleNodeChange(idx, "category", e.target.value)}
@@ -186,8 +194,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</Label>
+                      <Input unstyled
                         type="text"
                         value={node?.icon || ""}
                         onChange={(e) => handleNodeChange(idx, "icon", e.target.value)}
@@ -197,8 +205,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Node Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Node Description</Label>
+                    <Textarea unstyled
                       value={node?.description || ""}
                       onChange={(e) => handleNodeChange(idx, "description", e.target.value)}
                       placeholder="Brief details about what the block does..."
@@ -209,13 +217,13 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddNode}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Flow Node
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -230,8 +238,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["use_cases", "title"], "Section Title", "Proven Chatbot Flow Recipes")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Section Description</label>
-              <textarea
+              <Label className={labelClass}>Section Description</Label>
+              <Textarea unstyled
                 value={data?.use_cases?.description || ""}
                 onChange={(e) => updateField(["use_cases", "description"], e.target.value)}
                 placeholder="Section overview details..."
@@ -241,25 +249,25 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-6 mt-4">
-              <label className={labelClass}>Recipe Tabs List</label>
+              <Label className={labelClass}>Recipe Tabs List</Label>
               {tabsList.map((tab: any, tabIdx: number) => (
                 <div
                   key={tabIdx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-4 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveTab(tabIdx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">RECIPE TAB #{tabIdx + 1}</div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Tab Title</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Tab Title</Label>
+                      <Input unstyled
                         type="text"
                         value={tab?.title || ""}
                         onChange={(e) => handleTabChange(tabIdx, "title", e.target.value)}
@@ -268,8 +276,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Tab Subtitle</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Tab Subtitle</Label>
+                      <Input unstyled
                         type="text"
                         value={tab?.sub_title || ""}
                         onChange={(e) => handleTabChange(tabIdx, "sub_title", e.target.value)}
@@ -289,26 +297,26 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
 
                   {/* Nested recipe step timeline */}
                   <div className="space-y-3 pl-4 border-l-2 border-slate-200 dark:border-slate-800">
-                    <label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Recipe Flow Steps</label>
+                    <Label className="text-xs font-extrabold text-slate-500 uppercase tracking-wider block">Recipe Flow Steps</Label>
                     {Array.isArray(tab.steps) && tab.steps.map((step: any, stepIdx: number) => (
                       <div key={stepIdx} className="p-3 rounded-lg border border-slate-200/60 dark:border-slate-800/80 bg-white dark:bg-(--card-color) space-y-2 relative">
-                        <button
+                        <Button variant="unstyled"
                           type="button"
                           onClick={() => handleRemoveStep(tabIdx, stepIdx)}
                           className="absolute top-2 right-2 p-1 text-red-500 hover:bg-red-50 rounded"
                         >
                           <Trash2 size={13} />
-                        </button>
+                        </Button>
                         <div className="text-[9px] font-black text-slate-400 uppercase">STEP #{stepIdx + 1}</div>
                         <div className="grid grid-cols-1 gap-2">
-                          <input
+                          <Input unstyled
                             type="text"
                             value={step?.title || ""}
                             onChange={(e) => handleStepChange(tabIdx, stepIdx, "title", e.target.value)}
                             placeholder="Step Title (e.g. Send Template)"
                             className="w-full px-3 py-1.5 text-xs rounded border border-slate-200 dark:border-slate-800 bg-white dark:bg-(--card-color) text-slate-900 dark:text-white"
                           />
-                          <textarea
+                          <Textarea unstyled
                             value={step?.description || ""}
                             onChange={(e) => handleStepChange(tabIdx, stepIdx, "description", e.target.value)}
                             placeholder="Step Description details..."
@@ -318,24 +326,24 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                         </div>
                       </div>
                     ))}
-                    <button
+                    <Button variant="unstyled"
                       type="button"
                       onClick={() => handleAddStep(tabIdx)}
                       className="inline-flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
                     >
                       <Plus size={12} /> Add Recipe Step
-                    </button>
+                    </Button>
                   </div>
 
                 </div>
               ))}
-              <button
+              <Button variant="unstyled"
                 type="button"
                 onClick={handleAddTab}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
               >
                 <Plus size={14} /> Add Recipe Tab
-              </button>
+              </Button>
             </div>
 
           </div>
@@ -352,21 +360,21 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["faqs", "title"], "FAQs Section Title", "Got Questions about Chatbots & Flows?")}
             </div>
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>FAQ Items</label>
+              <Label className={labelClass}>FAQ Items</Label>
               {faqList.map((faq: any, idx: number) => (
                 <div key={idx} className="p-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveFaq(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold mb-2">FAQ ITEM #{idx + 1}</div>
                   <div className="grid grid-cols-1 gap-3 max-w-[90%]">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Question</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Question</Label>
+                      <Input unstyled
                         type="text"
                         value={faq?.question || ""}
                         onChange={(e) => handleFaqChange(idx, "question", e.target.value)}
@@ -375,8 +383,8 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Answer</label>
-                      <textarea
+                      <Label className="text-[10px] font-bold text-gray-400">Answer</Label>
+                      <Textarea unstyled
                         value={faq?.answer || ""}
                         onChange={(e) => handleFaqChange(idx, "answer", e.target.value)}
                         placeholder="FAQ answer text..."
@@ -388,13 +396,13 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddFaq}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
-            </button>
+            </Button>
           </div>
         )}
       </div>

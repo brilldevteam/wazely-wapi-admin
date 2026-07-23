@@ -1,33 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
-import { PageMediaUploadField } from "./PageMediaUploadField";
-import { WhatsAppForm } from "./sections/WhatsAppForm";
-import { InstagramForm } from "./sections/InstagramForm";
-import { TelegramForm } from "./sections/TelegramForm";
-import { FacebookForm } from "./sections/FacebookForm";
-import { AICallingForm } from "./sections/AICallingForm";
-import { AppointmentBookingForm } from "./sections/AppointmentBookingForm";
-import { BroadcastBulkMessagesForm } from "./sections/BroadcastBulkMessagesForm";
-import { SharedInboxForm } from "./sections/SharedInboxForm";
+import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { Button } from "@/src/elements/ui/button";
 import { Textarea } from "@/src/elements/ui/textarea";
-import { CatalogForm } from "./sections/CatalogForm";
+import { ChannelPageDynamicFormProps } from "@/src/types/landingPage";
+import { ChevronDown, ChevronUp, Plus, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { PageMediaUploadField } from "./PageMediaUploadField";
+import { AICallingForm } from "./sections/AICallingForm";
+import { AppointmentBookingForm } from "./sections/AppointmentBookingForm";
 import { AutomationForm } from "./sections/AutomationForm";
-import { WhatsAppFormsForm } from "./sections/WhatsAppFormsForm";
+import { BroadcastBulkMessagesForm } from "./sections/BroadcastBulkMessagesForm";
+import { CatalogForm } from "./sections/CatalogForm";
 import { CtwaForm } from "./sections/CtwaForm";
-
-interface ChannelPageDynamicFormProps {
-  slug: string;
-  dynamicContent: any;
-  onChange: (value: any) => void;
-  title: string;
-  onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { FacebookForm } from "./sections/FacebookForm";
+import { InstagramForm } from "./sections/InstagramForm";
+import { SharedInboxForm } from "./sections/SharedInboxForm";
+import { TelegramForm } from "./sections/TelegramForm";
+import { WhatsAppForm } from "./sections/WhatsAppForm";
+import { WhatsAppFormsForm } from "./sections/WhatsAppFormsForm";
 
 export default function ChannelPageDynamicForm({
   slug,
@@ -50,8 +43,8 @@ export default function ChannelPageDynamicForm({
         features: {
           badge: "Features",
           title: "Grow Your Brand on Instagram Automatically",
-          features: data.features
-        }
+          features: data.features,
+        },
       });
     }
   }, [slug, data.features, data, onChange]);
@@ -86,15 +79,21 @@ export default function ChannelPageDynamicForm({
         className={`w-full min-h-[57px] h-auto whitespace-normal rounded-none hover:bg-[unset] flex items-center justify-between sm:px-5 px-4 py-4 bg-white dark:bg-(--card-color) ${isOpen ? "border-b border-gray-100 dark:border-(--card-border-color)" : ""} font-semibold dark:text-white text-slate-900 transition-colors text-left`}
       >
         <span className="flex-1 pr-4">{label}</span>
-        {isOpen ? <ChevronUp size={18} className="shrink-0" /> : <ChevronDown size={18} className="shrink-0" />}
+        {isOpen ? (
+          <ChevronUp size={18} className="shrink-0" />
+        ) : (
+          <ChevronDown size={18} className="shrink-0" />
+        )}
       </Button>
     );
   };
 
   // Standard label class
-  const labelClass = "block text-xs font-bold text-slate-650 dark:text-gray-300 mb-1.5";
+  const labelClass =
+    "block text-xs font-bold text-slate-650 dark:text-gray-300 mb-1.5";
   // Standard input class
-  const inputClass = "w-full h-9 px-4.5 py-2.5 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--page-body-bg) text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:ring-1 focus:ring-(--text-green-primary) focus:border-(--text-green-primary) outline-none transition-all";
+  const inputClass =
+    "w-full h-9 px-4.5 py-2.5 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--page-body-bg) text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:ring-1 focus:ring-(--text-green-primary) focus:border-(--text-green-primary) outline-none transition-all";
 
   // Render text input field
   const renderTextInput = (path: string[], label: string, placeholder = "") => {
@@ -202,27 +201,51 @@ export default function ChannelPageDynamicForm({
     return (
       <div className="sm:p-5 p-4 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {renderTextInput([sectionKey, "badge"], "Badge Text", "e.g. Official Connection")}
-          {renderTextInput([sectionKey, "title"], "Hero Title", "Scale sales automatically")}
+          {renderTextInput(
+            [sectionKey, "badge"],
+            "Badge Text",
+            "e.g. Official Connection",
+          )}
+          {renderTextInput(
+            [sectionKey, "title"],
+            "Hero Title",
+            "Scale sales automatically",
+          )}
         </div>
         <div className="w-full">
           <Label className={labelClass}>Hero Subtitle</Label>
           <Textarea
             value={data?.[sectionKey]?.subtitle || ""}
-            onChange={(e) => updateField([sectionKey, "subtitle"], e.target.value)}
+            onChange={(e) =>
+              updateField([sectionKey, "subtitle"], e.target.value)
+            }
             placeholder="Sub-headline explaining the value proposition..."
             rows={3}
             className={`${inputClass} resize-none min-h-25!`}
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {renderTextInput([sectionKey, "button_text"], "Primary Button Text", "Try For Free")}
-          {renderTextInput([sectionKey, "button_url"], "Primary Button URL", "/auth/signup")}
+          {renderTextInput(
+            [sectionKey, "button_text"],
+            "Primary Button Text",
+            "Try For Free",
+          )}
+          {renderTextInput(
+            [sectionKey, "button_url"],
+            "Primary Button URL",
+            "/auth/signup",
+          )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {renderMediaUploadInput([sectionKey, hasSideGif ? "side_gif" : "side_image"], hasSideGif ? "Side GIF Asset" : "Side Image Asset")}
+          {renderMediaUploadInput(
+            [sectionKey, hasSideGif ? "side_gif" : "side_image"],
+            hasSideGif ? "Side GIF Asset" : "Side Image Asset",
+          )}
         </div>
-        {renderStringArrayInput([sectionKey, "bullets"], "Hero Trust Indicators (Bullet Points)")}
+        {renderStringArrayInput(
+          [sectionKey, "bullets"],
+          "Hero Trust Indicators (Bullet Points)",
+        )}
       </div>
     );
   };
@@ -230,10 +253,15 @@ export default function ChannelPageDynamicForm({
   // Shared Steps Section Form
   const renderStepsSectionForm = () => {
     const sectionKey = "steps";
-    const stepsList = Array.isArray(data?.[sectionKey]?.steps) ? data[sectionKey].steps : [];
+    const stepsList = Array.isArray(data?.[sectionKey]?.steps)
+      ? data[sectionKey].steps
+      : [];
 
     const handleAddStep = () => {
-      updateField([sectionKey, "steps"], [...stepsList, { title: "", description: "" }]);
+      updateField(
+        [sectionKey, "steps"],
+        [...stepsList, { title: "", description: "" }],
+      );
     };
 
     const handleRemoveStep = (idx: number) => {
@@ -251,9 +279,21 @@ export default function ChannelPageDynamicForm({
     return (
       <div className="sm:p-5 p-4 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {renderTextInput([sectionKey, "badge"], "Steps Section Badge", "How it works")}
-          {renderTextInput([sectionKey, "title"], "Steps Section Title", "Start in 4 Easy Steps")}
-          {renderTextInput([sectionKey, "subtitle"], "Steps Section Subtitle", "Setup takes less than 10 mins")}
+          {renderTextInput(
+            [sectionKey, "badge"],
+            "Steps Section Badge",
+            "How it works",
+          )}
+          {renderTextInput(
+            [sectionKey, "title"],
+            "Steps Section Title",
+            "Start in 4 Easy Steps",
+          )}
+          {renderTextInput(
+            [sectionKey, "subtitle"],
+            "Steps Section Subtitle",
+            "Setup takes less than 10 mins",
+          )}
         </div>
 
         <div className="space-y-4 mt-4">
@@ -273,13 +313,17 @@ export default function ChannelPageDynamicForm({
                 </Button>
               </div>
 
-              <div className="text-xs font-black text-slate-650 mb-2">STEP #{idx + 1}</div>
+              <div className="text-xs font-black text-slate-650 mb-2">
+                STEP #{idx + 1}
+              </div>
               <div className="grid grid-cols-1 gap-3 pr-14 sm:pr-14 max-w-full">
                 <div>
                   <Input
                     type="text"
                     value={step?.title || ""}
-                    onChange={(e) => handleStepChange(idx, "title", e.target.value)}
+                    onChange={(e) =>
+                      handleStepChange(idx, "title", e.target.value)
+                    }
                     placeholder="Step title (e.g. Link Your Phone)"
                     className={inputClass}
                   />
@@ -287,7 +331,9 @@ export default function ChannelPageDynamicForm({
                 <div>
                   <Textarea
                     value={step?.description || ""}
-                    onChange={(e) => handleStepChange(idx, "description", e.target.value)}
+                    onChange={(e) =>
+                      handleStepChange(idx, "description", e.target.value)
+                    }
                     placeholder="Step description..."
                     rows={2}
                     className={`${inputClass} resize-none`}
@@ -314,14 +360,33 @@ export default function ChannelPageDynamicForm({
     return (
       <div className="sm:p-5 p-4 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {renderTextInput([sectionKey, "title"], "CTA Headline", "Turn Your Channel Into Sales Engine")}
-          {renderTextInput([sectionKey, "subtitle"], "CTA Sub-headline", "Start sending automated campaigns")}
+          {renderTextInput(
+            [sectionKey, "title"],
+            "CTA Headline",
+            "Turn Your Channel Into Sales Engine",
+          )}
+          {renderTextInput(
+            [sectionKey, "subtitle"],
+            "CTA Sub-headline",
+            "Start sending automated campaigns",
+          )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {renderTextInput([sectionKey, "button2_title"], "Button 2 Title", "Talk to Sales")}
-          {renderTextInput([sectionKey, "button2_description"], "Button 2 Link / Path (optional)", "")}
+          {renderTextInput(
+            [sectionKey, "button2_title"],
+            "Button 2 Title",
+            "Talk to Sales",
+          )}
+          {renderTextInput(
+            [sectionKey, "button2_description"],
+            "Button 2 Link / Path (optional)",
+            "",
+          )}
         </div>
-        {renderStringArrayInput([sectionKey, "bullets"], "CTA Footer Trust Pills")}
+        {renderStringArrayInput(
+          [sectionKey, "bullets"],
+          "CTA Footer Trust Pills",
+        )}
       </div>
     );
   };
@@ -365,7 +430,9 @@ export default function ChannelPageDynamicForm({
         <BroadcastBulkMessagesForm {...sharedProps} />
       ) : slug === "shared_team_inbox" ? (
         <SharedInboxForm {...sharedProps} />
-      ) : slug === "catalog" || slug === "product_catalog" || slug === "product-catalog" ? (
+      ) : slug === "catalog" ||
+        slug === "product_catalog" ||
+        slug === "product-catalog" ? (
         <CatalogForm {...sharedProps} />
       ) : slug === "automation_builder" || slug === "automation-builder" ? (
         <AutomationForm {...sharedProps} />
@@ -378,7 +445,10 @@ export default function ChannelPageDynamicForm({
           {/* 1. Hero Section Accordion */}
           <div className="rounded-t-lg overflow-hidden">
             {renderHeader("hero", "Hero Section Layout")}
-            {isOpenHero && renderHeroSectionForm(slug === "whatsapp" || slug === "instagram")}
+            {isOpenHero &&
+              renderHeroSectionForm(
+                slug === "whatsapp" || slug === "instagram",
+              )}
           </div>
 
           {/* Channel specific content blocks */}

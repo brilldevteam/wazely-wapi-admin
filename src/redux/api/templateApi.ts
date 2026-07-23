@@ -1,29 +1,7 @@
+import { GetTemplatesParams, GetTemplatesResponse } from "@/src/types/template";
 import { baseApi } from "./baseApi";
 
-export interface Template {
-  _id: string;
-  template_name: string;
-  category: string;
-  status: string;
-  language: string;
-  message_body: string;
-  body_variables: { key: string; example: string }[];
-  template_type: string;
-  waba_id: string;
-}
 
-export interface GetTemplatesParams {
-  waba_id?: string;
-  category?: string;
-  status?: string;
-  search?: string;
-}
-
-export interface GetTemplatesResponse {
-  success: boolean;
-  count: number;
-  data: Template[];
-}
 
 export const templateApi = baseApi.enhanceEndpoints({ addTagTypes: ["Template"] }).injectEndpoints({
   endpoints: (builder) => ({

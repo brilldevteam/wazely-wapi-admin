@@ -6,14 +6,10 @@ import { Label } from "@/src/elements/ui/label";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { Button } from "@/src/elements/ui/button";
 import { Plus, Trash2, Layout, Image as ImageIcon } from "lucide-react";
-import { HeroSection, FloatingImage } from "@/src/types/landingPage";
+import { HeroSection, FloatingImage, HeroFormProps } from "@/src/types/landingPage";
 import ImageSelector from "../shared/ImageSelector";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
 
-interface HeroFormProps {
-  data: HeroSection;
-  onChange: (data: HeroSection) => void;
-}
 
 const HeroForm = ({ data, onChange }: HeroFormProps) => {
   const handleChange = (field: keyof HeroSection, value: any) => {

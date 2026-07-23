@@ -2,7 +2,7 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
 import { Textarea } from "@/src/elements/ui/textarea";
 import { Label } from "@/src/elements/ui/label";
 import { Button } from "@/src/elements/ui/button";
@@ -116,7 +116,7 @@ export const BroadcastBulkMessagesForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["campaign_settings", "subtitle"], "Section Subtitle", "Connect templates and segmented subscriber lists...")}
             </div>
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Campaign Features List</label>
+              <Label className={labelClass}>Campaign Features List</Label>
               {campaignFeatures.map((feat: any, idx: number) => (
                 <div key={idx} className="sm:p-5 p-4 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative">
                   <Button

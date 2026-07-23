@@ -2,9 +2,14 @@
 
 import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
-import { FeatureNumericInputProps } from "@/src/types/components";
 import { Switch } from "@/src/elements/ui/switch";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/src/elements/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/src/elements/ui/tooltip";
+import { FeatureNumericInputProps } from "@/src/types/components";
 import { useTranslation } from "react-i18next";
 
 const FeatureNumericInput = ({
@@ -26,9 +31,14 @@ const FeatureNumericInput = ({
   const isActuallyEnabled = !disabled && (!showToggle || enabled);
 
   return (
-    <div className={`space-y-2.5 flex flex-col group transition-opacity ${disabled ? "opacity-55" : !isActuallyEnabled ? "opacity-70" : ""}`}>
+    <div
+      className={`space-y-2.5 flex flex-col group transition-opacity ${disabled ? "opacity-55" : !isActuallyEnabled ? "opacity-70" : ""}`}
+    >
       <div className="flex items-center justify-between">
-        <Label htmlFor={id} className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-focus-within:text-(--text-green-primary) transition-colors">
+        <Label
+          htmlFor={id}
+          className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-focus-within:text-(--text-green-primary) transition-colors"
+        >
           {label}
         </Label>
         {showToggle && (
@@ -52,13 +62,17 @@ const FeatureNumericInput = ({
                 value={value}
                 disabled={!isActuallyEnabled || disabled}
                 onChange={(e) => onChange(e.target.value)}
-                className={`dark:bg-page-body p-3 dark:border-(--card-border-color) h-11 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg ${(!isActuallyEnabled || disabled) ? "cursor-not-allowed bg-gray-100 dark:bg-(--page-body-bg)" : ""}`}
+                className={`dark:bg-page-body p-3 dark:border-(--card-border-color) h-11 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg ${!isActuallyEnabled || disabled ? "cursor-not-allowed bg-gray-100 dark:bg-(--page-body-bg)" : ""}`}
               />
             </div>
           </TooltipTrigger>
           {(disabled || !isActuallyEnabled) && (
             <TooltipContent className="bg-slate-900 text-white dark:bg-(--page-body-bg) border-none text-xs py-2 px-3 shadow-xl max-w-xs">
-              <p>{disabled ? (disabledTooltip || t("plan_feature_disabled_tooltip")) : t("plan_feature_disabled_tooltip")}</p>
+              <p>
+                {disabled
+                  ? disabledTooltip || t("plan_feature_disabled_tooltip")
+                  : t("plan_feature_disabled_tooltip")}
+              </p>
             </TooltipContent>
           )}
         </Tooltip>

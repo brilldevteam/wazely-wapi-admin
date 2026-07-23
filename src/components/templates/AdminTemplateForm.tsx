@@ -76,7 +76,25 @@ export const AdminTemplateForm = ({ templateId }: AdminTemplateFormProps) => {
             templateCategory={formData.template_category}
             setTemplateCategory={(v) => setFormData((p: any) => ({ ...p, template_category: v }))}
             platform={formData.platform}
-            setPlatform={(v) => setFormData((p: any) => ({ ...p, platform: v }))}
+            setPlatform={(v) =>
+              setFormData((p: any) => {
+                const updates: any = { platform: v };
+                if (v && v !== "whatsapp") {
+                  if (p.category === "AUTHENTICATION") {
+                    updates.category = "UTILITY";
+                  }
+                  if (
+                    p.category === "MARKETING" &&
+                    !["none", "coupon_code", "carousel_media"].includes(p.marketing_type)
+                  ) {
+                    updates.marketing_type = "none";
+                    updates.interactive_type = "none";
+                    updates.buttons = [];
+                  }
+                }
+                return { ...p, ...updates };
+              })
+            }
           />
 
           {isAuth ? (

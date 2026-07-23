@@ -1,41 +1,64 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/src/elements/ui/dialog";
-import { Button } from "@/src/elements/ui/button";
-import { Input } from "@/src/elements/ui/input";
-import { useOverrideSubscriptionLimitsMutation } from "@/src/redux/api/subscriptionApi";
-import { User } from "@/src/types/store";
-import { Loader2, ShieldAlert, Info } from "lucide-react";
-import { toast } from "sonner";
 import { booleanFeatures, numericFeatures } from "@/src/data/Plans";
+import { omniChannels } from "@/src/data/user";
+import { Button } from "@/src/elements/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/src/elements/ui/dialog";
+import { Input } from "@/src/elements/ui/input";
 import { Label } from "@/src/elements/ui/label";
 import { Switch } from "@/src/elements/ui/switch";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/src/elements/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/src/elements/ui/tooltip";
+import { useOverrideSubscriptionLimitsMutation } from "@/src/redux/api/subscriptionApi";
+import { OverrideLimitsModalProps } from "@/src/types/user";
+import { Info, Loader2, ShieldAlert } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
-interface OverrideLimitsModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  user: User | null;
-}
-
-const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps) => {
+const OverrideLimitsModal = ({
+  isOpen,
+  onClose,
+  user,
+}: OverrideLimitsModalProps) => {
   const { t } = useTranslation();
-  const [features, setFeatures] = useState<Record<string, string | boolean>>({});
-  const [enabledFeatures, setEnabledFeatures] = useState<Record<string, boolean>>({});
-  const [overrideLimits, { isLoading }] = useOverrideSubscriptionLimitsMutation();
+  const [features, setFeatures] = useState<Record<string, string | boolean>>(
+    {},
+  );
+  const [enabledFeatures, setEnabledFeatures] = useState<
+    Record<string, boolean>
+  >({});
+  const [overrideLimits, { isLoading }] =
+    useOverrideSubscriptionLimitsMutation();
 
-  const currentFeatures = (user?.current_subscription?.is_custom ? user?.current_subscription?.features : user?.current_plan?.features) as Record<string, unknown> | undefined;
+  const currentFeatures = (
+    user?.current_subscription?.is_custom
+      ? user?.current_subscription?.features
+      : user?.current_plan?.features
+  ) as Record<string, unknown> | undefined;
 
-  const originalFeatures = user?.current_plan?.features as Record<string, unknown> | undefined;
+  const originalFeatures = user?.current_plan?.features as
+    | Record<string, unknown>
+    | undefined;
 
   useEffect(() => {
     if (isOpen && currentFeatures) {
       const initial: Record<string, string | boolean> = {};
       const initialEnabled: Record<string, boolean> = {};
 
-      const subEnabledFeatures = user?.current_subscription?.is_custom ? user?.current_subscription?.enabled_features : user?.current_plan?.enabled_features;
+      const subEnabledFeatures = user?.current_subscription?.is_custom
+        ? user?.current_subscription?.enabled_features
+        : user?.current_plan?.enabled_features;
 
       numericFeatures.forEach(({ id }) => {
         const val = currentFeatures[id];
@@ -72,7 +95,9 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
         // If disabling a parent feature, disable all its children
         const feat = booleanFeatures.find((f) => f.id === id);
         if (feat && !(feat as any).parentFeatureId) {
-          const childFeats = booleanFeatures.filter((f) => (f as any).parentFeatureId === id);
+          const childFeats = booleanFeatures.filter(
+            (f) => (f as any).parentFeatureId === id,
+          );
           childFeats.forEach((child) => {
             updated[child.id] = false;
           });
@@ -137,7 +162,9 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
         parsed[id] = Boolean(features[id]);
       });
 
-      const isFacebookChannelEnabled = Boolean(features["omnichannel_facebook"]);
+      const isFacebookChannelEnabled = Boolean(
+        features["omnichannel_facebook"],
+      );
       const finalEnabledFeatures = { ...enabledFeatures };
       if (!isFacebookChannelEnabled) {
         finalEnabledFeatures["facebookAds_campaign"] = false;
@@ -168,8 +195,14 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
               <ShieldAlert className="w-6 h-6 text-amber-500" />
             </div>
             <div className="flex flex-col gap-1">
-              <h4 className="text-xl font-semibold">{t("subscription_override_limits_title")}</h4>
-              <p className="text-[13px] text-slate-500 dark:text-slate-400 font-normal">{t("subscription_override_limits_subtitle", { name: user?.name })}</p>
+              <h4 className="text-xl font-semibold">
+                {t("subscription_override_limits_title")}
+              </h4>
+              <p className="text-[13px] text-slate-500 dark:text-slate-400 font-normal">
+                {t("subscription_override_limits_subtitle", {
+                  name: user?.name,
+                })}
+              </p>
             </div>
           </DialogTitle>
         </DialogHeader>
@@ -178,35 +211,58 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
           {/* Info banner */}
           <div className="flex items-start gap-3 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800/30">
             <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-            <p className="text-xs text-amber-700 dark:text-amber-400">{t("subscription_override_info", { defaultValue: "These values will override the user's plan limits." })}</p>
+            <p className="text-xs text-amber-700 dark:text-amber-400">
+              {t("subscription_override_info", {
+                defaultValue:
+                  "These values will override the user's plan limits.",
+              })}
+            </p>
           </div>
 
           {/* Numeric limits */}
           <div>
-            <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">{t("common_numeric_limits", { defaultValue: "Numeric Limits" })}</h5>
+            <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+              {t("common_numeric_limits", { defaultValue: "Numeric Limits" })}
+            </h5>
             <div className="grid sm:grid-cols-2 gap-3">
               {numericFeatures.map((feature) => {
                 const { id, label, hasToggle } = feature;
-                const isFbFeature = id === "facebookAds_campaign" || id === "facebook_lead";
-                const isParentDisabled = isFbFeature && !features["omnichannel_facebook"];
-                const isActuallyEnabled = (!hasToggle || enabledFeatures[id]) && !isParentDisabled;
+                const isFbFeature =
+                  id === "facebookAds_campaign" || id === "facebook_lead";
+                const isParentDisabled =
+                  isFbFeature && !features["omnichannel_facebook"];
+                const isActuallyEnabled =
+                  (!hasToggle || enabledFeatures[id]) && !isParentDisabled;
                 return (
-                  <div key={id} className={`space-y-2 p-3 rounded-xl border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:bg-slate-800/5 transition-all ${!isActuallyEnabled ? "opacity-60" : ""}`}>
+                  <div
+                    key={id}
+                    className={`space-y-2 p-3 rounded-xl border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30 dark:bg-slate-800/5 transition-all ${!isActuallyEnabled ? "opacity-60" : ""}`}
+                  >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex flex-col gap-1 flex-1 overflow-hidden">
-                        <Label className="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">{t(`plan_features_${id}`, { defaultValue: label })}</Label>
+                        <Label className="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate">
+                          {t(`plan_features_${id}`, { defaultValue: label })}
+                        </Label>
                         {originalFeatures?.[id] !== undefined && (
                           <div className="flex items-center gap-1">
-                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">{t("plan_origin", { defaultValue: "Plan" })}:</span>
-                            <span className="text-[10px] bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700">{String(originalFeatures[id])}</span>
+                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">
+                              {t("plan_origin", { defaultValue: "Plan" })}:
+                            </span>
+                            <span className="text-[10px] bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                              {String(originalFeatures[id])}
+                            </span>
                           </div>
                         )}
                       </div>
                       {hasToggle && (
                         <Switch
-                          checked={(enabledFeatures[id] ?? true) && !isParentDisabled}
+                          checked={
+                            (enabledFeatures[id] ?? true) && !isParentDisabled
+                          }
                           disabled={isParentDisabled}
-                          onCheckedChange={(val) => handleEnabledChange(id, val)}
+                          onCheckedChange={(val) =>
+                            handleEnabledChange(id, val)
+                          }
                           className="shrink-0"
                         />
                       )}
@@ -215,19 +271,43 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div className="w-full">
-                            <Input type="number" min={0} placeholder={t("common_unchanged", { defaultValue: "Unchanged" })} value={features[id] !== undefined ? String(features[id]) : ""} disabled={!isActuallyEnabled || isParentDisabled} onChange={(e) => handleNumericChange(id, e.target.value)} className={`h-9 bg-white dark:bg-page-body border-slate-200 dark:border-(--card-border-color) rounded-lg text-sm focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all ${(!isActuallyEnabled || isParentDisabled) ? "cursor-not-allowed" : ""}`} />
+                            <Input
+                              type="number"
+                              min={0}
+                              placeholder={t("common_unchanged", {
+                                defaultValue: "Unchanged",
+                              })}
+                              value={
+                                features[id] !== undefined
+                                  ? String(features[id])
+                                  : ""
+                              }
+                              disabled={!isActuallyEnabled || isParentDisabled}
+                              onChange={(e) =>
+                                handleNumericChange(id, e.target.value)
+                              }
+                              className={`h-9 bg-white dark:bg-page-body border-slate-200 dark:border-(--card-border-color) rounded-lg text-sm focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all ${!isActuallyEnabled || isParentDisabled ? "cursor-not-allowed" : ""}`}
+                            />
                           </div>
                         </TooltipTrigger>
                         {(isParentDisabled || !isActuallyEnabled) && (
                           <TooltipContent className="bg-slate-900 dark:bg-(--page-body-bg) text-white border-none text-xs py-2 px-3 shadow-xl max-w-xs">
-                            <p>{isParentDisabled ? (t("plan_feature_requires_facebook_messenger") || "Requires Facebook Channel to be enabled") : t("plan_feature_disabled_tooltip")}</p>
+                            <p>
+                              {isParentDisabled
+                                ? t(
+                                    "plan_feature_requires_facebook_messenger",
+                                  ) || "Requires Facebook Channel to be enabled"
+                                : t("plan_feature_disabled_tooltip")}
+                            </p>
                           </TooltipContent>
                         )}
                       </Tooltip>
                     </TooltipProvider>
                     {isFbFeature && (
                       <span className="text-[10.5px] text-amber-600 dark:text-amber-500 font-medium block mt-1 select-none">
-                        * {t("plan_feature_requires_facebook_messenger") || "Requires Facebook Channel to be enabled"}
+                        *{" "}
+                        {t("plan_feature_requires_facebook_messenger") ||
+                          "Requires Facebook Channel to be enabled"}
                       </span>
                     )}
                   </div>
@@ -238,22 +318,43 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
 
           {/* Boolean features */}
           <div>
-            <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">{t("common_feature_toggles", { defaultValue: "Feature Toggles" })}</h5>
+            <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">
+              {t("common_feature_toggles", { defaultValue: "Feature Toggles" })}
+            </h5>
             <div className="grid sm:grid-cols-2 gap-3">
               {booleanFeatures
-                .filter((f) => !(f as any).parentFeatureId && !f.id.startsWith("omnichannel_"))
+                .filter(
+                  (f) =>
+                    !(f as any).parentFeatureId &&
+                    !f.id.startsWith("omnichannel_"),
+                )
                 .map((feature) => {
                   const { id, label } = feature;
                   const isChecked = Boolean(features[id]);
 
                   return (
-                    <Label key={id} className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${isChecked ? "border-(--text-green-primary) bg-emerald-50/50 dark:bg-emerald-900/10" : "border-slate-100 dark:border-(--card-border-color)"}`}>
-                      <Input type="checkbox" className="w-4 h-4 accent-(--text-green-primary)" checked={isChecked} onChange={(e) => handleBooleanChange(id, e.target.checked)} />
+                    <Label
+                      key={id}
+                      className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${isChecked ? "border-(--text-green-primary) bg-emerald-50/50 dark:bg-emerald-900/10" : "border-slate-100 dark:border-(--card-border-color)"}`}
+                    >
+                      <Input
+                        type="checkbox"
+                        className="w-4 h-4 accent-(--text-green-primary)"
+                        checked={isChecked}
+                        onChange={(e) =>
+                          handleBooleanChange(id, e.target.checked)
+                        }
+                      />
                       <div className="flex flex-col gap-0.5">
-                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{t(`plan_features_${id}`, { defaultValue: label })}</span>
+                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                          {t(`plan_features_${id}`, { defaultValue: label })}
+                        </span>
                         {originalFeatures?.[id] !== undefined && (
                           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal">
-                            {t("plan_origin", { defaultValue: "Plan" })}: {Boolean(originalFeatures[id]) ? t("common_yes", { defaultValue: "Yes" }) : t("common_no", { defaultValue: "No" })}
+                            {t("plan_origin", { defaultValue: "Plan" })}:{" "}
+                            {Boolean(originalFeatures[id])
+                              ? t("common_yes", { defaultValue: "Yes" })
+                              : t("common_no", { defaultValue: "No" })}
                           </span>
                         )}
                       </div>
@@ -263,27 +364,43 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
             </div>
 
             {/* Omnichannel Setup Section */}
-            <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mt-6 mb-3">{t("plan_omnichannel_title", { defaultValue: "Omnichannel Channels" })}</h5>
+            <h5 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mt-6 mb-3">
+              {t("plan_omnichannel_title", {
+                defaultValue: "Omnichannel Channels",
+              })}
+            </h5>
             <div className="space-y-4">
-              {[
-                { id: "omnichannel_facebook", title: "Facebook Messenger", accentColor: "border-l-4 border-l-blue-500 bg-blue-50/5 dark:bg-blue-900/5" },
-                { id: "omnichannel_instagram", title: "Instagram Direct", accentColor: "border-l-4 border-l-pink-500 bg-pink-50/5 dark:bg-pink-900/5" },
-                { id: "omnichannel_telegram", title: "Telegram Bot", accentColor: "border-l-4 border-l-sky-500 bg-sky-50/5 dark:bg-sky-950/5" },
-                // { id: "omnichannel_twitter", title: "Twitter / X", accentColor: "border-l-4 border-l-black dark:border-l-white bg-gray-50/5 dark:bg-gray-950/5" }
-              ].map((channel) => {
+              {omniChannels.map((channel) => {
                 const isChecked = Boolean(features[channel.id]);
-                const children = booleanFeatures.filter((f) => (f as any).parentFeatureId === channel.id);
+                const children = booleanFeatures.filter(
+                  (f) => (f as any).parentFeatureId === channel.id,
+                );
 
                 return (
-                  <div key={channel.id} className={`p-4 rounded-xl border border-slate-100 dark:border-(--card-border-color) ${channel.accentColor} transition-all`}>
+                  <div
+                    key={channel.id}
+                    className={`p-4 rounded-xl border border-slate-100 dark:border-(--card-border-color) ${channel.accentColor} transition-all`}
+                  >
                     <div className="flex items-center justify-between">
                       <Label className="flex items-center gap-3 cursor-pointer">
-                        <Input type="checkbox" className="w-4 h-4 accent-(--text-green-primary)" checked={isChecked} onChange={(e) => handleBooleanChange(channel.id, e.target.checked)} />
+                        <Input
+                          type="checkbox"
+                          className="w-4 h-4 accent-(--text-green-primary)"
+                          checked={isChecked}
+                          onChange={(e) =>
+                            handleBooleanChange(channel.id, e.target.checked)
+                          }
+                        />
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-sm font-bold text-slate-800 dark:text-slate-200">{channel.title}</span>
+                          <span className="text-sm font-bold text-slate-800 dark:text-slate-200">
+                            {channel.title}
+                          </span>
                           {originalFeatures?.[channel.id] !== undefined && (
                             <span className="text-[10px] text-slate-400 dark:text-slate-500 font-normal">
-                              {t("plan_origin", { defaultValue: "Plan" })}: {Boolean(originalFeatures[channel.id]) ? t("common_yes", { defaultValue: "Yes" }) : t("common_no", { defaultValue: "No" })}
+                              {t("plan_origin", { defaultValue: "Plan" })}:{" "}
+                              {Boolean(originalFeatures[channel.id])
+                                ? t("common_yes", { defaultValue: "Yes" })
+                                : t("common_no", { defaultValue: "No" })}
                             </span>
                           )}
                         </div>
@@ -295,13 +412,34 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
                         {children.map((child) => {
                           const childChecked = Boolean(features[child.id]);
                           return (
-                            <Label key={child.id} className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${childChecked ? "border-(--text-green-primary)/40 bg-emerald-50/30 dark:bg-emerald-900/5" : "border-slate-100 dark:border-(--card-border-color)"}`}>
-                              <Input type="checkbox" className="w-3.5 h-3.5 accent-(--text-green-primary)" checked={childChecked} onChange={(e) => handleBooleanChange(child.id, e.target.checked)} />
+                            <Label
+                              key={child.id}
+                              className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${childChecked ? "border-(--text-green-primary)/40 bg-emerald-50/30 dark:bg-emerald-900/5" : "border-slate-100 dark:border-(--card-border-color)"}`}
+                            >
+                              <Input
+                                type="checkbox"
+                                className="w-3.5 h-3.5 accent-(--text-green-primary)"
+                                checked={childChecked}
+                                onChange={(e) =>
+                                  handleBooleanChange(
+                                    child.id,
+                                    e.target.checked,
+                                  )
+                                }
+                              />
                               <div className="flex flex-col gap-0.5">
-                                <span className="text-xs font-medium text-slate-600 dark:text-slate-400">{t(`plan_features_${child.id}`, { defaultValue: child.label })}</span>
+                                <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                                  {t(`plan_features_${child.id}`, {
+                                    defaultValue: child.label,
+                                  })}
+                                </span>
                                 {originalFeatures?.[child.id] !== undefined && (
                                   <span className="text-[9px] text-slate-400 dark:text-slate-500 font-normal">
-                                    {t("plan_origin", { defaultValue: "Plan" })}: {Boolean(originalFeatures[child.id]) ? t("common_yes", { defaultValue: "Yes" }) : t("common_no", { defaultValue: "No" })}
+                                    {t("plan_origin", { defaultValue: "Plan" })}
+                                    :{" "}
+                                    {Boolean(originalFeatures[child.id])
+                                      ? t("common_yes", { defaultValue: "Yes" })
+                                      : t("common_no", { defaultValue: "No" })}
                                   </span>
                                 )}
                               </div>
@@ -318,10 +456,20 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
         </div>
 
         <DialogFooter className="sm:p-6 p-4 pt-0 flex gap-3 border-t border-slate-100 dark:border-(--card-border-color)">
-          <Button type="button" variant="ghost" onClick={onClose} className="flex-1 h-11 rounded-lg text-slate-600 dark:text-slate-400 bg-slate-100 hover:bg-slate-200 dark:bg-page-body dark:hover:bg-(--table-hover) transition-all">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={onClose}
+            className="flex-1 h-11 rounded-lg text-slate-600 dark:text-slate-400 bg-slate-100 hover:bg-slate-200 dark:bg-page-body dark:hover:bg-(--table-hover) transition-all"
+          >
             {t("common_cancel")}
           </Button>
-          <Button type="button" disabled={isLoading || !user?.current_plan} onClick={handleSave} className="flex-1 h-11 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50">
+          <Button
+            type="button"
+            disabled={isLoading || !user?.current_plan}
+            onClick={handleSave}
+            className="flex-1 h-11 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+          >
             {isLoading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -335,7 +483,11 @@ const OverrideLimitsModal = ({ isOpen, onClose, user }: OverrideLimitsModalProps
             )}
           </Button>
         </DialogFooter>
-        {!user?.current_plan && <p className="text-center text-xs text-red-500 pb-4">{t("common_no_active_subscription")}</p>}
+        {!user?.current_plan && (
+          <p className="text-center text-xs text-red-500 pb-4">
+            {t("common_no_active_subscription")}
+          </p>
+        )}
       </DialogContent>
     </Dialog>
   );

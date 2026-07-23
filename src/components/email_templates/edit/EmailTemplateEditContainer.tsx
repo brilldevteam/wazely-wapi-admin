@@ -11,10 +11,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import EmailPreview from "./EmailPreview";
 import EmailTemplateForm from "./EmailTemplateForm";
-
-interface EmailTemplateEditContainerProps {
-  id: string;
-}
+import { EmailTemplateEditContainerProps } from "@/src/types/emailTemplate";
 
 const EmailTemplateEditContainer = ({ id }: EmailTemplateEditContainerProps) => {
   const { t } = useTranslation();

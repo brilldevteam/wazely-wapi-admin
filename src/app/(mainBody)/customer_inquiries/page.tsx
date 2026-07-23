@@ -1,12 +1,11 @@
-import Inquiry from '@/src/components/inquiry'
-import React from 'react'
+import Inquiry from "@/src/components/inquiry";
 
 const ContactInquiries = () => {
   return (
     <div>
       <Inquiry />
     </div>
-  )
-}
+  );
+};
 
-export default ContactInquiries
+export default ContactInquiries;

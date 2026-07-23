@@ -4,31 +4,13 @@ import { Button } from "@/src/elements/ui/button";
 import { Switch } from "@/src/elements/ui/switch";
 import { usePermissions } from "@/src/hooks/usePermissions";
 import DataTable from "@/src/shared/DataTable";
-import { Currency } from "@/src/types/store";
 import { Edit2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Can from "../shared/Can";
 import { ROUTES } from "@/src/constants";
+import { Currency, CurrencyListProps } from "@/src/types/currencies";
 
-interface CurrencyListProps {
-  currencies: Currency[];
-  onDelete: (id: string) => void;
-  onBulkDelete: (ids: string[]) => void;
-  onToggleStatus: (id: string) => void;
-  onToggleDefault: (id: string) => void;
-  isLoading: boolean;
-  total: number;
-  page: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  limit: number;
-  onLimitChange: (limit: number) => void;
-  onSelectionChange: (ids: string[]) => void;
-  selectedIds: string[];
-  onSortChange: (sortBy: string, sortOrder: "asc" | "desc") => void;
-  visibleColumns?: string[];
-  searchTerm?: string;
-}
+
 
 const CurrencyList = ({ currencies, onDelete, onBulkDelete, onToggleStatus, onToggleDefault, isLoading, total, page, totalPages, onPageChange, limit, onLimitChange, onSelectionChange, selectedIds, onSortChange, visibleColumns, searchTerm }: CurrencyListProps) => {
   const router = useRouter();

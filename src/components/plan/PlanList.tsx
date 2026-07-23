@@ -1,17 +1,17 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import PlanCard from "./PlanCard";
-import PlanSkeleton from "./PlanSkeleton";
-import { PlanListProps } from "@/src/types/components";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   CarouselDots,
+  CarouselItem,
   type CarouselApi,
 } from "@/src/elements/ui/carousel";
+import { PlanListProps } from "@/src/types/plan";
+import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import PlanCard from "./PlanCard";
+import PlanSkeleton from "./PlanSkeleton";
 
 const PlanList = ({ plans, onDelete, isLoading }: PlanListProps) => {
   const { t } = useTranslation();

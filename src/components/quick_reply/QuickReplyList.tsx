@@ -2,38 +2,12 @@
 
 import { Button } from "@/src/elements/ui/button";
 import DataTable from "@/src/shared/DataTable";
+import { QuickReply, QuickReplyListProps } from "@/src/types/quickReply";
 import { ColumnDef } from "@/src/types/shared";
 import { format } from "date-fns";
 import { Edit2, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import Can from "../shared/Can";
-
-interface QuickReply {
-  _id: string;
-  content: string;
-  is_admin_reply: boolean;
-  is_favorite?: boolean;
-  createdAt: string;
-}
-
-interface QuickReplyListProps {
-  quickReplies: QuickReply[];
-  page: number;
-  total: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  onLimitChange: (limit: number) => void;
-  limit: number;
-  onEdit: (data: QuickReply) => void;
-  onDelete: (id: string) => void;
-  onBulkDelete: (ids: string[]) => void;
-  onToggleFavorite: (id: string) => void;
-  isLoading: boolean;
-  selectedIds: string[];
-  onSelectionChange: (ids: string[]) => void;
-  onSortChange?: (key: string, order: "asc" | "desc") => void;
-  searchTerm?: string;
-}
 
 const QuickReplyList = ({
   quickReplies,
@@ -71,20 +45,23 @@ const QuickReplyList = ({
                 e.stopPropagation();
                 onToggleFavorite(qr._id);
               }}
-              className={` transition-colors p-0! h-[unset]! ${qr.is_favorite
-                ? "text-amber-400 hover:text-amber-500"
-                : "text-slate-300 bg-[unset]! shadow-[unset]! hover:text-slate-400"
-                }`}
+              className={` transition-colors p-0! h-[unset]! ${
+                qr.is_favorite
+                  ? "text-amber-400 hover:text-amber-500"
+                  : "text-slate-300 bg-[unset]! shadow-[unset]! hover:text-slate-400"
+              }`}
             >
               <Star
                 size={16}
-                className={qr.is_favorite ? "text-amber-400 fill-amber-400" : "text-slate-300 fill-none"}
+                className={
+                  qr.is_favorite
+                    ? "text-amber-400 fill-amber-400"
+                    : "text-slate-300 fill-none"
+                }
               />
             </Button>
           )}
-          <span
-            className="text-slate-700 dark:text-slate-200 line-clamp-3 whitespace-pre-wrap transition-colors"
-          >
+          <span className="text-slate-700 dark:text-slate-200 line-clamp-3 whitespace-pre-wrap transition-colors">
             {qr.content}
           </span>
         </div>
@@ -97,7 +74,9 @@ const QuickReplyList = ({
       sortKey: "createdAt",
       accessor: (qr) => (
         <span className="text-slate-500 dark:text-slate-400 text-sm">
-          {qr.createdAt ? format(new Date(qr.createdAt), "MMMM d, yyyy") : "N/A"}
+          {qr.createdAt
+            ? format(new Date(qr.createdAt), "MMMM d, yyyy")
+            : "N/A"}
         </span>
       ),
     },

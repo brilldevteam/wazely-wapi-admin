@@ -3,16 +3,15 @@
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
 import CustomImage from "@/src/shared/Image";
+import { MetaImageFormProps } from "@/src/types/landingPage";
 import { Image as ImageIcon, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-interface MetaImageFormProps {
-  imagePreview: string | null;
-  onImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onRemoveImage: () => void;
-}
-
-const MetaImageForm = ({ imagePreview, onImageChange, onRemoveImage }: MetaImageFormProps) => {
+const MetaImageForm = ({
+  imagePreview,
+  onImageChange,
+  onRemoveImage,
+}: MetaImageFormProps) => {
   const { t } = useTranslation();
 
   return (
@@ -56,7 +55,9 @@ const MetaImageForm = ({ imagePreview, onImageChange, onRemoveImage }: MetaImage
               <p className="text-[16px] font-semibold text-gray-700 dark:text-gray-300">
                 {t("common_click_to_upload", "Click to upload")}
               </p>
-              <p className="text-[12px] text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+              <p className="text-[12px] text-gray-400 mt-1">
+                PNG, JPG up to 2MB
+              </p>
             </div>
           </div>
         )}

@@ -7,17 +7,11 @@ import {
 } from "@/src/data/sidebarList";
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
+import { SearchResult } from "@/src/types/layout";
 import { Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-
-interface SearchResult {
-  label: string;
-  path: string;
-  icon: string;
-  parentLabel?: string;
-}
 
 const flattenMenuData = (): SearchResult[] => {
   const flattened: SearchResult[] = [];

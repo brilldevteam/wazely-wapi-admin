@@ -2,7 +2,15 @@
 import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { PageMediaUploadField } from "../PageMediaUploadField";
-import { SharedFormProps } from "./types";
+import { SharedFormProps } from "@/src/types/landingPage";
+import { Button } from "@/src/elements/ui/button";
+import { Label } from "@/src/elements/ui/label";
+import { Textarea } from "@/src/elements/ui/textarea";
+import { Input } from "@/src/elements/ui/input";
+
+
+
+
 
 export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
   data,
@@ -97,8 +105,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["hero", "title"], "Hero Title", "e.g. Interactive forms that live inside WhatsApp chats")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Hero Subtitle</label>
-              <textarea
+              <Label className={labelClass}>Hero Subtitle</Label>
+              <Textarea unstyled
                 value={data?.hero?.subtitle || ""}
                 onChange={(e) => updateField(["hero", "subtitle"], e.target.value)}
                 placeholder="Sub-headline explaining the value proposition..."
@@ -128,8 +136,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["workflow", "title"], "Section Title", "From design to delivery in three steps")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Section Description</label>
-              <textarea
+              <Label className={labelClass}>Section Description</Label>
+              <Textarea unstyled
                 value={data?.workflow?.description || ""}
                 onChange={(e) => updateField(["workflow", "description"], e.target.value)}
                 placeholder="Workflow overview details..."
@@ -139,24 +147,24 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Workflow Steps</label>
+              <Label className={labelClass}>Workflow Steps</Label>
               {workflowSteps.map((step: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveWorkflowStep(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">STEP #{idx + 1}</div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Step Title</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Step Title</Label>
+                      <Input unstyled
                         type="text"
                         value={step?.title || ""}
                         onChange={(e) => handleWorkflowStepChange(idx, "title", e.target.value)}
@@ -165,7 +173,7 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Step Preview Image</label>
+                      <Label className="block text-xs font-bold text-slate-650 dark:text-gray-400 mb-1.5 uppercase tracking-wider">Step Preview Image</Label>
                       <PageMediaUploadField
                         value={step?.image || ""}
                         onChange={(uploadedUrl) => handleWorkflowStepChange(idx, "image", uploadedUrl)}
@@ -173,8 +181,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Step Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Step Description</Label>
+                    <Textarea unstyled
                       value={step?.description || ""}
                       onChange={(e) => handleWorkflowStepChange(idx, "description", e.target.value)}
                       placeholder="Brief details about what to do in this step..."
@@ -185,13 +193,13 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddWorkflowStep}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Step
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -207,24 +215,24 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Capabilities Items</label>
+              <Label className={labelClass}>Capabilities Items</Label>
               {capabilitiesItems.map((item: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-5 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-3 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveCapability(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">CAPABILITY #{idx + 1}</div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Title</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Title</Label>
+                      <Input unstyled
                         type="text"
                         value={item?.title || ""}
                         onChange={(e) => handleCapabilityChange(idx, "title", e.target.value)}
@@ -233,8 +241,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</Label>
+                      <Input unstyled
                         type="text"
                         value={item?.icon || ""}
                         onChange={(e) => handleCapabilityChange(idx, "icon", e.target.value)}
@@ -244,8 +252,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-bold text-gray-400">Description</label>
-                    <textarea
+                    <Label className="text-[10px] font-bold text-gray-400">Description</Label>
+                    <Textarea unstyled
                       value={item?.description || ""}
                       onChange={(e) => handleCapabilityChange(idx, "description", e.target.value)}
                       placeholder="Brief details about this capability..."
@@ -256,13 +264,13 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddCapability}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Capability
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -277,8 +285,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["components_section", "title"], "Section Title", "Available form components")}
             </div>
             <div className="w-full">
-              <label className={labelClass}>Section Description</label>
-              <textarea
+              <Label className={labelClass}>Section Description</Label>
+              <Textarea unstyled
                 value={data?.components_section?.description || ""}
                 onChange={(e) => updateField(["components_section", "description"], e.target.value)}
                 placeholder="Overview of form components..."
@@ -288,24 +296,24 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
             </div>
 
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>Components List</label>
+              <Label className={labelClass}>Components List</Label>
               {componentsList.map((comp: any, idx: number) => (
                 <div
                   key={idx}
                   className="p-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) space-y-2 relative"
                 >
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveComponent(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold">FIELD COMPONENT #{idx + 1}</div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Label</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Label</Label>
+                      <Input unstyled
                         type="text"
                         value={comp?.label || ""}
                         onChange={(e) => handleComponentChange(idx, "label", e.target.value)}
@@ -314,8 +322,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Description</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Description</Label>
+                      <Input unstyled
                         type="text"
                         value={comp?.desc || ""}
                         onChange={(e) => handleComponentChange(idx, "desc", e.target.value)}
@@ -324,8 +332,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Icon Name (lucide-react)</Label>
+                      <Input unstyled
                         type="text"
                         value={comp?.icon || ""}
                         onChange={(e) => handleComponentChange(idx, "icon", e.target.value)}
@@ -337,13 +345,13 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddComponent}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Component
-            </button>
+            </Button>
           </div>
         )}
       </div>
@@ -358,21 +366,21 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
               {renderTextInput(["faqs", "title"], "FAQs Section Title", "Questions about WhatsApp Forms?")}
             </div>
             <div className="space-y-4 mt-4">
-              <label className={labelClass}>FAQ Items</label>
+              <Label className={labelClass}>FAQ Items</Label>
               {faqList.map((faq: any, idx: number) => (
                 <div key={idx} className="p-4 rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-slate-50/50 dark:bg-(--dark-sidebar) relative">
-                  <button
+                  <Button variant="unstyled"
                     type="button"
                     onClick={() => handleRemoveFaq(idx)}
                     className="absolute top-4 right-4 p-1.5 text-red-500 hover:bg-red-50 rounded"
                   >
                     <Trash2 size={16} />
-                  </button>
+                  </Button>
                   <div className="text-xs font-black text-slate-455 uppercase font-bold mb-2">FAQ ITEM #{idx + 1}</div>
                   <div className="grid grid-cols-1 gap-3 max-w-[90%]">
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Question</label>
-                      <input
+                      <Label className="text-[10px] font-bold text-gray-400">Question</Label>
+                      <Input unstyled
                         type="text"
                         value={faq?.question || ""}
                         onChange={(e) => handleFaqChange(idx, "question", e.target.value)}
@@ -381,8 +389,8 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-bold text-gray-400">Answer</label>
-                      <textarea
+                      <Label className="text-[10px] font-bold text-gray-400">Answer</Label>
+                      <Textarea unstyled
                         value={faq?.answer || ""}
                         onChange={(e) => handleFaqChange(idx, "answer", e.target.value)}
                         placeholder="FAQ answer text..."
@@ -394,13 +402,13 @@ export const WhatsAppFormsForm: React.FC<SharedFormProps> = ({
                 </div>
               ))}
             </div>
-            <button
+            <Button variant="unstyled"
               type="button"
               onClick={handleAddFaq}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
-            </button>
+            </Button>
           </div>
         )}
       </div>
