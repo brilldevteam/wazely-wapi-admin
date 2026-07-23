@@ -26,6 +26,15 @@ export const AdminTemplateForm = ({ templateId }: AdminTemplateFormProps) => {
 
   const isAuth = formData.category === "AUTHENTICATION";
 
+  const isInvalidButtons = Boolean(
+    formData.buttons?.some((btn: any) => {
+      if (!btn.text || !btn.text.trim()) return true;
+      if ((btn.type === "url" || btn.type === "website") && !(btn.url?.trim() || btn.website_url?.trim())) return true;
+      if (btn.type === "phone_call" && !btn.phone_number?.trim()) return true;
+      return false;
+    })
+  );
+
   return (
     <form onSubmit={onSubmit} className="flex flex-col">
       {/* Top Header Bar */}
@@ -50,7 +59,7 @@ export const AdminTemplateForm = ({ templateId }: AdminTemplateFormProps) => {
             <Eye size={16} />
             <span>{t("templates_library_live_preview")}</span>
           </Button>
-          <Button type="submit" disabled={isCreating} className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 h-11 py-2.5 bg-primary hover:bg-primary disabled:opacity-60 text-white rounded-lg text-sm font-bold transition-all shadow-sm shadow-primary/30">
+          <Button type="submit" disabled={isCreating || isInvalidButtons} className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 h-11 py-2.5 bg-primary hover:bg-primary disabled:opacity-60 text-white rounded-lg text-sm font-bold transition-all shadow-sm shadow-primary/30">
             {isCreating ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             {isCreating ? t("templates_library_saving") : t("templates_library_save_template")}
           </Button>
@@ -68,7 +77,7 @@ export const AdminTemplateForm = ({ templateId }: AdminTemplateFormProps) => {
             templateName={formData.template_name}
             setTemplateName={(v) => setFormData((p: any) => ({ ...p, template_name: v }))}
             marketingType={formData.marketing_type}
-            setMarketingType={(v) => setFormData((p: any) => ({ ...p, marketing_type: v, interactive_type: "none", buttons: v === "coupon_code" ? [{ id: makeId(), type: "copy_code", text: "Copy Code" }] : [] }))}
+            setMarketingType={(v) => setFormData((p: any) => ({ ...p, marketing_type: v, interactive_type: "none", buttons: v === "coupon_code" ? [{ id: makeId(), type: "copy_code", text: "" }] : [] }))}
             offerText={formData.offer_text}
             setOfferText={(v) => setFormData((p: any) => ({ ...p, offer_text: v }))}
             sector={formData.sector}
