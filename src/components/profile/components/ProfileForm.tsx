@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import CountrySelect from "../../../shared/CountrySelect";
+import { CountryCodeSelect } from "../../../shared/CountryCodeSelect";
 
 const ProfileForm = () => {
   const { t } = useTranslation();
@@ -124,8 +125,8 @@ const ProfileForm = () => {
             <div className="space-y-2 flex flex-col">
               <Label htmlFor="phone">{t("phone_number")}</Label>
               <div className="flex gap-2">
-                <div className="w-20 shrink-0">
-                  <Input value={formik.values.country_code} disabled placeholder="+1" className="p-5.5 bg-slate-50 dark:bg-(--page-body-bg) border-slate-200 text-center" />
+                <div className="w-32 shrink-0">
+                  <CountryCodeSelect value={formik.values.country_code} onChange={(dialCode) => formik.setFieldValue("country_code", dialCode)} />
                 </div>
                 <div className="relative flex-1 group">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />

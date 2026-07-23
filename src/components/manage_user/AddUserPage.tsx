@@ -19,6 +19,7 @@ import {
   useUpdateUserMutation,
 } from "@/src/redux/api/userApi";
 import CountrySelect from "@/src/shared/CountrySelect";
+import { CountryCodeSelect } from "@/src/shared/CountryCodeSelect";
 import { CreateUserPayload, UpdateUserPayload } from "@/src/types/store";
 import { AddUserPageProps, FormState } from "@/src/types/user";
 import { Country } from "@/src/utils/countries";
@@ -256,17 +257,12 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                   }}
                 />
               </div>
-              <div className="grid grid-cols-[80px_1fr] gap-3">
+              <div className="grid grid-cols-[110px_1fr] gap-3">
                 <div className="space-y-1.5 flex flex-col">
                   <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
                     Country Code
                   </Label>
-                  <Input
-                    value={form.country_code}
-                    disabled
-                    placeholder="+1"
-                    className="h-11 bg-(--input-color) rounded-lg p-3 dark:bg-page-body border-(--input-border-color) dark:border-zinc-700 opacity-70 cursor-not-allowed"
-                  />
+                  <CountryCodeSelect value={form.country_code} onChange={(dialCode) => set("country_code", dialCode)} />
                 </div>
                 <div className="space-y-1.5 flex flex-col">
                   <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-[7px] rtl:ml-0 rtl:mr-[7px]">
