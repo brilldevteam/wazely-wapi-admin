@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { DecoupledEditor as DecoupledEditorType } from "@ckeditor/ckeditor5-editor-decoupled";
 import { CKEditorComponentProps } from "@/src/types/shared";
+import { createTextDirectionPlugin } from "./ckeditor-plugins/TextDirection";
 
 type EditorModules = {
   CKEditor: any;
@@ -48,8 +49,16 @@ const CkEditorInner = ({
           FontBackgroundColor,
           Strikethrough,
           Underline,
+          Plugin,
+          Command,
+          Collection,
+          ViewModel,
+          createDropdown,
+          addListToDropdown,
         },
       ]) => {
+        const TextDirection = createTextDirectionPlugin({ Plugin, Command, Collection, ViewModel, createDropdown, addListToDropdown });
+
         setEditor({
           CKEditor,
           DecoupledEditor:
@@ -70,6 +79,7 @@ const CkEditorInner = ({
             FontBackgroundColor,
             Strikethrough,
             Underline,
+            TextDirection,
           ],
         });
       },
@@ -136,6 +146,7 @@ const CkEditorInner = ({
                   "insertTable",
                   "|",
                   "alignment",
+                  "textDirection",
                   "|",
                   "undo",
                   "redo",
