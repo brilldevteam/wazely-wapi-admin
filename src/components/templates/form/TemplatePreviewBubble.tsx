@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 import { getUrlWithBasePath } from "@/src/utils";
 import { TwitterIcon } from "@/src/utils/customIcon";
+import { RLM } from "@/src/utils/textDirection";
 
 export const TemplatePreviewBubble = ({
   templateType,
@@ -214,7 +215,17 @@ export const TemplatePreviewBubble = ({
         {!isSpecial && headerText && <div className={`p-3 font-bold text-sm text-slate-900 dark:text-slate-100 border-b ${getDividerStyle()} break-all whitespace-normal`}>{headerText}</div>}
 
         <div className={getBubblePadding()}>
-          <div className="text-sm leading-relaxed whitespace-pre-wrap wrap-break-word text-slate-800 dark:text-slate-100 break-all whitespace-normal">{bodyText}</div>
+          <div className="text-sm leading-relaxed wrap-break-word text-slate-800 dark:text-slate-100 break-all">
+            {/* dir is set explicitly from the RLM mark applyDirectionMarksToHtml embeds (not
+                dir="auto"), so the preview mirrors exactly what the editor is set to: a line
+                with no explicit direction defaults to ltr here too, instead of the browser
+                auto-detecting rtl on its own just because the text happens to be Arabic. */}
+            {bodyText.split("\n").map((line, index) => (
+              <p key={index} dir={line.startsWith(RLM) ? "rtl" : "ltr"} className="whitespace-pre-wrap m-0">
+                {line || " "}
+              </p>
+            ))}
+          </div>
           {isAuthentication && authData?.add_security_recommendation && <div className="text-[11px] text-slate-500 dark:text-slate-400 italic mt-1">{t("templates_library_preview_security_recommendation")}</div>}
           {isAuthentication && authData?.code_expiration_minutes && <div className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">⏱ {t("templates_library_auth_expiry_hint_preview", { minutes: authData.code_expiration_minutes, defaultValue: `Code expires in ${authData.code_expiration_minutes} minutes.` })}</div>}
           {!isSpecial && footerText && <div className="text-[11px] text-slate-400 dark:text-slate-500 font-medium break-all whitespace-normal mt-1">{footerText}</div>}
