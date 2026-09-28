@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Fix tenant impersonation and self-tenant redirects when the CRM URL has a trailing slash, and restore the "Login With Tenant" action after returning to the user list.
+- Add a Text Direction (RTL/LTR) toolbar control to the Message Body editor, so Arabic/Hebrew and other right-to-left content can be set explicitly per paragraph and is preserved through plain-text delivery to WhatsApp via invisible Unicode direction marks, with the live preview matching the editor exactly.
 
 ## WAPI v3.2 custom upgrade - 2026-07-16
 
