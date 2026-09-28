@@ -20,7 +20,10 @@ export const useSwitchToTenant = () => {
       const result = await switchToTenant().unwrap();
       if (result.success && result.token) {
         toast.success(t("switching_to_tenant_mode", { defaultValue: "Switching to tenant mode..." }));
-        window.location.href = `${FRONT_URL}/auth/impersonate?token=${result.token}&type=self-tenant`;
+        const tenantUrl = new URL("/auth/impersonate", FRONT_URL);
+        tenantUrl.searchParams.set("token", result.token);
+        tenantUrl.searchParams.set("type", "self-tenant");
+        window.location.assign(tenantUrl.toString());
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
