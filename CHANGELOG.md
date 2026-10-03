@@ -5,6 +5,11 @@
 - Fix tenant impersonation and self-tenant redirects when the CRM URL has a trailing slash, and restore the "Login With Tenant" action after returning to the user list.
 - Add a Text Direction (RTL/LTR) toolbar control to the Message Body editor, so Arabic/Hebrew and other right-to-left content can be set explicitly per paragraph and is preserved through plain-text delivery to WhatsApp via invisible Unicode direction marks, with the live preview matching the editor exactly.
 
+## WAPI v3.3 custom upgrade - 2026-10-03
+
+- Upgrade the admin application to the WAPI v3.3 vendor release (Midtrans and Mollie payment gateways, social media settings, theme color settings, inquiry details, WhatsApp-formatted template bodies).
+- Keep all custom features; combine the Text Direction (RTL/LTR) control with the new WhatsApp formatting so direction and bold/italic/strikethrough both survive saving and reloading a template.
+
 ## WAPI v3.2 custom upgrade - 2026-07-16
 
 - Upgrade the admin application to the complete WAPI v3.2 vendor release.
