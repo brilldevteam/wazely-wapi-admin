@@ -85,6 +85,10 @@ export interface AppSettings {
   twitter_client_secret?: string;
   twitter_redirect_uri?: string;
   show_twitter_config?: boolean;
+  twitter_consumer_key?: string;
+  twitter_consumer_secret?: string;
+  twitter_oauth_token?: string;
+  twitter_oauth_token_secret?: string;
   whatsapp_webhook_url: string | null;
   webhook_verification_token: string | null;
   // Email
@@ -97,6 +101,7 @@ export interface AppSettings {
   // Features
   free_trial_enabled: boolean;
   free_trial_days: number;
+  free_trial_plan_id?: string | any;
   audio_calls_enabled: boolean;
   video_calls_enabled: boolean;
   allow_voice_message: boolean;
@@ -184,6 +189,15 @@ export interface AppSettings {
   widget_instagram_url: string;
   widget_facebook_url: string;
   widget_sms_url: string;
+  theme_primary_color?: string;
+  theme_light_background_color?: string;
+  youtube_client_id?: string | null;
+  youtube_client_secret?: string | null;
+  linkedin_client_id?: string | null;
+  linkedin_client_secret?: string | null;
+  threads_app_id?: string | null;
+  threads_app_secret?: string | null;
+  social_publishing_platforms?: string[];
 }
 
 export interface TestMailPayload {

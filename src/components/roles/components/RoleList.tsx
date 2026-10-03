@@ -79,7 +79,7 @@ const RoleList = ({
           disabled={
             row.system_reserved || isLoading || !hasPermission("update.roles")
           }
-          className="data-[state=checked]:bg-(--text-green-primary)"
+          className="data-[state=checked]:bg-primary"
         />
       ),
     },

@@ -93,7 +93,7 @@ const PageList = ({
           checked={row.status}
           onCheckedChange={() => onToggleStatus(row._id)}
           disabled={isLoading || !hasPermission("update.pages")}
-          className="data-[state=checked]:bg-(--text-green-primary)"
+          className="data-[state=checked]:bg-primary"
         />
       ),
     },

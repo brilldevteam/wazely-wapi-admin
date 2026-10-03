@@ -42,11 +42,11 @@ export const RevenueTimelineChart = ({ revenueGraph }: { revenueGraph: AdminChar
         top: 10,
         left: 0,
         blur: 15,
-        color: "var(--text-green-primary)",
+        color: "var(--primary)",
         opacity: 0.15,
       },
     },
-    colors: ["var(--text-green-primary)"],
+    colors: ["var(--primary)"],
     dataLabels: { enabled: false },
     stroke: { curve: "smooth", width: 4 },
     fill: {
@@ -80,7 +80,7 @@ export const RevenueTimelineChart = ({ revenueGraph }: { revenueGraph: AdminChar
     },
     markers: {
       size: 5,
-      colors: ["var(--text-green-primary)"],
+      colors: ["var(--primary)"],
       strokeColors: "#ffffff",
       strokeWidth: 3,
       hover: { size: 7 },

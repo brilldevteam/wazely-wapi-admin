@@ -20,10 +20,10 @@ const PlanBasicInfo = ({ formData, onFieldChange }: PlanBasicInfoProps) => {
   };
 
   return (
-    <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm sm:p-6 p-4 transition-all hover:shadow-md">
+    <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white border rounded-lg shadow-sm sm:p-6 p-4 transition-all hover:shadow-md">
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center">
-          <CreditCard className="w-5 h-5 text-(--text-green-primary)" />
+        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+          <CreditCard className="w-5 h-5 text-primary" />
         </div>
         <div>
           <h2 className="text-xl font-medium text-gray-900 dark:text-white leading-none">
@@ -50,7 +50,7 @@ const PlanBasicInfo = ({ formData, onFieldChange }: PlanBasicInfoProps) => {
             placeholder={t("plan_name_placeholder") || "e.g. Professional Plan"}
             value={formData.name}
             onChange={(e) => handleNameChange(e.target.value)}
-            className="dark:bg-page-body dark:border-(--card-border-color) p-3 h-11 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg"
+            className="dark:bg-page-body dark:border-(--card-border-color) p-3 h-11 bg-gray-50/50 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all rounded-lg"
           />
         </div>
 
@@ -85,7 +85,7 @@ const PlanBasicInfo = ({ formData, onFieldChange }: PlanBasicInfoProps) => {
             }
             value={formData.description}
             onChange={(e) => onFieldChange("description", e.target.value)}
-            className="dark:bg-page-body dark:border-(--card-border-color) min-h-25 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg resize-none p-3"
+            className="dark:bg-page-body dark:border-(--card-border-color) min-h-25 bg-gray-50/50 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all rounded-lg resize-none p-3"
             rows={4}
           />
         </div>

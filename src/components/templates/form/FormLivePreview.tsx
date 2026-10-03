@@ -5,24 +5,9 @@ import { TemplatePreviewBubble } from "./TemplatePreviewBubble";
 import { FormLivePreviewProps } from "@/src/types/template";
 import { useTranslation } from "react-i18next";
 import { TwitterIcon } from "@/src/utils/customIcon";
-import { applyDirectionMarksToHtml } from "@/src/utils/textDirection";
-
-const resolveBody = (messageBody: string, variables_example: { key: string; example: string }[]) => {
-  if (!messageBody) return "Message content goes here...";
-  // Apply RLM/LRM before stripping tags so the preview reflects each block's chosen direction
-  // the same way the actual delivered (plain-text) message will, via the Unicode bidi algorithm.
-  let text = applyDirectionMarksToHtml(messageBody)
-    .replace(/&nbsp;/g, " ")
-    .replace(/<p[^>]*>/g, "")
-    .replace(/<\/p>/g, "\n")
-    .replace(/<br\s*\/?>/g, "\n")
-    .replace(/<[^>]*>?/gm, "");
-  variables_example.forEach((v: any) => {
-    const escapedKey = v?.key?.toString().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    text = text.replace(new RegExp(`\\{\\{${escapedKey}\\}\\}`, "g"), v.example || `{{${v.key}}}`);
-  });
-  return text.trim() || "Message content goes here...";
-};
+// The editor HTML keeps each block's dir/text-align, so the rich preview below renders the chosen
+// RTL/LTR direction directly; TemplatePreviewBubble defaults unmarked blocks to ltr.
+import { formatTemplateBodyHtml } from "@/src/utils/templateFormatter";
 
 export const FormLivePreview = ({
   templateType,
@@ -54,7 +39,7 @@ export const FormLivePreview = ({
     };
   }, [fileUrl]);
 
-  const bodyText = resolveBody(messageBody, variables_example);
+  const bodyText = formatTemplateBodyHtml(messageBody, variables_example);
 
   // Dynamic branding configuration based on the platform
   const brandConfig = useMemo(() => {
@@ -103,11 +88,11 @@ export const FormLivePreview = ({
       default:
         return {
           headerBg: "bg-[#075e54] dark:bg-[#1f2c34]",
-          avatarBg: "bg-emerald-800 dark:bg-emerald-950",
+          avatarBg: "bg-primary-dark dark:bg-primary-dark",
           title: "Your Brand",
           subtitle: "Business Account",
           textColor: "text-white",
-          subColor: "text-emerald-100/70",
+          subColor: "text-primary/20/70",
           arrowColor: "text-white",
         };
     }
@@ -125,7 +110,7 @@ export const FormLivePreview = ({
                 {platform === "twitter" ? (
                   <TwitterIcon size={16} className="text-white dark:text-black" />
                 ) : (
-                  <ImageIcon size={16} className={`${platform === "instagram" ? "text-white" : "text-emerald-200"}`} />
+                  <ImageIcon size={16} className={`${platform === "instagram" ? "text-white" : "text-primary/30"}`} />
                 )}
               </div>
               <div className="min-w-0 flex-1">

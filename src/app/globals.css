@@ -39,7 +39,7 @@
 
 .dark .ck.ck-toolbar .ck-button.ck-on {
   background-color: var(--dark-sidebar) !important;
-  color: var(--text-green-primary) !important;
+  color: var(--primary) !important;
 }
 
 .dark .ck.ck-toolbar .ck-toolbar__separator {
@@ -116,6 +116,8 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -140,25 +142,31 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: var(--font-mona-sans);
-}
+  --font-sans: var(--font-global-sans);
+} 
 
 :root {
+  /* ========================================= */
+  /* THEME BASE COLOR - EDIT THIS VALUE ONLY   */
+  /* ========================================= */
   --primary: #059669 !important;
-  --secondary: #61896f !important;
-  --text-green-primary: #059669 !important;
-  --light-primary: #ecfdf8 !important;
-  --light-secondary: #e7fbed !important;
-  --text-light-secondary: #61896f !important;
-  --text-stealth-Green: #111813 !important;
+  --primary-light: color-mix(in srgb, var(--primary) 20%, #fff) !important;
+  --primary-dark: color-mix(in srgb, var(--primary) 70%, #000) !important;
+  --secondary: color-mix(in srgb, var(--primary) 70%, #000) !important;
+    --light-primary: color-mix(in srgb, var(--primary) 10%, #fff) !important;
+  --light-secondary: color-mix(in srgb, var(--primary) 15%, #fff) !important;
+  --text-light-secondary: color-mix(in srgb, var(--primary) 70%, #000) !important;
+  --text-stealth-Green: color-mix(in srgb, var(--primary) 20%, #000) !important;
+  
   --light-background: #f1f5f9 !important;
   --page-body-bg: #f8fafc !important;
   --warning-color: #f3d04f !important;
   --input-color: #f8fafc !important;
   --input-border-color: #e2e8f0 !important;
+  
   /* Semantic UI variables */
   --light-body-bg: #eeeff3;
-  --sidebar-hover-green: #61896f;
+  --sidebar-hover-green: color-mix(in srgb, var(--primary) 70%, #000);
   --muted-text-color: #94a3b8;
   --body-text-color: #475569;
   --body-text-hover-color: #1e293b;
@@ -196,10 +204,7 @@
   --card-foreground: #0f0f0f;
   --popover: #ffffff;
   --popover-foreground: #0f0f0f;
-  --primary: #111111;
-  --primary-foreground: #fafafa;
-  --secondary: #f2f2f2;
-  --secondary-foreground: #111111;
+  --primary-foreground: #ffffff;
   --muted: #f2f2f2;
   --muted-foreground: #8e8e8e;
   --accent: #f2f2f2;
@@ -229,18 +234,15 @@
   --card: #181818;
   --card-foreground: #fafafa;
   /* --page-body-bg: #101828!important; */
-  --dark-sidebar: #05966912 !important;
-  --table-hover: #05966912 !important;
-  --dark-body: #011314 !important;
-  --page-body-bg: #122727 !important;
-  --card-color: #041A1C !important;
+  --dark-sidebar: color-mix(in srgb, var(--primary), black 85%) !important;
+  --table-hover: color-mix(in srgb, var(--primary), black 85%) !important;
+  --dark-body: color-mix(in srgb, var(--primary), black 85%) !important;
+  --page-body-bg: color-mix(in srgb, var(--primary), black 85%) !important;
+  --card-color: color-mix(in srgb, var(--primary), black 75%) !important;
   --card-border-color: #ffffff20 !important;
   --popover: #181818;
   --popover-foreground: #fafafa;
-  --primary: #e6e6e6;
   --primary-foreground: #111111;
-  --secondary: #2a2a2a;
-  --secondary-foreground: #fafafa;
   --muted: #2a2a2a;
   --muted-foreground: #b3b3b3;
   --accent: #2a2a2a;
@@ -268,7 +270,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-mona-sans);
+    font-family: var(--font-global-sans);
   }
 
   /* scrollbar */
@@ -284,7 +286,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(22, 163, 74, 0.6);
+      background-color: var(--primary);
     }
   }
 
@@ -301,13 +303,13 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: rgba(22, 163, 74, 0.6);
+      background-color: var(--primary);
       cursor: grab;
     }
   }
 
   ::selection {
-    @apply bg-(--text-green-primary) text-white;
+    @apply bg-primary text-white;
   }
 
 }

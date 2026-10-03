@@ -140,7 +140,7 @@ const AdminTemplateContainer = () => {
             router.push(`${ROUTES.TemplatesLibrary}/${template._id}/edit`)
           }
         >
-          <div className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center text-primary shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-primary/20 dark:bg-primary/20 flex items-center justify-center text-primary shrink-0">
             <LayoutTemplate size={16} />
           </div>
           <div>
@@ -295,7 +295,7 @@ const AdminTemplateContainer = () => {
             <SelectTrigger className="w-[180px] h-9 py-5.5 border-slate-200 dark:border-none rounded-lg bg-(--input-color) dark:bg-page-body transition-all shrink-0">
               <SelectValue placeholder="All Channels" />
             </SelectTrigger>
-            <SelectContent className="rounded-lg border-(--input-border-color) dark:border-(--card-border-color) dark:bg-page-body">
+            <SelectContent className="rounded-lg border-(--input-border-color) dark:border-(--card-border-color) dark:bg-(--dark-body)">
               <SelectItem value="all">All Channels</SelectItem>
               <SelectItem value="whatsapp">WhatsApp</SelectItem>
               <SelectItem value="telegram">Telegram</SelectItem>

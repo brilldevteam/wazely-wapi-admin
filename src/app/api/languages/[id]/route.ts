@@ -43,8 +43,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      return NextResponse.json({ error: "Failed to update language", details: errorText }, { status: response.status });
+      const errorText = await response.json();
+      return NextResponse.json({ error: errorText.error || "Failed to update language" }, { status: response.status });
     }
 
     const data = await response.json();

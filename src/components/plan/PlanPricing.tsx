@@ -63,8 +63,8 @@ const PlanPricing = ({ formData, onFieldChange }: PlanPricingProps) => {
   return (
     <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm sm:p-6 p-4 transition-all ">
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-10 h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center">
-          <span className="text-xl font-bold text-(--text-green-primary)">
+        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+          <span className="text-xl font-bold text-primary">
             {defaultSymbol}
           </span>
         </div>
@@ -95,7 +95,7 @@ const PlanPricing = ({ formData, onFieldChange }: PlanPricingProps) => {
             value={formData.price}
             onChange={(e) => onFieldChange("price", e.target.value)}
             disabled={isFreeTrial}
-            className={`dark:bg-page-body dark:border-(--card-border-color) h-11 p-3 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg ${isFreeTrial ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`dark:bg-page-body dark:border-(--card-border-color) h-11 p-3 bg-gray-50/50 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all rounded-lg ${isFreeTrial ? "opacity-50 cursor-not-allowed" : ""}`}
           />
         </div>
 
@@ -110,7 +110,7 @@ const PlanPricing = ({ formData, onFieldChange }: PlanPricingProps) => {
             id="currency"
             value={formData.currency}
             onChange={(e) => onFieldChange("currency", e.target.value)}
-            className="dark:bg-page-body focus-visible:outline-none dark:border-(--card-border-color) h-11 w-full px-3 bg-gray-50/50 border border-gray-200 rounded-lg focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all appearance-none cursor-pointer"
+            className="dark:bg-page-body focus-visible:outline-none dark:border-(--card-border-color) h-11 w-full px-3 bg-gray-50/50 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
             disabled={isLoadingCurrencies}
           >
             {isLoadingCurrencies ? (
@@ -142,7 +142,7 @@ const PlanPricing = ({ formData, onFieldChange }: PlanPricingProps) => {
             id="billing_cycle"
             value={formData.billing_cycle}
             onChange={(e) => onFieldChange("billing_cycle", e.target.value)}
-            className="dark:bg-page-body focus-visible:outline-none dark:border-(--card-border-color) h-11 w-full px-3 bg-gray-50/50 border border-gray-200 rounded-lg focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all appearance-none cursor-pointer"
+            className="dark:bg-page-body focus-visible:outline-none dark:border-(--card-border-color) h-11 w-full px-3 bg-gray-50/50 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary transition-all appearance-none cursor-pointer"
           >
             <option value="monthly">
               {t("plan_billing_cycle_monthly") || "Monthly"}
@@ -173,7 +173,7 @@ const PlanPricing = ({ formData, onFieldChange }: PlanPricingProps) => {
             >
               <Button
                 variant="outline"
-                className={`flex justify-between items-center dark:bg-page-body dark:border-(--card-border-color) h-11 p-3 bg-gray-50/50 border-gray-200 focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all rounded-lg w-full font-normal ${isFreeTrial ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`flex justify-between items-center dark:bg-page-body dark:border-(--card-border-color) h-11 p-3 bg-gray-50/50 border-gray-200 focus:border-primary focus:ring-1 focus:ring-primary transition-all rounded-lg w-full font-normal ${isFreeTrial ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 <div className="flex items-center gap-2 overflow-hidden mr-2">
                   <Percent className="w-4 h-4 text-gray-400" />
@@ -183,7 +183,7 @@ const PlanPricing = ({ formData, onFieldChange }: PlanPricingProps) => {
                         <Badge
                           key={index}
                           variant="secondary"
-                          className="whitespace-nowrap bg-(--text-green-primary)/10 text-(--text-green-primary) border-none"
+                          className="whitespace-nowrap bg-primary/10 text-primary border-none"
                         >
                           {name}
                         </Badge>

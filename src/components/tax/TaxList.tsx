@@ -83,7 +83,7 @@ const TaxList = ({
         <Badge
           className={
             row.is_active
-              ? "bg-emerald-100 text-(--text-green-primary) dark:bg-emerald-900/20 hover:bg-emerald-100"
+              ? "bg-primary/20 text-primary dark:bg-primary-dark/20 hover:bg-primary/20"
               : "bg-gray-100 text-gray-700 dark:bg-page-body dark:text-gray-500 "
           }
         >

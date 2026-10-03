@@ -81,7 +81,7 @@ const LanguageDropdown = () => {
             p-2.5 rounded-lg transition-all duration-200 relative group
             ${darkMode
               ? 'bg-page-body text-slate-400 hover:text-white hover:bg-sidebar-hover-green'
-              : 'bg-white dark:bg-(--page-body-bg) dark:border-none dark:hover:bg-(--table-hover) text-slate-500 hover:text-(--text-green-primary) hover:bg-green-50 shadow-sm border border-slate-100'
+              : 'bg-white dark:bg-(--page-body-bg) dark:border-none dark:hover:bg-(--table-hover) text-slate-500 hover:text-primary hover:bg-green-50 shadow-sm border border-slate-100'
             }
             ${(isChanging || isLoadingLanguages) ? 'opacity-50 cursor-not-allowed' : ''}
           `}
@@ -102,7 +102,7 @@ const LanguageDropdown = () => {
               className={`
                 cursor-pointer rounded-lg flex items-center gap-3 p-2.5 mb-1 last:mb-0 transition-colors
                 ${currentLanguageLocale.toLowerCase() === lang.locale.toLowerCase()
-                  ? 'bg-green-50 text-(--text-green-primary) dark:bg-emerald-900/20 dark:text-(--text-green-primary)'
+                  ? 'bg-green-50 text-primary dark:bg-primary-dark/20 dark:text-primary'
                   : 'hover:bg-slate-50 dark:hover:bg-(--dark-sidebar) focus:bg-slate-50 dark:focus:bg-sidebar-hover-green/30'
                 }
               `}
@@ -122,7 +122,7 @@ const LanguageDropdown = () => {
                 )}
               </div>
               <span className="flex-1 text-sm font-medium">{lang.name}</span>
-              {currentLanguageLocale.toLowerCase() === lang.locale.toLowerCase() && <Check className="w-4 h-4 text-(--text-green-primary) shrink-0" />}
+              {currentLanguageLocale.toLowerCase() === lang.locale.toLowerCase() && <Check className="w-4 h-4 text-primary shrink-0" />}
             </DropdownMenuItem>
           ))
         ) : (

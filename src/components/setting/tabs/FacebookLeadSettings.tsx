@@ -32,7 +32,7 @@ const FacebookLeadSettings = () => {
           {/* Webhook URL Section */}
           <div className="space-y-2">
             <Label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-              <Globe className="w-4 h-4 text-(--text-green-primary)" />
+              <Globe className="w-4 h-4 text-primary" />
               {t("settings_facebook_lead_webhook_url")}
             </Label>
             <div className="relative group">
@@ -53,7 +53,7 @@ const FacebookLeadSettings = () => {
           {/* Verify Token Section */}
           <div className="space-y-2">
             <Label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-              <Lock className="w-4 h-4 text-(--text-green-primary)" />
+              <Lock className="w-4 h-4 text-primary" />
               {t("settings_facebook_lead_webhook_verify_token")}
             </Label>
             <div className="relative group">
@@ -62,7 +62,7 @@ const FacebookLeadSettings = () => {
                 value={settings.facebook_lead_webhook_verify_token || ""}
                 onChange={(e) => onChange("facebook_lead_webhook_verify_token", e.target.value)}
                 placeholder={t("settings_facebook_lead_webhook_verify_token_placeholder")}
-                className="h-12 bg-(--input-color) dark:bg-page-body border-slate-200 dark:border-(--card-border-color) px-4 focus:ring-2 focus:ring-(--text-green-primary)/20 transition-all pr-12"
+                className="h-12 bg-(--input-color) dark:bg-page-body border-slate-200 dark:border-(--card-border-color) px-4 focus:ring-2 focus:ring-primary/20 transition-all pr-12"
               />
               <Button
                 type="button"
@@ -114,7 +114,7 @@ const FacebookLeadSettings = () => {
                 value={settings.instagram_webhook_verify_token || ""}
                 onChange={(e) => onChange("instagram_webhook_verify_token", e.target.value)}
                 placeholder={t("settings_instagram_webhook_verify_token_placeholder")}
-                className="h-12 bg-(--input-color) dark:bg-page-body border-slate-200 dark:border-(--card-border-color) px-4 focus:ring-2 focus:ring-(--text-green-primary)/20 transition-all pr-12"
+                className="h-12 bg-(--input-color) dark:bg-page-body border-slate-200 dark:border-(--card-border-color) px-4 focus:ring-2 focus:ring-primary/20 transition-all pr-12"
               />
               <Button
                 type="button"

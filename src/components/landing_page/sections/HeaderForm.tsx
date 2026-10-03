@@ -2,6 +2,7 @@
 
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
+import { Switch } from "@/src/elements/ui/switch";
 import { useGetPagesQuery } from "@/src/redux/api/pageApi";
 import {
   FlatMenuItem,
@@ -218,7 +219,20 @@ const HeaderForm = ({ data, onChange }: HeaderFormProps) => {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div className="flex items-center gap-1.5 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-200" onClick={(e) => e.stopPropagation()}>
+              <Switch
+                checked={item.status}
+                onCheckedChange={(checked) => {
+                  const updated = flatItems.map((fItem) => {
+                    if (fItem.id === item.id) {
+                      return { ...fItem, status: checked };
+                    }
+                    return fItem;
+                  });
+                  triggerChange(updated);
+                }}
+                className="data-[state=checked]:bg-primary scale-[0.8] mr-1.5"
+              />
               <Button
                 variant="ghost"
                 size="icon"

@@ -141,7 +141,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
           <ArrowLeft size={20} />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight">
+          <h1 className="text-2xl font-bold text-primary tracking-tight">
             {isEditMode
               ? t("testimonial_edit_title")
               : t("testimonial_add_title")}
@@ -184,7 +184,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
                     placeholder={t("testimonial_placeholders_name")}
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
-                    className="h-11 bg-(--input-color) dark:bg-(--page-body-bg) dark:border-(--card-border-color) p-3 border-gray-300 focus:border-(--text-green-primary) focus:ring-(--text-green-primary)"
+                    className="h-11 bg-(--input-color) dark:bg-(--page-body-bg) dark:border-(--card-border-color) p-3 border-gray-300 focus:border-primary focus:ring-primary"
                   />
                 </div>
 
@@ -252,7 +252,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
                     placeholder={t("testimonial_placeholders_position")}
                     value={clientDesignation}
                     onChange={(e) => setClientDesignation(e.target.value)}
-                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) p-3 border-gray-300 focus:border-(--text-green-primary) focus:ring-(--text-green-primary)"
+                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) p-3 border-gray-300 focus:border-primary focus:ring-primary"
                   />
                 </div>
               </div>
@@ -282,7 +282,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
                 placeholder={t("testimonial_placeholders_name")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) border-gray-300 p-3 focus:border-(--text-green-primary) focus:ring-(--text-green-primary)"
+                className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) border-gray-300 p-3 focus:border-primary focus:ring-primary"
               />
             </div>
 
@@ -300,7 +300,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
                     0 / 400 characters
                   </span>
                 </div>
-                <div className="border border-gray-300 dark:bg-(--card-color) dark:border-(--card-border-color) rounded-lg overflow-hidden focus-within:border-(--text-green-primary) focus-within:ring-1 focus-within:ring-(--text-green-primary) transition-all bg-gray-50">
+                <div className="border border-gray-300 dark:bg-(--card-color) dark:border-(--card-border-color) rounded-lg overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all bg-gray-50">
                   <CKEditorComponent
                     value={content}
                     onChange={setContent}
@@ -344,7 +344,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
         {/* Sidebar — 4 columns */}
         <div className="xl:col-span-4 space-y-6">
           {/* Settings Card */}
-          <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white border rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div className="sm:px-6 px-4 py-4 border-b border-gray-100 dark:border-(--card-border-color)">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {t("common_settings")}
@@ -367,7 +367,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
                   id="status"
                   checked={status}
                   onCheckedChange={setStatus}
-                  className="data-[state=checked]:bg-(--text-green-primary)"
+                  className="data-[state=checked]:bg-primary"
                 />
               </div>
             </div>
@@ -387,7 +387,7 @@ const AddTestimonialPage = ({ id }: AddTestimonialPageProps) => {
         </Button>
         <Button
           onClick={handleSubmit}
-          className="px-6 py-5 h-11 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-medium shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+          className="px-6 py-5 h-11 bg-primary hover:bg-primary/90 text-white font-medium shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed gap-2"
           disabled={
             isLoading ||
             !title ||

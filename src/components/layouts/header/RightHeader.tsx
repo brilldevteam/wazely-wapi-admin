@@ -84,7 +84,7 @@ const RightHeader = () => {
         onClick={() => dispatch(setRTL())}
         className="p-2.5 rounded-lg transition-all duration-200
           dark:bg-page-body dark:text-slate-400 dark:hover:text-white dark:hover:bg-(--dark-sidebar)
-          bg-white text-slate-500 hover:text-(--text-green-primary) hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none"
+          bg-white text-slate-500 hover:text-primary hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none"
       >
         {!isRTL ? <PilcrowRight className="w-5 h-5" /> : <PilcrowLeft className="w-5 h-5" />}
       </Button>
@@ -97,7 +97,7 @@ const RightHeader = () => {
               disabled={isSwitching}
               className="p-2.5 rounded-lg transition-all duration-200
                 dark:bg-page-body dark:text-slate-400 dark:hover:text-white dark:hover:bg-(--dark-sidebar)
-                bg-white text-slate-500 hover:text-(--text-green-primary) hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none"
+                bg-white text-slate-500 hover:text-primary hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none"
             >
               {isSwitching ? (
                 <span className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -117,7 +117,7 @@ const RightHeader = () => {
         onClick={handleThemeToggle}
         className="p-2.5 rounded-lg transition-all duration-200
           dark:bg-page-body dark:text-slate-400 dark:hover:text-white dark:hover:bg-(--dark-sidebar)
-          bg-white text-slate-500 hover:text-(--text-green-primary) hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none"
+          bg-white text-slate-500 hover:text-primary hover:bg-green-50 shadow-sm border border-slate-100 dark:border-none"
       >
         {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
       </Button>

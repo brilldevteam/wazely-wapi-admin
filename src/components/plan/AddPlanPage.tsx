@@ -254,13 +254,20 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
   const handleFeatureChange = (field: string, value: string | boolean) => {
     if (field.startsWith("enabled_")) {
       const featureId = field.replace("enabled_", "");
-      setFormData((prev) => ({
-        ...prev,
-        enabled_features: {
-          ...prev.enabled_features,
-          [featureId]: value as boolean,
-        },
-      }));
+      setFormData((prev) => {
+        const newFeatures = { ...prev.features };
+        if (!value) {
+          (newFeatures as any)[featureId] = "0";
+        }
+        return {
+          ...prev,
+          features: newFeatures,
+          enabled_features: {
+            ...prev.enabled_features,
+            [featureId]: value as boolean,
+          },
+        };
+      });
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -464,7 +471,7 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
             <ArrowLeft size={20} />
           </Button>
           <div className="flex-1">
-            <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight">
+            <h1 className="text-2xl font-bold text-primary tracking-tight">
               {isEditMode ? t("plan_edit_title") : t("plan_add_title")}
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm leading-relaxed">
@@ -548,7 +555,7 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
           </Button>
           <Button
             onClick={handleSubmit}
-            className="px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-semibold shadow-sm transition-all active:scale-95 disabled:opacity-50"
+            className="px-4.5 py-5 bg-primary hover:bg-primary/90 text-white font-semibold shadow-sm transition-all active:scale-95 disabled:opacity-50"
             disabled={
               isLoading || !formData.name || !formData.price || isLoadingPlan
             }

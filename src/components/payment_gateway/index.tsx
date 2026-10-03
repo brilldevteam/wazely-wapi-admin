@@ -4,6 +4,8 @@ import { useState } from "react";
 import StripeForm from "./StripeSettings";
 import RazorpayForm from "./RazorpaySettings";
 import PayPalForm from "./PayPalSettings";
+import MidtransForm from "./MidtransSettings";
+import MollieForm from "./MollieSettings";
 import PaymentGatewayHeader from "./PaymentGatewayHeader";
 import { Button } from "@/src/elements/ui/button";
 import { GatewayId } from "@/src/types/payment";
@@ -45,10 +47,32 @@ const gateways: { id: GatewayId; name: string; icon: React.ReactNode }[] = [
       </svg>
     ),
   },
+  {
+    id: "midtrans",
+    name: "Midtrans",
+    icon: (
+      <svg viewBox="0 0 32 22" className="w-8 h-5" fill="none">
+        <rect width="32" height="22" rx="4" fill="#002D5B" />
+        <text x="5" y="15" fontSize="10" fontWeight="bold" fill="#FCA311" fontFamily="sans-serif">
+          Mid
+        </text>
+      </svg>
+    ),
+  },
+  {
+    id: "mollie",
+    name: "Mollie",
+    icon: (
+      <svg viewBox="0 0 32 22" className="w-8 h-5" fill="none">
+        <rect width="32" height="22" rx="4" fill="#023047" />
+        <circle cx="16" cy="11" r="5" fill="#FF9F1C" />
+      </svg>
+    ),
+  },
 ];
 
 const PaymentGatewayContainer = () => {
-  const [activeGateway, setActiveGateway] = useState<GatewayId>("stripe");
+  const [activeGateway, setActiveGateway] = useState<string>("stripe");
 
   const handleRefresh = () => {
     window.location.reload();
@@ -65,10 +89,10 @@ const PaymentGatewayContainer = () => {
             {gateways.map((gw) => {
               const isActive = activeGateway === gw.id;
               return (
-                <Button key={gw.id} onClick={() => setActiveGateway(gw.id)} className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg border text-sm font-semibold transition-all duration-200 cursor-pointer ${isActive ? "border-(--text-green-primary) bg-(--text-green-primary)/5 hover:bg-(--text-green-primary)/5 text-slate-800 dark:text-slate-100 shadow-sm" : "border-(--input-border-color) dark:border-(--card-border-color) text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-(--card-border-color) hover:bg-[unset]! bg-transparent"}`}>
+                <Button key={gw.id} onClick={() => setActiveGateway(gw.id)} className={`flex items-center gap-2.5 px-4 py-2.5 rounded-lg border text-sm font-semibold transition-all duration-200 cursor-pointer ${isActive ? "border-primary bg-primary/5 hover:bg-primary/5 text-slate-800 dark:text-slate-100 shadow-sm" : "border-(--input-border-color) dark:border-(--card-border-color) text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-(--card-border-color) hover:bg-[unset]! bg-transparent"}`}>
                   {gw.icon}
                   <span>{gw.name}</span>
-                  {isActive && <span className="ml-1 w-2 h-2 rounded-full bg-(--text-green-primary) inline-block" />}
+                  {isActive && <span className="ml-1 w-2 h-2 rounded-full bg-primary inline-block" />}
                 </Button>
               );
             })}
@@ -80,6 +104,8 @@ const PaymentGatewayContainer = () => {
           {activeGateway === "stripe" && <StripeForm />}
           {activeGateway === "razorpay" && <RazorpayForm />}
           {activeGateway === "paypal" && <PayPalForm />}
+          {activeGateway === "midtrans" && <MidtransForm />}
+          {activeGateway === "mollie" && <MollieForm />}
         </div>
       </div>
     </div>

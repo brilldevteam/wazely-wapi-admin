@@ -95,5 +95,6 @@ export const settingTabs = [
   { id: "banner", label: "Header Banner", icon: Megaphone, description: "Manage announcement banner" },
   { id: "widget", label: "Landing Widget", icon: MessageCircle, description: "Configure dynamic landing widgets & redirects" },
   { id: "maintenance", label: "Maintenance", icon: Wrench, description: "Maintenance & error pages" },
+  { id: "social_media", label: "Social Media Settings", icon: Share2, description: "Configure social media publishing credentials" },
   { id: "signup_agreement", label: "Signup Customization", icon: FileCheck, description: "Signup agree line customization" },
 ] as const;

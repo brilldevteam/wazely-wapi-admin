@@ -86,7 +86,7 @@ const LanguageList = ({
           disabled={
             row.is_default || isLoading || !hasPermission("update.languages")
           }
-          className="data-[state=checked]:bg-(--text-green-primary)"
+          className="data-[state=checked]:bg-primary"
         />
       ),
     },

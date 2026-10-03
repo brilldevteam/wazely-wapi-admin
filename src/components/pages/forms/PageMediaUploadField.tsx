@@ -88,7 +88,7 @@ export function PageMediaUploadField({ label, value, onChange }: PageMediaUpload
                   if (el) el.click();
                 }}
                 disabled={isLoading}
-                className="text-xs bg-[unset]! h-[unset]! shadow-none p-0 hover:bg-[unset] break-all whitespace-normal line-clamp-1  font-semibold text-(--text-green-primary) hover:underline mt-1 block"
+                className="text-xs bg-[unset]! h-[unset]! shadow-none p-0 hover:bg-[unset] break-all whitespace-normal line-clamp-1  font-semibold text-primary hover:underline mt-1 block"
               >
                 Change File
               </Button>
@@ -114,7 +114,7 @@ export function PageMediaUploadField({ label, value, onChange }: PageMediaUpload
           className="border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-5 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-(--dark-sidebar) transition-all max-w-md group"
         >
           {isLoading ? (
-            <Loader2 className="w-6 h-6 text-(--text-green-primary) animate-spin" />
+            <Loader2 className="w-6 h-6 text-primary animate-spin" />
           ) : (
             <UploadCloud className="w-6 h-6 text-gray-450 group-hover:scale-110 transition-transform" />
           )}

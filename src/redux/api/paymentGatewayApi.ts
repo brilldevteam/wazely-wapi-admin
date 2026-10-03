@@ -1,8 +1,8 @@
 import { baseApi } from "./baseApi";
-import type { StripeSettings, RazorpaySettings, PayPalSettings } from "@/src/types/payment";
+import type { StripeSettings, RazorpaySettings, PayPalSettings, MidtransSettings, PaymentSettings } from "@/src/types/payment";
 
 // Re-export for backward compatibility
-export type { StripeSettings, RazorpaySettings, PayPalSettings };
+export type { StripeSettings, RazorpaySettings, PayPalSettings, MidtransSettings };
 
 export const paymentGatewayApi = baseApi.enhanceEndpoints({ addTagTypes: ["PaymentGateway", "Stripe", "Razorpay", "PayPal"] }).injectEndpoints({
   endpoints: (builder) => ({
@@ -42,7 +42,46 @@ export const paymentGatewayApi = baseApi.enhanceEndpoints({ addTagTypes: ["Payme
       }),
       invalidatesTags: ["PayPal"],
     }),
+    getMidtransSettings: builder.query<{ success: boolean; data: MidtransSettings }, void>({
+      query: () => "/payment_gateway/midtrans",
+      providesTags: ["PaymentGateway"],
+    }),
+    updateMidtransSettings: builder.mutation<{ success: boolean; data: MidtransSettings }, MidtransSettings>({
+      query: (body) => ({
+        url: "/payment_gateway/midtrans",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["PaymentGateway"],
+    }),
+    // Mollie
+    getMollieSettings: builder.query<{ data: PaymentSettings }, void>({
+      query: () => "/payment_gateway/mollie",
+      providesTags: ["PaymentGateway"],
+    }),
+    updateMollieSettings: builder.mutation<
+      { data: PaymentSettings; message: string },
+      Partial<PaymentSettings>
+    >({
+      query: (data) => ({
+        url: "/payment_gateway/mollie",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["PaymentGateway"],
+    }),
   }),
 });
 
-export const { useGetStripeSettingsQuery, useUpdateStripeSettingsMutation, useGetRazorpaySettingsQuery, useUpdateRazorpaySettingsMutation, useGetPayPalSettingsQuery, useUpdatePayPalSettingsMutation } = paymentGatewayApi;
+export const {
+  useGetStripeSettingsQuery,
+  useUpdateStripeSettingsMutation,
+  useGetRazorpaySettingsQuery,
+  useUpdateRazorpaySettingsMutation,
+  useGetPayPalSettingsQuery,
+  useUpdatePayPalSettingsMutation,
+  useGetMidtransSettingsQuery,
+  useUpdateMidtransSettingsMutation,
+  useGetMollieSettingsQuery,
+  useUpdateMollieSettingsMutation,
+} = paymentGatewayApi;

@@ -20,13 +20,13 @@ export const BodySection = ({ messageBody, handleBodyChange, addVariable, setEdi
 
       <div className="space-y-4">
         <CharacterCountWrapper current={messageBody?.replace(/<[^>]*>/g, "")?.length || 0} max={1600}>
-          <div className="relative group rounded-lg overflow-hidden border-2 border-slate-100 dark:border-(--card-border-color) focus-within:border-emerald-500/30 transition-all shadow-sm">
+          <div className="relative group rounded-lg overflow-hidden border-2 border-slate-100 dark:border-(--card-border-color) focus-within:border-primary/30 transition-all shadow-sm">
             <CkEditor value={messageBody} onChange={handleBodyChange} onReady={setEditor} placeholder={t("templates_library_body_placeholder")} minHeight="200px" />
             <div className="p-3 bg-slate-50/50 dark:bg-(--table-hover) border-t border-slate-100 dark:border-(--card-border-color) flex-wrap gap-3 sm:gap-0 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               </div>
-              <Button type="button" onClick={addVariable} className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white dark:bg-(--dark-sidebar) border border-slate-200 dark:border-(--card-border-color) rounded-lg text-[9px] sm:text-[10px] font-bold text-primary dark:text-primary hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-(--table-hover) transition-all shadow-sm uppercase tracking-wider">
+              <Button type="button" onClick={addVariable} className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white dark:bg-(--dark-sidebar) border border-slate-200 dark:border-(--card-border-color) rounded-lg text-[9px] sm:text-[10px] font-bold text-primary dark:text-primary hover:border-primary hover:bg-primary/10 dark:hover:bg-(--table-hover) transition-all shadow-sm uppercase tracking-wider">
                 <Plus size={12} />
                 {t("templates_library_add_variable")}
               </Button>
@@ -44,7 +44,7 @@ export const BodySection = ({ messageBody, handleBodyChange, addVariable, setEdi
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-primary uppercase tracking-widest leading-none">{t("templates_library_variable_title", { key: variable.key })}</span>
                 </div>
-                <Input placeholder={t("templates_library_variable_example_placeholder", { key: variable.key })} value={variable.example} onChange={(e) => updateVariable(index, e.target.value)} className="h-11 border-(--input-border-color) dark:border-(--card-border-color) rounded-lg bg-white dark:bg-(--dark-body) p-3 text-sm focus:border-emerald-500/50 transition-all" />
+                <Input placeholder={t("templates_library_variable_example_placeholder", { key: variable.key })} value={variable.example} onChange={(e) => updateVariable(index, e.target.value)} className="h-11 border-(--input-border-color) dark:border-(--card-border-color) rounded-lg bg-white dark:bg-(--dark-body) p-3 text-sm focus:border-primary/50 transition-all" />
               </div>
             ))}
           </div>

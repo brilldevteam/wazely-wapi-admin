@@ -56,7 +56,7 @@ const ChangePasswordForm = () => {
     <Card className="border-gray-200 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) shadow-sm">
       <CardHeader>
         <CardTitle className="text-xl font-bold flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-(--text-green-primary)" />
+          <ShieldCheck className="w-5 h-5 text-primary" />
           {t("change_password")}
         </CardTitle>
         <CardDescription>{t("change_password_desc")}</CardDescription>
@@ -67,8 +67,8 @@ const ChangePasswordForm = () => {
             <div className="space-y-2 flex flex-col">
               <Label htmlFor="current_password">{t("current_password")}</Label>
               <div className="relative group">
-                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
-                <Input id="current_password" type={showCurrentPassword ? "text" : "password"} placeholder={t("current_password_placeholder")} className="pl-10 py-5.5 pr-10 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" {...formik.getFieldProps("current_password")} />
+                <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <Input id="current_password" type={showCurrentPassword ? "text" : "password"} placeholder={t("current_password_placeholder")} className="pl-10 py-5.5 pr-10 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary" {...formik.getFieldProps("current_password")} />
                 <Button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)} className="absolute right-3 bg-[unset]! p-0! shadow-[unset]! h-[unset]! top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                   {showCurrentPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </Button>
@@ -79,8 +79,8 @@ const ChangePasswordForm = () => {
             <div className="space-y-2 flex flex-col">
               <Label htmlFor="new_password">{t("new_password")}</Label>
               <div className="relative group">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
-                <Input id="new_password" type={showNewPassword ? "text" : "password"} placeholder={t("new_password_placeholder")} className="pl-10 py-5.5 pr-10 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" {...formik.getFieldProps("new_password")} />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <Input id="new_password" type={showNewPassword ? "text" : "password"} placeholder={t("new_password_placeholder")} className="pl-10 py-5.5 pr-10 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary" {...formik.getFieldProps("new_password")} />
                 <Button type="button" onClick={() => setShowNewPassword(!showNewPassword)} className="absolute right-3 bg-[unset]! p-0! shadow-[unset]! h-[unset]! top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                   {showNewPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </Button>
@@ -91,8 +91,8 @@ const ChangePasswordForm = () => {
             <div className="space-y-2 flex flex-col">
               <Label htmlFor="confirm_password">{t("confirm_password")}</Label>
               <div className="relative group">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
-                <Input id="confirm_password" type={showConfirmPassword ? "text" : "password"} placeholder={t("confirm_password_placeholder")} className="pl-10 py-5.5 pr-10 bg-(--input-color) dark:bg-(--page-body-bg) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" {...formik.getFieldProps("confirm_password")} />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <Input id="confirm_password" type={showConfirmPassword ? "text" : "password"} placeholder={t("confirm_password_placeholder")} className="pl-10 py-5.5 pr-10 bg-(--input-color) dark:bg-(--page-body-bg) dark:border-none focus-visible:ring-1 focus-visible:ring-primary" {...formik.getFieldProps("confirm_password")} />
                 <Button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 bg-[unset]! p-0! shadow-[unset]! h-[unset]! top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                   {showConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </Button>
@@ -102,7 +102,7 @@ const ChangePasswordForm = () => {
           </div>
 
           <div className="flex justify-end pt-4">
-            <Button type="submit" disabled={isLoading || !formik.dirty} className="bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white px-8 h-11 flex items-center gap-2 transition-all">
+            <Button type="submit" disabled={isLoading || !formik.dirty} className="bg-primary hover:bg-primary/90 text-white px-8 h-11 flex items-center gap-2 transition-all">
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShieldCheck className="w-4 h-4" />}
               {t("update_password")}
             </Button>

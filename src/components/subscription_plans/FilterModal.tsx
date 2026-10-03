@@ -34,7 +34,7 @@ const FilterModal = ({ isOpen, onClose, onApply, currentFilters = {} }: Subscrip
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)]">
+      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] dark:bg-(--dark-body)">
         <DialogHeader>
           <DialogTitle>{t("subscription_filter_title") || "Filter Subscriptions"}</DialogTitle>
         </DialogHeader>

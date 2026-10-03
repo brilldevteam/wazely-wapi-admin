@@ -164,15 +164,15 @@ export const BasicInfoSection = ({
               onClick={() => setPlatform(ch.value)}
               className={`flex h-[69px] items-center gap-3 p-4 justify-start rounded-lg border transition-all group ${
                 platform === ch.value
-                  ? "border-primary bg-emerald-50/50 hover:bg-emerald-50/50 text-primary dark:bg-emerald-500/10 dark:hover:bg-emerald-500/10"
+                  ? "border-primary bg-primary/10/50 hover:bg-primary/10/50 text-primary dark:bg-primary/10 dark:hover:bg-primary/10"
                   : "border-slate-100 bg-slate-50/30 hover:bg-slate-50/30 dark:bg-(--table-hover) dark:hover:bg-(--table-hover) dark:border-(--table-hover) text-slate-500 hover:border-primary dark:hover:border-(--card-border-color)"
               }`}
             >
               <div
                 className={`p-2 rounded-lg transition-colors ${
                   platform === ch.value
-                    ? "bg-emerald-100 dark:bg-(--dark-sidebar)"
-                    : "bg-slate-100 dark:bg-(--dark-body) dark:text-amber-50 group-hover:bg-emerald-50 dark:group-hover:bg-(--card-color)"
+                    ? "bg-primary/20 dark:bg-(--dark-sidebar)"
+                    : "bg-slate-100 dark:bg-(--dark-body) dark:text-amber-50 group-hover:bg-primary/10 dark:group-hover:bg-(--card-color)"
                 }`}
               >
                 {ch.icon}
@@ -195,8 +195,8 @@ export const BasicInfoSection = ({
 "
         >
           {filteredCategories.map((cat) => (
-            <Button key={cat.value} type="button" onClick={() => setCategory(cat.value)} className={`flex h-[69px] items-center gap-3 p-4 justify-start rounded-lg border transition-all group ${category === cat.value ? "border-primary bg-emerald-50/50 hover:bg-emerald-50/50 text-primary dark:bg-emerald-500/10 dark:hover:bg-emerald-500/10" : "border-slate-100 bg-slate-50/30 hover:bg-slate-50/30 dark:bg-(--table-hover) dark:hover:bg-(--table-hover) dark:border-(--table-hover) text-slate-500 hover:border-primary dark:hover:border-(--card-border-color)"}`}>
-              <div className={`p-2 rounded-lg transition-colors ${category === cat.value ? "bg-emerald-100 dark:bg-(--dark-sidebar)" : "bg-white dark:bg-(--dark-body) dark:text-amber-50 group-hover:bg-emerald-50 dark:group-hover:bg-(--card-color)"}`}>{cat.icon}</div>
+            <Button key={cat.value} type="button" onClick={() => setCategory(cat.value)} className={`flex h-[69px] items-center gap-3 p-4 justify-start rounded-lg border transition-all group ${category === cat.value ? "border-primary bg-primary/10/50 hover:bg-primary/10/50 text-primary dark:bg-primary/10 dark:hover:bg-primary/10" : "border-slate-100 bg-slate-50/30 hover:bg-slate-50/30 dark:bg-(--table-hover) dark:hover:bg-(--table-hover) dark:border-(--table-hover) text-slate-500 hover:border-primary dark:hover:border-(--card-border-color)"}`}>
+              <div className={`p-2 rounded-lg transition-colors ${category === cat.value ? "bg-primary/20 dark:bg-(--dark-sidebar)" : "bg-white dark:bg-(--dark-body) dark:text-amber-50 group-hover:bg-primary/10 dark:group-hover:bg-(--card-color)"}`}>{cat.icon}</div>
               <div className="flex flex-col items-start -translate-y-px">
                 <span className="font-bold text-sm tracking-tight dark:text-gray-300">{cat.label}</span>
                 <span className="text-xs opacity-70 font-medium dark:text-gray-400">{t("templates_library_select_category")}</span>
@@ -218,8 +218,8 @@ export const BasicInfoSection = ({
             {filteredMarketingTypes.map((type) => {
               const isActive = marketingType === type.value;
               return (
-                <Button key={type.value} type="button" onClick={() => setMarketingType(type.value)} className={`flex h-[58px] justify-start items-center gap-3 px-4 py-3 rounded-lg border transition-all text-left group ${isActive ? "border-primary bg-emerald-50/60 hover:bg-emerald-50/60 dark:bg-emerald-500/10! dark:hover:bg-emerald-500/10!" : "border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:bg-(--table-hover)! hover:border-primary/30 dark:hover:border-(--card-border-color)"}`}>
-                  <div className={`p-2 rounded-lg shrink-0 transition-colors ${isActive ? "bg-emerald-100! dark:bg-emerald-500/20! text-primary" : "bg-white! dark:bg-(--dark-body)! text-slate-400 group-hover:bg-emerald-50! dark:group-hover:bg-(--card-color)!"}`}>{type.icon}</div>
+                <Button key={type.value} type="button" onClick={() => setMarketingType(type.value)} className={`flex h-[58px] justify-start items-center gap-3 px-4 py-3 rounded-lg border transition-all text-left group ${isActive ? "border-primary bg-primary/10/60 hover:bg-primary/10/60 dark:bg-primary/10! dark:hover:bg-primary/10!" : "border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:bg-(--table-hover)! hover:border-primary/30 dark:hover:border-(--card-border-color)"}`}>
+                  <div className={`p-2 rounded-lg shrink-0 transition-colors ${isActive ? "bg-primary/20! dark:bg-primary/20! text-primary" : "bg-white! dark:bg-(--dark-body)! text-slate-400 group-hover:bg-primary/10! dark:group-hover:bg-(--card-color)!"}`}>{type.icon}</div>
                   <div className="flex flex-col min-w-0">
                     <span className={`font-bold text-[13px] tracking-tight leading-tight ${isActive ? "text-primary" : "text-slate-700 dark:text-gray-300"}`}>{type.label}</span>
                     <span className="text-[10px] text-slate-400 dark:text-gray-500 leading-tight truncate">{type.description}</span>

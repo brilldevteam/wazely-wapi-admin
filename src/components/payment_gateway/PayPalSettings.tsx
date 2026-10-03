@@ -100,7 +100,7 @@ const PayPalSettings = () => {
           <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
             Client ID <span className="text-red-400">*</span>
           </Label>
-          <Input value={settings.paypal_client_id} onChange={(e) => handleInputChange("paypal_client_id", e.target.value)} placeholder="Enter PayPal Client ID" className="h-11 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
+          <Input value={settings.paypal_client_id} onChange={(e) => handleInputChange("paypal_client_id", e.target.value)} placeholder="Enter PayPal Client ID" className="h-11 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary" />
         </div>
 
         <div className="space-y-2 flex flex-col">
@@ -108,7 +108,7 @@ const PayPalSettings = () => {
             Secret Key <span className="text-red-400">*</span>
           </Label>
           <div className="relative">
-            <Input value={settings.paypal_client_secret} onChange={(e) => handleInputChange("paypal_client_secret", e.target.value)} type={showSk ? "text" : "password"} placeholder="Enter PayPal Secret Key" className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" />
+            <Input value={settings.paypal_client_secret} onChange={(e) => handleInputChange("paypal_client_secret", e.target.value)} type={showSk ? "text" : "password"} placeholder="Enter PayPal Secret Key" className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary" />
             <Button type="button" tabIndex={-1} onClick={() => setShowSk(!showSk)} className="absolute bg-[unset]! h-[unset]! p-0! right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
               {showSk ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </Button>
@@ -121,7 +121,7 @@ const PayPalSettings = () => {
           Environment Mode <span className="text-red-400">*</span>
         </Label>
         <Select value={settings.paypal_mode} onValueChange={(val) => handleInputChange("paypal_mode", val)}>
-          <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus:ring-1 focus:ring-(--text-green-primary)">
+          <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus:ring-1 focus:ring-primary">
             <SelectValue placeholder="Select Environment" />
           </SelectTrigger>
           <SelectContent className="dark:bg-(--card-color) dark:border-(--card-border-color)">
@@ -169,7 +169,7 @@ const PayPalSettings = () => {
 
       <div className="flex justify-end">
         <Can permission="update.payment_gateways">
-          <Button onClick={handleUpdate} disabled={isUpdating} className="h-11 px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60">
+          <Button onClick={handleUpdate} disabled={isUpdating} className="h-11 px-4.5 py-5 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60">
             {isUpdating ? (
               <span className="flex items-center gap-2">
                 <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

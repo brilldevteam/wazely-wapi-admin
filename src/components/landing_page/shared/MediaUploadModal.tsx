@@ -54,7 +54,7 @@ const MediaUploadModal = ({ isOpen, onClose, onSelect, title = "Upload Media" }:
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md! max-w-[calc(100%-2rem)]! p-0 overflow-hidden border-none rounded-xl dark:bg-(--card-color)">
+      <DialogContent className="sm:max-w-md! max-w-[calc(100%-2rem)]! p-0 overflow-hidden border-none rounded-xl dark:bg-(--dark-body)">
         <DialogHeader className="px-6 py-4 border-b dark:border-(--card-border-color) bg-gray-50 dark:bg-(--dark-body)">
           <DialogTitle className="text-lg font-bold flex items-center gap-2">
             <ImageIcon className="w-5 h-5 text-primary" />

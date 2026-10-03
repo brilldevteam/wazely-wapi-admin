@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { stripHtml } from "@/lib/utils";
 import { ROUTES } from "@/src/constants";
 import { Button } from "@/src/elements/ui/button";
 import { Input } from "@/src/elements/ui/input";
@@ -72,15 +71,13 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
   const handleSubmit = async () => {
     if (!form.title || !form.description) return;
 
-    const plainDescription = stripHtml(form.description);
-
     try {
       if (isEditMode && faqId) {
         await updateFaq({
           id: faqId,
           data: {
             title: form.title,
-            description: plainDescription,
+            description: form.description,
             status: form.status,
           },
         }).unwrap();
@@ -88,7 +85,7 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
       } else {
         await createFaq({
           title: form.title,
-          description: plainDescription,
+          description: form.description,
           status: form.status,
         }).unwrap();
         toast.success(t("faq_success_created"));
@@ -120,7 +117,7 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
           <ArrowLeft size={20} />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) mb-1">
+          <h1 className="text-2xl font-bold text-primary mb-1">
             {isEditMode ? t("faq_edit_title") : t("faq_add_title")}
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed">
@@ -134,7 +131,7 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
           {/* Question Card */}
           <div className="dark:bg-(--card-color) dark:border-(--card-border-color) dark:text-gray-100 bg-white rounded-lg shadow-sm border border-(--input-border-color) sm:p-6 p-4">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <HelpCircle className="w-5 h-5 text-primary" />
               </div>
               <h2 className="dark:text-white text-xl font-bold text-gray-900">
@@ -157,15 +154,15 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, title: e.target.value }))
                 }
-                className="dark:bg-page-body h-11 bg-(--input-color) border-gray-300 dark:border-(--card-border-color) p-3 focus:border-(--text-green-primary) focus:ring-(--text-green-primary)"
+                className="dark:bg-page-body h-11 bg-(--input-color) border-gray-300 dark:border-(--card-border-color) p-3 focus:border-primary focus:ring-primary"
               />
             </div>
           </div>
 
           {/* Answer Card */}
-          <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm border border-gray-200 sm:p-6 p-4">
+          <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white border rounded-lg shadow-sm border border-gray-200 sm:p-6 p-4">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <MessageSquare className="w-5 h-5 text-primary" />
               </div>
               <h2 className="dark:text-white text-xl font-bold text-gray-900">
@@ -196,7 +193,7 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
 
         <div className="xl:col-span-4 space-y-6">
           {/* Status Card */}
-          <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white border rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div className="sm:px-6 px-4 py-4 border-b border-gray-100 dark:border-(--card-border-color)">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {t("common_settings")}
@@ -221,7 +218,7 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
                   onCheckedChange={(value) =>
                     setForm((prev) => ({ ...prev, status: value }))
                   }
-                  className="data-[state=checked]:bg-(--text-green-primary)"
+                  className="data-[state=checked]:bg-primary"
                 />
               </div>
             </div>
@@ -241,7 +238,7 @@ const AddFaqPage = ({ id }: AddFaqPageProps) => {
         </Button>
         <Button
           onClick={handleSubmit}
-          className="px-6 py-5 h-11 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-medium shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed gap-2"
+          className="px-6 py-5 h-11 bg-primary hover:bg-primary/90 text-white font-medium shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed gap-2"
           disabled={
             isLoading || !form.title || !form.description || isLoadingFaq
           }

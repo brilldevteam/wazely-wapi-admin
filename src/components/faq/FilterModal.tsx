@@ -45,7 +45,7 @@ const FilterModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)]">
+      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] dark:bg-(--dark-body)">
         <DialogHeader>
           <DialogTitle>{t("faq_filter_title")}</DialogTitle>
         </DialogHeader>
@@ -56,7 +56,7 @@ const FilterModal = ({
               id="status"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full h-10 px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none dark:bg-(--card-color) dark:border-(--card-border-color) dark:focus-visible:outline-none"
+              className="w-full h-10 px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none dark:bg-(--card-color) dark:border-(--card-border-color) dark:focus-visible:outline-none"
             >
               <option value="all">{t("common_all")}</option>
               <option value="active">{t("common_published")}</option>

@@ -703,6 +703,8 @@
   "settings_tabs_aws_desc": "AWS S3 configuration",
   "settings_tabs_signup_agreement": "Signup Customization",
   "settings_tabs_signup_agreement_desc": "Configure signup agreement line & page",
+  "settings_tabs_social_media": "Social Media Settings",
+  "settings_tabs_social_media_desc": "Configure social media publishing credentials",
   "settings_tabs_widget": "Landing Widget",
   "settings_tabs_widget_desc": "Configure dynamic landing widgets & redirects",
   "settings_signup_agreement_title": "Signup Agreement Customization",

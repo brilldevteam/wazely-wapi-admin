@@ -184,11 +184,11 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
 
     try {
       if (isEditMode) {
-        await updateLanguage({ id: id as string, data: formData }).unwrap();
-        toast.success("Language updated successfully.");
+        const res = await updateLanguage({ id: id as string, data: formData }).unwrap();
+        toast.success(res.message || "Language updated successfully.");
       } else {
-        await createLanguage(formData).unwrap();
-        toast.success("Language created successfully.");
+        const res = await createLanguage(formData).unwrap();
+        toast.success(res.message || "Language created successfully.");
       }
       router.push(ROUTES.Languages);
     } catch (error: any) {
@@ -213,7 +213,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
           <ArrowLeft size={20} />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight">
+          <h1 className="text-2xl font-bold text-primary tracking-tight">
             {isEditMode ? "Edit Language" : "Add New Language"}
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed">
@@ -267,7 +267,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                       }
                     }}
                   >
-                    <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg border-gray-200">
+                    <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg border-gray-200">
                       <SelectValue placeholder="Select language" />
                     </SelectTrigger>
                     <SelectContent className="max-h-64 dark:bg-(--card-color)">
@@ -309,7 +309,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                         setCustomLocale(val);
                         setLocale(val.trim());
                       }}
-                      className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg border-gray-200"
+                      className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg border-gray-200"
                       required
                     />
                     <p className="text-xs text-gray-400">
@@ -332,7 +332,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     placeholder="e.g. English"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg"
+                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg"
                     required
                   />
                 </div>
@@ -354,7 +354,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     id="isRtl"
                     checked={isRtl}
                     onCheckedChange={setIsRtl}
-                    className="data-[state=checked]:bg-(--text-green-primary)"
+                    className="data-[state=checked]:bg-primary"
                   />
                 </div>
 
@@ -374,7 +374,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     id="isActive"
                     checked={isActive}
                     onCheckedChange={setIsActive}
-                    className="data-[state=checked]:bg-(--text-green-primary)"
+                    className="data-[state=checked]:bg-primary"
                   />
                 </div>
 
@@ -394,7 +394,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     id="isDefault"
                     checked={isDefault}
                     onCheckedChange={setIsDefault}
-                    className="data-[state=checked]:bg-(--text-green-primary)"
+                    className="data-[state=checked]:bg-primary"
                   />
                 </div>
               </div>
@@ -422,7 +422,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                   <div className="flex items-center gap-6 flex-col sm:flex-row">
                     <div className="shrink-0">
                       {flagPreview ? (
-                        <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-emerald-100 dark:border-emerald-900/30 group shadow-sm transition-all hover:border-emerald-500">
+                        <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-primary/20 dark:border-primary-dark/30 group shadow-sm transition-all hover:border-primary">
                           <Image
                             src={flagPreview}
                             alt="Flag"
@@ -443,7 +443,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                           </Button>
                         </div>
                       ) : (
-                        <div className="w-20 h-20 rounded-lg border-2 border-dashed border-gray-200 dark:border-(--card-border-color) bg-gray-50 dark:bg-(--card-color) flex flex-col items-center justify-center transition-all hover:border-emerald-500">
+                        <div className="w-20 h-20 rounded-lg border-2 border-dashed border-gray-200 dark:border-(--card-border-color) bg-gray-50 dark:bg-(--card-color) flex flex-col items-center justify-center transition-all hover:border-primary">
                           <Upload className="w-6 h-6 text-gray-400" />
                         </div>
                       )}
@@ -478,7 +478,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     <Label className="text-sm font-medium text-gray-900 dark:text-gray-400">
                       {setting?.app_name || t("common_app_name")} Front JSON
                     </Label>
-                    <div className="relative border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50/50 dark:bg-(--card-color) hover:bg-gray-100/50 dark:hover:bg-(--table-hover) hover:border-(--text-green-primary) transition-all group overflow-hidden">
+                    <div className="relative border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50/50 dark:bg-(--card-color) hover:bg-gray-100/50 dark:hover:bg-(--table-hover) hover:border-primary transition-all group overflow-hidden">
                       <Input
                         id="front_json"
                         type="file"
@@ -495,7 +495,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                             <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 truncate max-w-37.5">
                               {frontJsonFileName}
                             </p>
-                            <p className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full inline-block">
+                            <p className="text-[10px] font-medium text-primary dark:text-primary bg-primary/10 dark:bg-primary-dark/20 px-2 py-0.5 rounded-full inline-block">
                               Selected
                             </p>
                           </div>
@@ -514,7 +514,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     <a
                       href={getUrlWithBasePath("/assets/files/Front.json")}
                       download="Front.json"
-                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors w-fit"
+                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-primary hover:text-primary-dark dark:text-primary dark:hover:text-primary-light transition-colors w-fit"
                     >
                       <Download className="w-3 h-3" />
                       Download Front JSON
@@ -526,7 +526,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     <Label className="text-sm font-medium text-gray-900 dark:text-gray-400">
                       {setting?.app_name || t("common_app_name")} Admin JSON
                     </Label>
-                    <div className="relative border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50/50 dark:bg-(--card-color) hover:bg-gray-100/50 dark:hover:bg-(--table-hover) hover:border-(--text-green-primary) transition-all group overflow-hidden">
+                    <div className="relative border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50/50 dark:bg-(--card-color) hover:bg-gray-100/50 dark:hover:bg-(--table-hover) hover:border-primary transition-all group overflow-hidden">
                       <Input
                         id="admin_json"
                         type="file"
@@ -543,7 +543,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                             <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 truncate max-w-37.5">
                               {adminJsonFileName}
                             </p>
-                            <p className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full inline-block">
+                            <p className="text-[10px] font-medium text-primary dark:text-primary bg-primary/10 dark:bg-primary-dark/20 px-2 py-0.5 rounded-full inline-block">
                               Selected
                             </p>
                           </div>
@@ -562,7 +562,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     <a
                       href={getUrlWithBasePath("/assets/files/Admin.json")}
                       download="Admin.json"
-                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors w-fit"
+                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-primary hover:text-primary-dark dark:text-primary dark:hover:text-primary-light transition-colors w-fit"
                     >
                       <Download className="w-3 h-3" />
                       Download Admin JSON
@@ -574,7 +574,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     <Label className="text-sm font-medium text-gray-900 dark:text-gray-400">
                       {setting?.app_name || t("common_app_name")} App JSON
                     </Label>
-                    <div className="relative border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50/50 dark:bg-(--card-color) hover:bg-gray-100/50 dark:hover:bg-(--table-hover) hover:border-(--text-green-primary) transition-all group overflow-hidden">
+                    <div className="relative border-2 border-dashed border-gray-200 dark:border-(--card-border-color) rounded-lg p-6 bg-gray-50/50 dark:bg-(--card-color) hover:bg-gray-100/50 dark:hover:bg-(--table-hover) hover:border-primary transition-all group overflow-hidden">
                       <Input
                         id="app_json"
                         type="file"
@@ -591,7 +591,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                             <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 truncate max-w-37.5">
                               {appJsonFileName}
                             </p>
-                            <p className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full inline-block">
+                            <p className="text-[10px] font-medium text-primary dark:text-primary bg-primary/10 dark:bg-primary-dark/20 px-2 py-0.5 rounded-full inline-block">
                               Selected
                             </p>
                           </div>
@@ -610,7 +610,7 @@ const AddLanguagePage = ({ id }: AddLanguagePageProps) => {
                     <a
                       href={getUrlWithBasePath("/assets/files/App.json")}
                       download="App.json"
-                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors w-fit"
+                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-medium text-primary hover:text-primary-dark dark:text-primary dark:hover:text-primary-light transition-colors w-fit"
                     >
                       <Download className="w-3 h-3" />
                       Download App JSON

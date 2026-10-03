@@ -36,7 +36,7 @@ const EditPage = () => {
   if (isFetching) {
     return (
       <div className="flex items-center justify-center min-h-100">
-        <div className="w-10 h-10 border-4 border-(--text-green-primary)/30 border-t-(--text-green-primary) rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-primary/30 border-t-(--text-green-primary) rounded-full animate-spin" />
       </div>
     );
   }
