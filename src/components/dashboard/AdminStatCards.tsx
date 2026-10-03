@@ -22,7 +22,7 @@ const AdminStatCards = ({ counts, showPlans = true, showSubscriptions = true, su
       description: "Registered users",
       trend: "+12%",
       trendIcon: TrendingUp,
-      trendColor: "text-emerald-500 bg-emerald-500/10",
+      trendColor: "text-primary bg-primary/10",
     },
     {
       label: "active_subscriptions",
@@ -32,7 +32,7 @@ const AdminStatCards = ({ counts, showPlans = true, showSubscriptions = true, su
       description: "Active paying users",
       trend: "+5%",
       trendIcon: TrendingUp,
-      trendColor: "text-emerald-500 bg-emerald-500/10",
+      trendColor: "text-primary bg-primary/10",
     },
     {
       label: "available_plans",
@@ -53,7 +53,7 @@ const AdminStatCards = ({ counts, showPlans = true, showSubscriptions = true, su
       description: "This month’s revenue",
       trend: defaultSymbol + counts.revenue.today.toFixed(2) + " today",
       trendIcon: TrendingUp,
-      trendColor: "text-emerald-500 bg-emerald-500/10",
+      trendColor: "text-primary bg-primary/10",
     },
     {
       label: "ai_settings",
@@ -63,7 +63,7 @@ const AdminStatCards = ({ counts, showPlans = true, showSubscriptions = true, su
       description: "AI configurations",
       trend: "Online",
       trendIcon: TrendingUp,
-      trendColor: "text-emerald-500 bg-emerald-500/10",
+      trendColor: "text-primary bg-primary/10",
     },
     {
       label: "customer_inquiries",
@@ -91,7 +91,7 @@ const AdminStatCards = ({ counts, showPlans = true, showSubscriptions = true, su
       case "purple":
         return { text: "text-purple-600", bg: "bg-purple-600/10", border: "border-purple-600/5", gradient: "from-purple-600/20 to-transparent" };
       case "emerald":
-        return { text: "text-emerald-600", bg: "bg-emerald-600/10", border: "border-emerald-600/5", gradient: "from-emerald-600/20 to-transparent" };
+        return { text: "text-primary", bg: "bg-primary/10", border: "border-primary/5", gradient: "from-primary/20 to-transparent" };
       case "orange":
         return { text: "text-orange-600", bg: "bg-orange-600/10", border: "border-orange-600/5", gradient: "from-orange-600/20 to-transparent" };
       case "pink":

@@ -6,20 +6,7 @@ import { FormLivePreviewProps } from "@/src/types/template";
 import { useTranslation } from "react-i18next";
 import { TwitterIcon } from "@/src/utils/customIcon";
 
-const resolveBody = (messageBody: string, variables_example: { key: string; example: string }[]) => {
-  if (!messageBody) return "Message content goes here...";
-  let text = messageBody
-    .replace(/&nbsp;/g, " ")
-    .replace(/<p>/g, "")
-    .replace(/<\/p>/g, "\n")
-    .replace(/<br\s*\/?>/g, "\n")
-    .replace(/<[^>]*>?/gm, "");
-  variables_example.forEach((v: any) => {
-    const escapedKey = v?.key?.toString().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    text = text.replace(new RegExp(`\\{\\{${escapedKey}\\}\\}`, "g"), v.example || `{{${v.key}}}`);
-  });
-  return text.trim() || "Message content goes here...";
-};
+import { formatTemplateBodyHtml } from "@/src/utils/templateFormatter";
 
 export const FormLivePreview = ({
   templateType,
@@ -51,7 +38,7 @@ export const FormLivePreview = ({
     };
   }, [fileUrl]);
 
-  const bodyText = resolveBody(messageBody, variables_example);
+  const bodyText = formatTemplateBodyHtml(messageBody, variables_example);
 
   // Dynamic branding configuration based on the platform
   const brandConfig = useMemo(() => {
@@ -100,11 +87,11 @@ export const FormLivePreview = ({
       default:
         return {
           headerBg: "bg-[#075e54] dark:bg-[#1f2c34]",
-          avatarBg: "bg-emerald-800 dark:bg-emerald-950",
+          avatarBg: "bg-primary-dark dark:bg-primary-dark",
           title: "Your Brand",
           subtitle: "Business Account",
           textColor: "text-white",
-          subColor: "text-emerald-100/70",
+          subColor: "text-primary/20/70",
           arrowColor: "text-white",
         };
     }
@@ -122,7 +109,7 @@ export const FormLivePreview = ({
                 {platform === "twitter" ? (
                   <TwitterIcon size={16} className="text-white dark:text-black" />
                 ) : (
-                  <ImageIcon size={16} className={`${platform === "instagram" ? "text-white" : "text-emerald-200"}`} />
+                  <ImageIcon size={16} className={`${platform === "instagram" ? "text-white" : "text-primary/30"}`} />
                 )}
               </div>
               <div className="min-w-0 flex-1">

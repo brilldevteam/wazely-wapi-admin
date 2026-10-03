@@ -176,7 +176,7 @@ const PageForm = ({
           <ArrowLeft size={20} />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight">
+          <h1 className="text-2xl font-bold text-primary tracking-tight">
             {isEdit
               ? t("pages_edit_title", "Edit Page")
               : t("pages_add_title", "Create New Page")}
@@ -288,7 +288,7 @@ const PageForm = ({
           type="submit"
           onClick={handleSubmit}
           disabled={isLoading || !form.title}
-          className="px-6 py-5 h-11 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-semibold shadow-md transition-all active:scale-95 disabled:opacity-50 gap-2"
+          className="px-6 py-5 h-11 bg-primary hover:bg-primary/90 text-white font-semibold shadow-md transition-all active:scale-95 disabled:opacity-50 gap-2"
         >
           {isLoading ? (
             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

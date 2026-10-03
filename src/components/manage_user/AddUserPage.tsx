@@ -172,7 +172,7 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight">
+          <h1 className="text-2xl font-bold text-primary tracking-tight">
             {isEditMode ? "Edit User" : "Create New User"}
           </h1>
           <p className="text-sm text-gray-400 mt-0.5 leading-relaxed">
@@ -322,7 +322,7 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                     href="/permissions_control"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors flex items-center gap-1 mt-0.5 cursor-pointer border border-emerald-200/50 dark:border-emerald-800/30 px-2.5 py-1 rounded-lg bg-emerald-50/30 dark:bg-emerald-950/20 shadow-sm"
+                    className="text-xs font-semibold text-primary hover:text-primary-dark dark:text-primary dark:hover:text-primary-light transition-colors flex items-center gap-1 mt-0.5 cursor-pointer border border-primary/30/50 dark:border-primary-dark/30 px-2.5 py-1 rounded-lg bg-primary/10/30 dark:bg-primary-dark/20 shadow-sm"
                   >
                     <Plus size={12} className="shrink-0" /> Add Role
                   </a>
@@ -361,7 +361,7 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
                 <Switch
                   checked={form.status}
                   onCheckedChange={(v) => set("status", v)}
-                  className="data-[state=checked]:bg-(--text-green-primary)"
+                  className="data-[state=checked]:bg-primary"
                 />
               </div>
             </div>
@@ -383,7 +383,7 @@ const AddUserPage = ({ id }: AddUserPageProps) => {
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting || !isValid}
-            className="w-full sm:w-auto px-4.5 py-5 h-11 rounded-lg bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white gap-2 "
+            className="w-full sm:w-auto px-4.5 py-5 h-11 rounded-lg bg-primary hover:bg-primary/90 text-white gap-2 "
           >
             {isSubmitting ? (
               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />

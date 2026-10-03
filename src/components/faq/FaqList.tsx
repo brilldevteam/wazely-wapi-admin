@@ -50,7 +50,7 @@ const FaqList = ({ faqs, page, totalPages, total, onPageChange, onDelete, onBulk
       className: "[@media(max-width:1830px)]:min-w-[140px]",
       sortable: true,
       sortKey: "status",
-      accessor: (faq) => <Badge className={`${faq.status ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400" : "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400"} border-none relative`}>{faq.status ? t("common_published") : t("common_draft")}</Badge>,
+      accessor: (faq) => <Badge className={`${faq.status ? "bg-primary/20 text-primary-dark dark:bg-primary-dark/20 dark:text-primary" : "bg-amber-100 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400"} border-none relative`}>{faq.status ? t("common_published") : t("common_draft")}</Badge>,
     },
     {
       id: "created_at",

@@ -30,7 +30,7 @@ export const languageApi = baseApi.enhanceEndpoints({ addTagTypes: ["Language"] 
       providesTags: (result, error, id) => [{ type: 'Language', id }],
     }),
     
-    createLanguage: builder.mutation<{ success: boolean; data: Language }, FormData>({
+    createLanguage: builder.mutation<{ success: boolean; data: Language, message?: string }, FormData>({
       query: (body) => ({
         url: '/languages',
         method: 'POST',
@@ -39,7 +39,7 @@ export const languageApi = baseApi.enhanceEndpoints({ addTagTypes: ["Language"] 
       invalidatesTags: [{ type: 'Language', id: 'LIST' }],
     }),
     
-    updateLanguage: builder.mutation<{ success: boolean; data: Language }, { id: string; data: FormData }>({
+    updateLanguage: builder.mutation<{ success: boolean; data: Language, message?: string }, { id: string; data: FormData }>({
       query: ({ id, data }) => ({
         url: `/languages/${id}`,
         method: 'PUT',

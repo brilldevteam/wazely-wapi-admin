@@ -90,7 +90,7 @@ const AIModelsList = ({ models, isLoading, onDelete, onEdit, onToggleStatus, col
       sortKey: "is_default",
       isVisible: columns.find((c) => c.id === "is_default")?.isVisible ?? true,
       cell: (row: AIModel) => {
-        return row.is_default ? <Badge className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border-none text-[10px] h-5 px-1.5 font-bold uppercase tracking-wider">Yes</Badge> : "No";
+        return row.is_default ? <Badge className="bg-primary/20 text-primary-dark dark:bg-primary-dark/30 dark:text-primary border-none text-[10px] h-5 px-1.5 font-bold uppercase tracking-wider">Yes</Badge> : "No";
       },
     },
     {

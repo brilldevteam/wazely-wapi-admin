@@ -26,6 +26,25 @@ export interface PayPalSettings {
   is_paypal_active?: boolean;
 }
 
+export interface MidtransSettings {
+  midtrans_merchant_id: string;
+  midtrans_client_key: string;
+  midtrans_server_key: string;
+  midtrans_server_key_set?: boolean;
+  midtrans_mode: "sandbox" | "live";
+  is_midtrans_active?: boolean;
+}
+
+export interface MollieSettings {
+  mollie_api_key: string;
+  mollie_api_key_set?: boolean;
+  mollie_mode: "sandbox" | "live";
+  is_mollie_active?: boolean;
+  webhook_url?: string;
+}
+
+export type PaymentSettings = Partial<StripeSettings & RazorpaySettings & PayPalSettings & MidtransSettings & MollieSettings>;
+
 export interface PaymentHistory {
   _id: string;
   user_id: string;
@@ -79,7 +98,7 @@ export interface GetPaymentHistoryResponse {
   };
 }
 
-export type GatewayId = "stripe" | "razorpay" | "paypal";
+export type GatewayId = "stripe" | "razorpay" | "paypal" | "midtrans" | "mollie";
 
 export interface GatewayCardProps {
   title: string;

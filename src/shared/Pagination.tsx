@@ -13,14 +13,23 @@ interface PaginationProps {
   onLimitChange: (limit: number) => void;
   className?: string;
   isLoading?: boolean;
+  total?: number;
+  showTotalOption?: boolean;
 }
 
-export function Pagination({ totalCount, page, limit, onPageChange, onLimitChange, className, isLoading }: PaginationProps) {
+export function Pagination({ totalCount, page, limit, onPageChange, onLimitChange, className, isLoading, total, showTotalOption = false }: PaginationProps) {
   const totalPages = Math.max(1, Math.ceil(totalCount / limit));
   const startEntry = totalCount > 0 ? (page - 1) * limit + 1 : 0;
   const endEntry = Math.min(page * limit, totalCount);
 
-  const limitOptions = [10, 20, 25, 30];
+  // Preserve total length logic for future optional inclusion via showTotalOption prop
+  const totalLength = (total || totalCount) && (total || totalCount) > 30 ? (total || totalCount) : 0;
+  const includeTotalInDropdown = showTotalOption && totalLength > 0;
+
+  const baseLimitOptions = [10, 20, 25, 30, 1000];
+  const limitOptions = includeTotalInDropdown && !baseLimitOptions.includes(totalLength)
+    ? [...baseLimitOptions, totalLength]
+    : baseLimitOptions;
 
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
@@ -44,12 +53,12 @@ export function Pagination({ totalCount, page, limit, onPageChange, onLimitChang
         <div className="flex items-center gap-3">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-gray-200 whitespace-nowrap">Rows per page</span>
           <Select value={limit.toString()} onValueChange={(value) => onLimitChange(Number(value))} disabled={isLoading}>
-            <SelectTrigger size="sm" className="w-18 h-9 text-sm rounded-lg bg-white dark:bg-(--card-color) border-slate-200 dark:border-(--card-border-color) shadow-xs focus:ring-emerald-500/10">
+            <SelectTrigger size="sm" className="w-20 h-9 text-sm rounded-lg bg-white dark:bg-(--card-color) border-slate-200 dark:border-(--card-border-color) shadow-xs focus:ring-primary/10">
               <SelectValue placeholder={limit.toString()} className="dark:bg-(--dark-sidebar)" />
             </SelectTrigger>
             <SelectContent align="start" className="min-w-20 rounded-lg shadow-xl">
               {limitOptions.map((option) => (
-                <SelectItem key={option} value={option.toString()} className="rounded-lg cursor-pointer focus:bg-emerald-50 focus:text-emerald-700">
+                <SelectItem key={option} value={option.toString()} className="rounded-lg cursor-pointer focus:bg-primary/10 focus:text-primary-dark">
                   {option}
                 </SelectItem>
               ))}

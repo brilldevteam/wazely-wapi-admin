@@ -162,7 +162,7 @@ const UserList = ({
           onClick={() => router.push(`${ROUTES.ManageUsersAdd}?id=${user._id}`)}
         >
           <div className="w-8 h-8 rounded-lg bg-(--light-primary) dark:bg-(--dark-body) flex items-center justify-center shrink-0">
-            <UserIcon className="w-4 h-4 text-(--text-green-primary)" />
+            <UserIcon className="w-4 h-4 text-primary" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
@@ -215,7 +215,7 @@ const UserList = ({
       sortKey: "status",
       accessor: (user) => (
         <Badge
-          className={`border-none text-xs font-medium ${user.status ? "bg-(--light-primary) hover:bg-(--light-primary) text-primary dark:bg-emerald-900/20 dark:text-primary" : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"}`}
+          className={`border-none text-xs font-medium ${user.status ? "bg-(--light-primary) hover:bg-(--light-primary) text-primary dark:bg-primary-dark/20 dark:text-primary" : "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"}`}
         >
           {user.status ? t("common_active") : t("common_inactive")}
         </Badge>
@@ -267,7 +267,7 @@ const UserList = ({
       (typeof user.role_id === "object" ? user.role_id?.name : user.role) ||
       "—";
     const roleLower = roleName.toLowerCase();
-    const isUserOrAgent = roleLower === "user" || roleLower === "agent";
+    const isUserOrAgent = roleLower === "user" || roleLower === "agent" || roleLower === "super_admin";
     const isAgent = roleLower === "agent";
     const isSuperAdmin = roleLower === "super_admin";
     const isBeingImpersonated = impersonatingId === user._id;
@@ -354,7 +354,7 @@ const UserList = ({
                   </DropdownMenuItem>
                 </Can>
               )}
-              {canImpersonate && (
+              {canImpersonate && !isSuperAdmin && (
                 <DropdownMenuItem onClick={() => handleImpersonate(user)}>
                   <UserCheck
                     className={`w-4 h-4 mr-2 text-amber-600 ${isBeingImpersonated ? "animate-pulse" : ""}`}
@@ -366,10 +366,10 @@ const UserList = ({
                   </span>
                 </DropdownMenuItem>
               )}
-              {canSendReset && (
+              {canSendReset && !isSuperAdmin && (
                 <Can permission="update.users">
                   <DropdownMenuItem onClick={() => openResetConfirmModal(user)}>
-                    <Key className="w-4 h-4 mr-2 text-emerald-600" />
+                    <Key className="w-4 h-4 mr-2 text-primary" />
                     <span>
                       {t("common_send_reset_link", {
                         defaultValue: "Send Reset password link",

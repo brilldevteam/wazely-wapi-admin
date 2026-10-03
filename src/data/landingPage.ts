@@ -27,7 +27,7 @@ export const MEGA_MENU_TYPES = [
 export const BADGE_COLORS = [
   { value: "red", bg: "bg-red-500" },
   { value: "black", bg: "bg-black" },
-  { value: "green", bg: "bg-emerald-500" },
+  { value: "green", bg: "bg-primary" },
   { value: "yellow", bg: "bg-amber-500" },
 ];
  

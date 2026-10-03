@@ -21,8 +21,8 @@ const PageContentForm = ({
   return (
     <div className="bg-white dark:bg-(--card-color) rounded-lg border border-gray-100 dark:border-(--card-border-color) sm:p-6 p-4 shadow-sm">
       <div className="flex items-center gap-2 mb-6">
-        <div className="flex max-w-fit hover:bg-(--text-green-primary)! hover:text-white p-2 bg-(--text-green-primary)/10 rounded-lg">
-          <FileText className="w-5 h-5 text-(--text-green-primary)" />
+        <div className="flex max-w-fit hover:bg-primary! hover:text-white p-2 bg-primary/10 rounded-lg">
+          <FileText className="w-5 h-5 text-primary" />
         </div>
         <h2 className="text-xl font-medium dark:text-white">
           {t("pages_content_section", "Page Content")}
@@ -40,7 +40,7 @@ const PageContentForm = ({
               placeholder={t("pages_title_placeholder", "Enter page title")}
               value={title}
               onChange={onTitleChange}
-              className="h-11 bg-gray-50 dark:bg-page-body border-gray-200 dark:border-(--card-border-color) focus:ring-1 focus:ring-(--text-green-primary)"
+              className="h-11 bg-gray-50 dark:bg-page-body border-gray-200 dark:border-(--card-border-color) focus:ring-1 focus:ring-primary"
             />
           </div>
           <div className="space-y-2 flex flex-col">

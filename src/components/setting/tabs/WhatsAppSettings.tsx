@@ -58,11 +58,11 @@ const WhatsAppSettings = () => {
               <div
                 key={method.id}
                 onClick={() => toggleConnectionMethod(method.id)}
-                className={`relative flex flex-col p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer group ${isSelected ? "border-(--text-green-primary) bg-(--text-green-primary)/5 shadow-sm" : "border-slate-100 dark:border-(--card-border-color) bg-transparent hover:border-slate-200 dark:hover:border-(--card-border-color)"}`}
+                className={`relative flex flex-col p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer group ${isSelected ? "border-primary bg-primary/5 shadow-sm" : "border-slate-100 dark:border-(--card-border-color) bg-transparent hover:border-slate-200 dark:hover:border-(--card-border-color)"}`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div
-                    className={`p-2 rounded-lg ${isSelected ? "bg-(--text-green-primary) text-white" : "bg-slate-100 dark:bg-(--page-body-bg) text-slate-500"}`}
+                    className={`p-2 rounded-lg ${isSelected ? "bg-primary text-white" : "bg-slate-100 dark:bg-(--page-body-bg) text-slate-500"}`}
                   >
                     {method.id === "manual" && <UserPlus className="w-4 h-4" />}
                     {method.id === "qr_scan" && <QrCode className="w-4 h-4" />}
@@ -71,7 +71,7 @@ const WhatsAppSettings = () => {
                     )}
                   </div>
                   {isSelected && (
-                    <div className="w-5 h-5 rounded-full bg-(--text-green-primary) flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
                       <Check className="w-3 h-3 text-white" />
                     </div>
                   )}

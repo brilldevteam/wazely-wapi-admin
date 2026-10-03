@@ -22,8 +22,9 @@ import {
 import { Textarea } from "@/src/elements/ui/textarea";
 import { useGetAllPlansQuery } from "@/src/redux/api/planApi";
 import { PricingFormProps } from "@/src/types/landingPage";
-import { Check, ChevronsUpDown, CreditCard, Tag, X } from "lucide-react";
+import { Check, ChevronsUpDown, CreditCard, Tag, X, Plus, Trash2, Layers } from "lucide-react";
 import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/src/elements/ui/select";
 
 const PricingForm = ({ data, onChange }: PricingFormProps) => {
   const { data: plansData } = useGetAllPlansQuery({});
@@ -34,6 +35,21 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
   };
 
   const selectedPlans = data.plans || [];
+  const tabsList = data.tabs || [];
+
+  const handleTabChange = (index: number, field: "key" | "value" | "badge", val: string) => {
+    const newTabs = [...tabsList];
+    newTabs[index] = { ...newTabs[index], [field]: val };
+    handleChange("tabs", newTabs);
+  };
+
+  const addTab = () => {
+    handleChange("tabs", [...tabsList, { key: "monthly", value: "Monthly", badge: "" }]);
+  };
+
+  const removeTab = (index: number) => {
+    handleChange("tabs", tabsList.filter((_: any, i: number) => i !== index));
+  };
 
   const togglePlan = (planId: string) => {
     const isSelected = selectedPlans.some((p: any) => getObjId(p) === planId);
@@ -89,6 +105,107 @@ const PricingForm = ({ data, onChange }: PricingFormProps) => {
             />
           </div>
         </div>
+      </div>
+
+      <div className="space-y-6 pt-10 border-t border-gray-100 dark:border-(--card-border-color)">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+              <Layers className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-[16px] font-bold text-gray-900 dark:text-gray-100">
+                Dynamic Pricing Tabs
+              </h3>
+              <p className="text-[12px] text-gray-400">
+                Configure billing cycle tabs (e.g. Monthly, Yearly) to group plans on the landing page
+              </p>
+            </div>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={addTab}
+            className="flex items-center gap-2 h-10 px-4 rounded-xl border-dashed border-primary/30 hover:border-primary text-primary bg-primary/5 font-bold transition-all"
+          >
+            <Plus className="w-4 h-4" />
+            Add Tab
+          </Button>
+        </div>
+
+        {tabsList.length > 0 ? (
+          <div className="space-y-4 max-w-3xl animate-in fade-in duration-300">
+            {tabsList.map((tab: any, index: number) => (
+              <div
+                key={index}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 p-4 rounded-xl border border-gray-100 dark:border-(--card-border-color) bg-gray-50/30 dark:bg-(--dark-body) animate-in fade-in slide-in-from-top-2 duration-300"
+              >
+                <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                      Billing Cycle
+                    </Label>
+                    <Select
+                      value={tab.key}
+                      onValueChange={(val) => handleTabChange(index, "key", val)}
+                    >
+                      <SelectTrigger className="h-10 bg-white dark:bg-page-body border-gray-200 dark:border-(--card-border-color) rounded-lg text-sm font-medium">
+                        <SelectValue placeholder="Select Cycle" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="monthly">Monthly</SelectItem>
+                        <SelectItem value="yearly">Yearly</SelectItem>
+                        <SelectItem value="quarterly">Quarterly</SelectItem>
+                        <SelectItem value="lifetime">Lifetime</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                      Tab Label
+                    </Label>
+                    <Input
+                      value={tab.value}
+                      onChange={(e) => handleTabChange(index, "value", e.target.value)}
+                      placeholder="e.g. Monthly"
+                      className="h-10 bg-white dark:bg-page-body border-gray-200 dark:border-(--card-border-color) rounded-lg text-sm"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                      Promo Badge (Optional)
+                    </Label>
+                    <Input
+                      value={tab.badge}
+                      onChange={(e) => handleTabChange(index, "badge", e.target.value)}
+                      placeholder="e.g. Save 20%"
+                      className="h-10 bg-white dark:bg-page-body border-gray-200 dark:border-(--card-border-color) rounded-lg text-sm font-medium text-emerald-600 dark:text-emerald-400 placeholder:text-gray-300"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-end justify-end sm:pt-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => removeTab(index)}
+                    className="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all border-none"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="w-full p-8 border dark:bg-(--page-body-bg) border-dashed border-gray-200 dark:border-(--card-border-color) rounded-xl flex items-center justify-center bg-gray-50/20 text-gray-400 max-w-3xl">
+            <p className="text-[12px] italic">
+              No pricing tabs configured. Users will see all plans grouped under default tabs.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="space-y-6 pt-10 border-t border-gray-100 dark:border-(--card-border-color)">

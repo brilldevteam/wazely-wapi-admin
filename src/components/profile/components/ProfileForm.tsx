@@ -84,7 +84,7 @@ const ProfileForm = () => {
     <Card className="border-gray-200 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) shadow-sm">
       <CardHeader>
         <CardTitle className="text-lg font-bold flex items-center gap-2">
-          <User className="w-5 h-5 text-(--text-green-primary)" />
+          <User className="w-5 h-5 text-primary" />
           {t("personal_information")}
         </CardTitle>
         <CardDescription>{t("personal_information_desc")}</CardDescription>
@@ -95,8 +95,8 @@ const ProfileForm = () => {
             <div className="space-y-2 flex flex-col">
               <Label htmlFor="name">{t("full_name")}</Label>
               <div className="relative group">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
-                <Input id="name" placeholder={t("full_name_placeholder")} className="pl-10 py-5.5 dark:bg-(--page-body-bg) dark:border-none focus-visible:ring-1 bg-(--input-color) focus-visible:ring-(--text-green-primary)" {...formik.getFieldProps("name")} />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <Input id="name" placeholder={t("full_name_placeholder")} className="pl-10 py-5.5 dark:bg-(--page-body-bg) dark:border-none focus-visible:ring-1 bg-(--input-color) focus-visible:ring-primary" {...formik.getFieldProps("name")} />
               </div>
               {formik.touched.name && formik.errors.name && <p className="text-red-500 text-xs">{formik.errors.name}</p>}
             </div>
@@ -104,8 +104,8 @@ const ProfileForm = () => {
             <div className="space-y-2 flex flex-col">
               <Label htmlFor="email">{t("email_address")}</Label>
               <div className="relative group">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
-                <Input id="email" type="email" placeholder={t("email_placeholder")} className="pl-10 py-5.5 dark:bg-(--page-body-bg) dark:border-none focus-visible:ring-1 bg-(--input-color) focus-visible:ring-(--text-green-primary)" {...formik.getFieldProps("email")} />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
+                <Input id="email" type="email" placeholder={t("email_placeholder")} className="pl-10 py-5.5 dark:bg-(--page-body-bg) dark:border-none focus-visible:ring-1 bg-(--input-color) focus-visible:ring-primary" {...formik.getFieldProps("email")} />
               </div>
               {formik.touched.email && formik.errors.email && <p className="text-red-500 text-xs">{formik.errors.email}</p>}
             </div>
@@ -128,12 +128,12 @@ const ProfileForm = () => {
                   <Input value={formik.values.country_code} disabled placeholder="+1" className="p-5.5 bg-slate-50 dark:bg-(--page-body-bg) border-slate-200 text-center" />
                 </div>
                 <div className="relative flex-1 group">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
                   <Input
                     id="phone"
                     type="number"
                     placeholder={t("phone_placeholder")}
-                    className="pl-10 py-5.5 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+                    className="pl-10 py-5.5 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary"
                     {...formik.getFieldProps("phone")}
                     onChange={(e) => formik.setFieldValue("phone", e.target.value.replace(/\D/g, ""))}
                   />
@@ -146,13 +146,13 @@ const ProfileForm = () => {
           <div className="space-y-2 flex flex-col">
             <Label htmlFor="note">{t("note_label")}</Label>
             <div className="relative group">
-              <Notebook className="absolute left-3 top-2.5 w-4.5 h-4.5 text-slate-400 group-focus-within:text-(--text-green-primary) transition-colors" />
-              <Textarea id="note" placeholder={t("note_placeholder")} className="pl-10 min-h-24 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)" {...formik.getFieldProps("note")} />
+              <Notebook className="absolute left-3 top-2.5 w-4.5 h-4.5 text-slate-400 group-focus-within:text-primary transition-colors" />
+              <Textarea id="note" placeholder={t("note_placeholder")} className="pl-10 min-h-24 dark:bg-(--page-body-bg) bg-(--input-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary" {...formik.getFieldProps("note")} />
             </div>
           </div>
 
           <div className="flex justify-end pt-4">
-            <Button type="submit" disabled={isUpdating || !formik.dirty} className="bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white px-8 h-11 flex items-center gap-2 transition-all">
+            <Button type="submit" disabled={isUpdating || !formik.dirty} className="bg-primary hover:bg-primary/90 text-white px-8 h-11 flex items-center gap-2 transition-all">
               {isUpdating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
               {t("save_changes")}
             </Button>

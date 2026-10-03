@@ -19,7 +19,7 @@ import { ROUTES } from "../../constants";
 import { DynamicLogo } from "./common/DynamicLogo";
 import { t } from "i18next";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 import { getUrlWithBasePath } from "../../utils";
 
@@ -27,7 +27,7 @@ const resolveUrl = (url?: string): string => {
   if (!url) return "";
   if (url.startsWith("http") || url.startsWith("https") || url.startsWith("data:")) return url;
   
-  const baseUrl = (API_URL || "").endsWith("/") ? API_URL.slice(0, -1) : API_URL;
+  const baseUrl = (STORAGE_URL || "").endsWith("/") ? STORAGE_URL.slice(0, -1) : STORAGE_URL;
   
   if (url.startsWith("/uploads/")) {
     return `${baseUrl}${url}`;
@@ -41,7 +41,7 @@ const resolveUrl = (url?: string): string => {
   return getUrlWithBasePath(`/${url}`);
 };
 
-const DEFAULT_FAVICON = getUrlWithBasePath("/assets/logos/sidebarLogo.png");
+const DEFAULT_FAVICON = getUrlWithBasePath("");
 
 function applyFavicon(href: string) {
   if (typeof window === "undefined") return;
@@ -166,7 +166,7 @@ const LoginForm = () => {
             {/* Logo / Icon */}
             <div className="flex flex-col items-center mb-8">
               <DynamicLogo />
-              <h1 className="text-lg sm:text-2xl font-bold text-(--text-green-primary) mb-2 mt-2">Login to Your Account</h1>
+              <h1 className="text-lg sm:text-2xl font-bold text-primary mb-2 mt-2">Login to Your Account</h1>
               <p className="text-sm text-slate-500 text-center dark:text-gray-400">Enter your credentials to access the portal</p>
             </div>
 
@@ -243,7 +243,7 @@ const LoginForm = () => {
             )}
 
             <div className="mt-6 text-center">
-              <Link href={ROUTES.ForgotPassword} prefetch={false} className="text-sm text-(--text-green-primary) hover:text-emerald-700 hover:underline font-medium">
+              <Link href={ROUTES.ForgotPassword} prefetch={false} className="text-sm text-primary hover:text-primary-dark hover:underline font-medium">
                 Forgot password?
               </Link>
             </div>
@@ -258,7 +258,7 @@ const LoginForm = () => {
               href={`${ROUTES.PublicPage}/privacy-policy`} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-colors dark:text-gray-400 dark:hover:text-emerald-500"
+              className="text-sm font-bold text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-primary"
             >
               Privacy Policy
             </Link>
@@ -268,7 +268,7 @@ const LoginForm = () => {
               href={`${ROUTES.PublicPage}/terms-and-conditions`} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-colors dark:text-gray-400 dark:hover:text-emerald-500"
+              className="text-sm font-bold text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-primary"
             >
               Terms of Service
             </Link>
@@ -278,7 +278,7 @@ const LoginForm = () => {
               href={`${ROUTES.PublicPage}/refund-policy`} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-sm font-bold text-gray-600 hover:text-emerald-600 transition-colors dark:text-gray-400 dark:hover:text-emerald-500"
+              className="text-sm font-bold text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-primary"
             >
               Refund Policy
             </Link>

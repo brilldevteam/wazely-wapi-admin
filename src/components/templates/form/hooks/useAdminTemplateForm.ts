@@ -5,8 +5,8 @@ import { AuthFormData, ButtonTemplate, MediaCard, ProductCard } from "@/src/type
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { htmlToWhatsApp, whatsAppToHtml } from "@/src/utils/templateFormatter";
 import { toast } from "sonner";
-import TurndownService from "turndown";
 
 export const makeId = () => Math.random().toString(36).substr(2, 9);
 
@@ -21,8 +21,6 @@ const defaultMediaCard = (templates: { id: string; type: string }[]) => ({
 export const useAdminTemplateForm = (templateId?: string) => {
   const router = useRouter();
   const { t } = useTranslation();
-  const turndownService = new TurndownService({ emDelimiter: "_" });
-  turndownService.escape = (text) => text;
 
   const [createTemplate, { isLoading: isCreating }] = useCreateAdminTemplateMutation();
   const [updateTemplate] = useUpdateAdminTemplateMutation();
@@ -105,7 +103,7 @@ export const useAdminTemplateForm = (templateId?: string) => {
       template_name: template.template_name || "",
       template_type: template.header?.format?.toLowerCase() || (tType === "carousel_media" ? "image" : "none"),
       header_text: template.header?.text || "",
-      message_body: template.message_body || "",
+      message_body: whatsAppToHtml(template.message_body || ""),
       footer_text: template.footer_text || "",
       interactive_type: template.buttons?.length ? "cta" : "none",
       buttons: (template.buttons || []).map((btn: any) => ({ ...btn, id: makeId() })),
@@ -348,7 +346,7 @@ export const useAdminTemplateForm = (templateId?: string) => {
       }
     }
 
-    const messageBody = turndownService.turndown(formData.message_body);
+    const messageBody = htmlToWhatsApp(formData.message_body);
     const sectorPayload = { sector: formData.sector || undefined, template_category: formData.template_category || undefined };
 
     // Authentication

@@ -39,7 +39,6 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const token = request.headers.get("authorization");
-    console.log(token);
     const formData = await request.formData();
 
     const response = await fetch(`${API_URL}/languages/create`, {

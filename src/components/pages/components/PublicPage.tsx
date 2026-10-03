@@ -102,7 +102,7 @@ const PublicPage = ({ slug }: PublicPageProps) => {
                 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5
                 [&_li]:mb-2
                 [&_strong]:font-bold [&_strong]:text-slate-900 [&_strong]:dark:text-white
-                [&_a]:text-emerald-600 [&_a]:dark:text-emerald-500 [&_a]:underline hover:[&_a]:text-emerald-700"
+                [&_a]:text-primary [&_a]:dark:text-primary [&_a]:underline hover:[&_a]:text-primary-dark"
               dangerouslySetInnerHTML={{ __html: page.content }}
             />
           </div>

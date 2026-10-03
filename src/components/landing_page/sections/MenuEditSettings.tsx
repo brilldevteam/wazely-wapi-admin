@@ -495,7 +495,7 @@ export const MenuEditSettings: React.FC<MenuEditSettingsProps> = ({
       </div>
 
       <Dialog open={isInfoModalOpen} onOpenChange={setIsInfoModalOpen}>
-        <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--card-color) p-6 shadow-xl">
+        <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] rounded-xl border border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--dark-body) p-6 shadow-xl">
           <DialogHeader className="space-y-3">
             <div className="flex items-center gap-2.5">
               <span className="p-2 bg-primary/10 text-primary rounded-lg">

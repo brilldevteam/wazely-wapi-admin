@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
 import { getUrlWithBasePath } from "@/src/utils";
-import { TwitterIcon } from "@/src/utils/customIcon";
+import { formatTemplateBodyHtml } from "@/src/utils/templateFormatter";
 
 export const TemplatePreviewBubble = ({
   templateType,
@@ -138,7 +138,7 @@ export const TemplatePreviewBubble = ({
         {isLimitedTimeOffer && (
           <div className={`p-3 border-b ${getDividerStyle()} ${platform === "instagram" ? "bg-transparent" : "bg-white dark:bg-slate-800"}`}>
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+              <div className="w-10 h-10 rounded-full bg-primary/20 dark:bg-primary-dark/50 flex items-center justify-center text-primary dark:text-primary shrink-0">
                 <Gift size={20} />
               </div>
               <div className="flex-1 min-w-0">
@@ -157,8 +157,8 @@ export const TemplatePreviewBubble = ({
         {isCatalog && (
           <div className={`border-b ${getDividerStyle()} ${platform === "instagram" ? "bg-transparent" : ""}`}>
             <div className="flex items-center gap-2.5 p-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-950 dark:to-teal-950 border border-slate-100 dark:border-slate-800 flex items-center justify-center shrink-0 overflow-hidden">
-                <ShoppingBag size={22} className="text-emerald-500 dark:text-emerald-400" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 dark:from-primary-dark dark:to-primary-dark/50 border border-slate-100 dark:border-slate-800 flex items-center justify-center shrink-0 overflow-hidden">
+                <ShoppingBag size={22} className="text-primary dark:text-primary" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[12px] font-bold text-slate-800 dark:text-slate-200 leading-tight truncate">{t("templates_library_preview_catalog_title")}</p>
@@ -214,7 +214,10 @@ export const TemplatePreviewBubble = ({
         {!isSpecial && headerText && <div className={`p-3 font-bold text-sm text-slate-900 dark:text-slate-100 border-b ${getDividerStyle()} break-all whitespace-normal`}>{headerText}</div>}
 
         <div className={getBubblePadding()}>
-          <div className="text-sm leading-relaxed whitespace-pre-wrap wrap-break-word text-slate-800 dark:text-slate-100 break-all whitespace-normal">{bodyText}</div>
+          <div
+            className="text-sm leading-relaxed break-words whitespace-pre-wrap text-slate-800 dark:text-slate-100 [&_p]:my-0.5 [&_p]:min-h-[1.2em] [&_ul]:list-disc [&_ul]:ml-4 [&_ol]:list-decimal [&_ol]:ml-4"
+            dangerouslySetInnerHTML={{ __html: bodyText }}
+          />
           {isAuthentication && authData?.add_security_recommendation && <div className="text-[11px] text-slate-500 dark:text-slate-400 italic mt-1">{t("templates_library_preview_security_recommendation")}</div>}
           {isAuthentication && authData?.code_expiration_minutes && <div className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">⏱ {t("templates_library_auth_expiry_hint_preview", { minutes: authData.code_expiration_minutes, defaultValue: `Code expires in ${authData.code_expiration_minutes} minutes.` })}</div>}
           {!isSpecial && footerText && <div className="text-[11px] text-slate-400 dark:text-slate-500 font-medium break-all whitespace-normal mt-1">{footerText}</div>}
@@ -375,7 +378,10 @@ export const TemplatePreviewBubble = ({
                 <div className="h-40 bg-slate-100 dark:bg-slate-900 flex items-center justify-center overflow-hidden relative">
                   {cardUrl ? <Image src={cardUrl} alt="Card" className="w-full h-full object-cover" width={144} height={80} unoptimized /> : <ImageIcon size={20} className="text-slate-300 dark:text-slate-700" />}
                 </div>
-                <div className="p-2 text-[11px] text-slate-600 dark:text-slate-300 leading-snug line-clamp-2">{card.body_text || "No body text yet"}</div>
+                <div
+                  className="p-2 text-[11px] text-slate-600 dark:text-slate-300 leading-snug line-clamp-2 [&_p]:my-0"
+                  dangerouslySetInnerHTML={{ __html: card.body_text ? formatTemplateBodyHtml(card.body_text) : "No body text yet" }}
+                />
                 {(card.buttons || card.buttonValues || []).length > 0 && (
                   <div className="border-t border-slate-100 dark:border-slate-700">
                     {(card.buttons || card.buttonValues || []).map((btn: any, bIdx: number) => (

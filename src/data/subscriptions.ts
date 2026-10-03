@@ -12,7 +12,7 @@ export const subscriptionColumns = [
   export const colorMap: Record<string, string> = {
     blue: "bg-blue-100/50 dark:bg-blue-900/20",
     purple: "bg-purple-100/50 dark:bg-purple-900/20",
-    emerald: "bg-emerald-100/50 dark:bg-emerald-900/20",
+    emerald: "bg-primary/20/50 dark:bg-primary-dark/20",
     rose: "bg-rose-100/50 dark:bg-rose-900/20",
     amber: "bg-amber-100/50 dark:bg-amber-900/20",
   };
