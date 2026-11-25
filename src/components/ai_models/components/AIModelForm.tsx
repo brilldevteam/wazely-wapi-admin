@@ -37,6 +37,7 @@ interface FormValues {
   payloadForm: KeyValuePair[];
   responsePath: string;
   config: AIModel["config"];
+  requestFormat: "openai" | "anthropic" | "google" | "custom";
 }
 
 interface AIModelFormProps {
@@ -48,7 +49,7 @@ interface AIModelFormProps {
 const PROVIDER_MODELS: Record<string, string[]> = {
   openai: ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-4", "gpt-3.5-turbo"],
   anthropic: ["claude-3-5-sonnet-20240620", "claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"],
-  google: ["gemini-2.5-flash-lite", "gemini-1.5-pro", "gemini-1.5-flash", "gemini-pro", "gemini-pro-vision", "gemini-2.0-flash"],
+  google: ["gemini-3.6-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-1.5-pro", "gemini-1.5-flash", "gemini-pro", "gemini-pro-vision", "gemini-2.0-flash"],
   mistral: ["mistral-large-latest", "mistral-medium-latest", "mistral-small-latest", "open-mixtral-8x22b", "open-mixtral-8x7b", "open-mistral-7b"],
   groq: ["mixtral-8x7b-32768", "llama3-70b-8192", "llama3-8b-8192", "gemma-7b-it"],
   cohere: ["command-r-plus", "command-r", "command", "command-light", "command-nightly"],
@@ -72,7 +73,11 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
       .filter(([k]) => !["max_tokens", "temperature", "top_p", "frequency_penalty", "presence_penalty", "payload", "payload_type"].includes(k))
       .map(([key, value]) => ({ key, value: String(value) })),
     payloadType: (initialValues?.config?.payload_type as "json" | "formdata") || "json",
-    payloadJson: initialValues?.config?.payload_type === "json" ? (typeof initialValues?.config?.payload === "string" ? initialValues.config.payload : JSON.stringify(initialValues.config.payload, null, 2)) : "",
+    payloadJson: typeof initialValues?.config?.payload === "string"
+      ? initialValues.config.payload
+      : initialValues?.config?.payload
+      ? JSON.stringify(initialValues.config.payload, null, 2)
+      : "",
     payloadForm: initialValues?.config?.payload_type === "formdata" && typeof initialValues?.config?.payload === "object" ? Object.entries(initialValues.config.payload as Record<string, any>).map(([key, value]) => ({ key, value: String(value) })) : [{ key: "", value: "" }],
     responsePath: initialValues?.response_path || "",
     config: initialValues?.config || {
@@ -82,6 +87,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
       frequency_penalty: 0,
       presence_penalty: 0,
     },
+    requestFormat: (initialValues?.request_format as any) || (initialValues?.provider === "custom" ? "custom" : "openai"),
   };
 
   const providers = [
@@ -129,6 +135,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
       headersTemplate: headers,
       config: config,
       responsePath: values.provider === "custom" ? values.responsePath : undefined,
+      requestFormat: values.provider === "custom" ? values.requestFormat : undefined,
     };
 
     onSubmit(finalValues);
@@ -227,7 +234,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                 </div>
 
                 <div className="flex items-center gap-4 p-5 bg-slate-50/50 dark:bg-(--dark-body) rounded-lg border border-(--input-border-color) dark:border-none">
-                  <Switch checked={values.is_default} onCheckedChange={(checked) => setFieldValue("is_default", checked)} className="data-[state=checked]:bg-(--text-green-primary)" />
+                  <Switch checked={values.is_default} onCheckedChange={(checked) => setFieldValue("is_default", checked)} className="data-[state=checked]:bg-primary" />
                   <div className="space-y-0.5">
                     <Label className="text-sm font-bold text-slate-900 dark:text-white">{t("ai_models_form_is_default")}</Label>
                     <p className="text-xs text-slate-500 italic">This model will be used by default for AI features.</p>
@@ -242,14 +249,14 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
               <Card className="border shadow-sm dark:bg-(--card-color) bg-white rounded-lg h-fit">
                 <CardHeader className="flex flex-row items-center justify-between py-5 border-b border-slate-50 dark:border-(--card-border-color) px-6">
                   <CardTitle className="text-lg font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                    <ListPlus className="w-4 h-4 text-(--text-green-primary)" />
+                    <ListPlus className="w-4 h-4 text-primary" />
                     {t("ai_models_form_add_headers")}
                   </CardTitle>
                   <Button
                     type="button"
                     size="sm"
                     variant="ghost"
-                    className="text-(--text-green-primary) border border-(--text-green-primary) dark:border-none hover:bg-emerald-50 dark:bg-page-body dark:hover:bg-(--dark-sidebar) hover:text-(--text-green-primary) h-9 px-4 rounded-lg font-bold"
+                    className="text-primary border border-primary dark:border-none hover:bg-primary/10 dark:bg-page-body dark:hover:bg-(--dark-sidebar) hover:text-primary h-9 px-4 rounded-lg font-bold"
                     onClick={() => {
                       const newList = [...values.headerList, { key: "", value: "" }];
                       setFieldValue("headerList", newList);
@@ -285,14 +292,14 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
               <Card className="border shadow-sm dark:bg-(--card-color) bg-white rounded-lg h-fit">
                 <CardHeader className="flex flex-row items-center justify-between py-5 border-b border-slate-50 dark:border-(--card-border-color) px-6">
                   <CardTitle className="text-lg font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                    <Settings2 className="w-4 h-4 text-(--text-green-primary)" />
+                    <Settings2 className="w-4 h-4 text-primary" />
                     {t("ai_models_form_add_params")}
                   </CardTitle>
                   <Button
                     type="button"
                     size="sm"
                     variant="ghost"
-                    className="text-(--text-green-primary) border border-(--text-green-primary) dark:border-none dark:bg-page-body hover:bg-emerald-50 dark:hover:bg-(--dark-sidebar) hover:text-primary h-9 px-4 rounded-lg font-bold"
+                    className="text-primary border border-primary dark:border-none dark:bg-page-body hover:bg-primary/10 dark:hover:bg-(--dark-sidebar) hover:text-primary h-9 px-4 rounded-lg font-bold"
                     onClick={() => {
                       const newList = [...values.paramList, { key: "", value: "" }];
                       setFieldValue("paramList", newList);
@@ -335,44 +342,87 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="sm:p-6 p-4 space-y-6">
-                  <div className="flex gap-2 p-1.5 bg-slate-100/80 dark:bg-(--dark-sidebar) rounded-lg w-fit">
-                    <Button type="button" size="sm" variant={values.payloadType === "json" ? "default" : "ghost"} className={cn("h-10 px-6 text-sm font-bold rounded-lg transition-all border-none hover:bg-(--light-primary)", values.payloadType === "json" ? "bg-white dark:bg-(--table-hover) dark:hover:bg-(--dark-sidebar) text-(--text-green-primary) shadow-sm dark:ring-(--card-border-color) ring-1 ring-slate-200/50 " : "text-slate-500 hover:text-slate-700  dark:hover:bg-(--dark-sidebar) dark:hover:text-amber-50")} onClick={() => setFieldValue("payloadType", "json")}>
-                      JSON
-                    </Button>
-                    <Button type="button" size="sm" variant={values.payloadType === "formdata" ? "default" : "ghost"} className={cn("h-10 px-6 text-sm font-bold rounded-lg transition-all border-none hover:bg-(--light-primary)", values.payloadType === "formdata" ? "bg-white dark:bg-(--table-hover) dark:hover:bg-(--dark-sidebar) text-(--text-green-primary) shadow-sm dark:ring-(--card-border-color) ring-1 ring-slate-200/50" : "text-slate-500 hover:text-slate-700 dark:hover:bg-(--dark-sidebar) dark:hover:text-amber-50")} onClick={() => setFieldValue("payloadType", "formdata")}>
-                      Formdata
-                    </Button>
+                  <div className="space-y-2 flex flex-col">
+                    <Label htmlFor="requestFormat" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                      Request Format
+                    </Label>
+                    <Select
+                      onValueChange={(value) => {
+                        setFieldValue("requestFormat", value);
+                        if (value === "google") {
+                          setFieldValue("responsePath", "candidates.0.content.parts.0.text");
+                        } else if (value === "anthropic") {
+                          setFieldValue("responsePath", "content.0.text");
+                        } else if (value === "openai") {
+                          setFieldValue("responsePath", "choices.0.message.content");
+                        } else {
+                          setFieldValue("responsePath", "");
+                        }
+                      }}
+                      value={values.requestFormat}
+                    >
+                      <SelectTrigger className="h-12 px-3 shadow-none rounded-lg bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none transition-all">
+                        <SelectValue placeholder="Select Request Format" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white dark:bg-(--card-color) border-slate-200 dark:border-(--card-border-color) rounded-lg shadow-lg">
+                        <SelectItem value="openai" className="py-3 rounded-lg dark:hover:bg-(--dark-sidebar)">
+                          OpenAI
+                        </SelectItem>
+                        <SelectItem value="anthropic" className="py-3 rounded-lg dark:hover:bg-(--dark-sidebar)">
+                          Anthropic
+                        </SelectItem>
+                        <SelectItem value="google" className="py-3 rounded-lg dark:hover:bg-(--dark-sidebar)">
+                          Google
+                        </SelectItem>
+                        <SelectItem value="custom" className="py-3 rounded-lg dark:hover:bg-(--dark-sidebar)">
+                          Custom (JSON/Formdata payload)
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
-                  {values.payloadType === "json" ? (
-                    <div className="space-y-2 flex flex-col">
-                      <Label htmlFor="payloadJson" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                        Payload JSON
-                      </Label>
-                      <Field name="payloadJson" as={Textarea} placeholder="Enter JSON payload structure.." className="min-h-40 font-mono text-sm border-none bg-slate-950 text-(--text-green-primary) rounded-lg p-6 focus:ring-1 focus:ring-emerald-500/50" />
-                    </div>
-                  ) : (
-                    <div className="space-y-4 flex flex-col">
-                      <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Form Data Fields</Label>
-                      <FieldArray name="payloadForm">
-                        {({ push, remove }) => (
-                          <div className="space-y-4">
-                            {values.payloadForm.map((_, index) => (
-                              <div key={index} className="flex gap-4 group animate-in fade-in slide-in-from-top-2 transition-all">
-                                <Field name={`payloadForm.${index}.key`} as={Input} placeholder="Field Name" className="h-12 px-3 rounded-lg bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:bg-(--input-color) dark:focus:bg-page-body transition-all shadow-none" />
-                                <Field name={`payloadForm.${index}.value`} as={Input} placeholder="Value Mapping" className="h-12 px-3 rounded-lg bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:bg-(--input-color) transition-all dark:focus:bg-page-body shadow-none" />
-                                <Button type="button" variant="ghost" size="icon" className="shrink-0 h-12 w-12 text-red-400 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg" onClick={() => remove(index)}>
-                                  <Trash2 className="w-5 h-5" />
+                  {values.requestFormat === "custom" && (
+                    <>
+                      <div className="flex gap-2 p-1.5 bg-slate-100/80 dark:bg-(--dark-sidebar) rounded-lg w-fit">
+                        <Button type="button" size="sm" variant={values.payloadType === "json" ? "default" : "ghost"} className={cn("h-10 px-6 text-sm font-bold rounded-lg transition-all border-none hover:bg-(--light-primary)", values.payloadType === "json" ? "bg-white dark:bg-(--table-hover) dark:hover:bg-(--dark-sidebar) text-primary shadow-sm dark:ring-(--card-border-color) ring-1 ring-slate-200/50 " : "text-slate-500 hover:text-slate-700  dark:hover:bg-(--dark-sidebar) dark:hover:text-amber-50")} onClick={() => setFieldValue("payloadType", "json")}>
+                          JSON
+                        </Button>
+                        <Button type="button" size="sm" variant={values.payloadType === "formdata" ? "default" : "ghost"} className={cn("h-10 px-6 text-sm font-bold rounded-lg transition-all border-none hover:bg-(--light-primary)", values.payloadType === "formdata" ? "bg-white dark:bg-(--table-hover) dark:hover:bg-(--dark-sidebar) text-primary shadow-sm dark:ring-(--card-border-color) ring-1 ring-slate-200/50" : "text-slate-500 hover:text-slate-700 dark:hover:bg-(--dark-sidebar) dark:hover:text-amber-50")} onClick={() => setFieldValue("payloadType", "formdata")}>
+                          Formdata
+                        </Button>
+                      </div>
+
+                      {values.payloadType === "json" ? (
+                        <div className="space-y-2 flex flex-col">
+                          <Label htmlFor="payloadJson" className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                            Payload JSON
+                          </Label>
+                          <Field name="payloadJson" as={Textarea} placeholder="Enter JSON payload structure.." className="min-h-40 font-mono text-sm border-none bg-slate-950 text-primary rounded-lg p-6 focus:ring-1 focus:ring-primary/50" />
+                        </div>
+                      ) : (
+                        <div className="space-y-4 flex flex-col">
+                          <Label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Form Data Fields</Label>
+                          <FieldArray name="payloadForm">
+                            {({ push, remove }) => (
+                              <div className="space-y-4">
+                                {values.payloadForm.map((_, index) => (
+                                  <div key={index} className="flex gap-4 group animate-in fade-in slide-in-from-top-2 transition-all">
+                                    <Field name={`payloadForm.${index}.key`} as={Input} placeholder="Field Name" className="h-12 px-3 rounded-lg bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:bg-(--input-color) dark:focus:bg-page-body transition-all shadow-none" />
+                                    <Field name={`payloadForm.${index}.value`} as={Input} placeholder="Value Mapping" className="h-12 px-3 rounded-lg bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:bg-(--input-color) transition-all dark:focus:bg-page-body shadow-none" />
+                                    <Button type="button" variant="ghost" size="icon" className="shrink-0 h-12 w-12 text-red-400 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg" onClick={() => remove(index)}>
+                                      <Trash2 className="w-5 h-5" />
+                                    </Button>
+                                  </div>
+                                ))}
+                                <Button type="button" variant="outline" size="sm" className="mt-2 text-slate-500 hover:text-slate-600 dark:hover:text-slate-200 border-dashed border border-slate-200 dark:border-(--card-border-color) dark:hover:bg-page-body dark:bg-page-body dark:hover:border-(--card-border-color) hover:border-slate-300 hover:bg-slate-50 h-12 w-full rounded-lg font-bold flex gap-2 shadow-none" onClick={() => push({ key: "", value: "" })}>
+                                  <Plus className="w-4 h-4" /> {t("common_add")} Payload Field
                                 </Button>
                               </div>
-                            ))}
-                            <Button type="button" variant="outline" size="sm" className="mt-2 text-slate-500 hover:text-slate-600 dark:hover:text-slate-200 border-dashed border border-slate-200 dark:border-(--card-border-color) dark:hover:bg-page-body dark:bg-page-body dark:hover:border-(--card-border-color) hover:border-slate-300 hover:bg-slate-50 h-12 w-full rounded-lg font-bold flex gap-2 shadow-none" onClick={() => push({ key: "", value: "" })}>
-                              <Plus className="w-4 h-4" /> {t("common_add")} Payload Field
-                            </Button>
-                          </div>
-                        )}
-                      </FieldArray>
-                    </div>
+                            )}
+                          </FieldArray>
+                        </div>
+                      )}
+                    </>
                   )}
 
                   <div className="space-y-2 flex flex-col">
@@ -396,7 +446,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                     <Button type="button" onClick={() => router.back()} className="w-full px-4.5 py-5 h-12 text-black/50 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-(--dark-sidebar) bg-white dark:bg-page-body border dark:border-none rounded-lg shadow-none dark:shadow-none text-[15px] flex items-center justify-center gap-3 transition-all active:scale-95">
                       {t("common_cancel")}
                     </Button>
-                    <Button type="submit" disabled={isLoading} className="w-full px-4.5 py-5 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white h-11 rounded-lg dark:shadow-none text-[16px] font-bold flex items-center justify-center gap-3 transition-all active:scale-95">
+                    <Button type="submit" disabled={isLoading} className="w-full px-4.5 py-5 bg-primary hover:bg-primary text-white h-11 rounded-lg dark:shadow-none text-[16px] font-bold flex items-center justify-center gap-3 transition-all active:scale-95">
                       {isLoading ? (
                         <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       ) : (
@@ -412,7 +462,24 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                     {t("ai_models_form_test_model")}
                   </Button>
 
-                  <TestModelModal isOpen={isTestModalOpen} onClose={() => setIsTestModalOpen(false)} modelId={initialValues?._id || ""} />
+                  <TestModelModal
+                    isOpen={isTestModalOpen}
+                    onClose={() => setIsTestModalOpen(false)}
+                    modelId={initialValues?._id || ""}
+                    modelConfig={{
+                      provider: values.provider,
+                      modelId: values.modelId,
+                      apiEndpoint: values.apiEndpoint,
+                      requestFormat: values.provider === "custom" ? (values.requestFormat || "custom") : undefined,
+                      responsePath: values.provider === "custom" ? values.responsePath : undefined,
+                      headersTemplate: Object.fromEntries(values.headerList.filter(h => h.key).map(h => [h.key, h.value])),
+                      config: {
+                        ...values.config,
+                        payload_type: values.provider === "custom" ? values.payloadType : undefined,
+                        payload: values.provider === "custom" ? (values.payloadType === "json" ? values.payloadJson : Object.fromEntries(values.payloadForm.filter(f => f.key).map(f => [f.key, f.value]))) : undefined,
+                      }
+                    }}
+                  />
 
                   <div className="pt-6 border-t border-slate-50 dark:border-(--card-border-color) mt-4">
                     <p className="text-xs text-slate-400 text-center leading-relaxed">Changes will be applied immediately to all connected AI features upon saving.</p>
@@ -424,7 +491,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                   {/* Header Section */}
                   <div className="space-y-1.5 flex flex-row items-center justify-between">
                     <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 tracking-wide">
-                      <ShieldCheck className="w-6 h-6 text-(--text-green-primary)" />
+                      <ShieldCheck className="w-6 h-6 text-primary" />
                       Configuration Summary
                     </h4>
                   </div>
@@ -433,7 +500,7 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
                   <div className="pt-2 space-y-4">
                     <div className="flex justify-between items-center py-3 mb-2 last:p-0 border-b border-(--input-border-color) dark:border-(--card-border-color)">
                       <span className="text-sm text-slate-600 dark:text-slate-400">Provider:</span>
-                      <span className="font-semibold text-(--text-green-primary) uppercase text-sm">{values.provider}</span>
+                      <span className="font-semibold text-primary uppercase text-sm">{values.provider}</span>
                     </div>
 
                     <div className="flex justify-between items-center py-3 mb-2 last:p-0 border-b border-(--input-border-color) dark:border-(--card-border-color)">
@@ -443,12 +510,12 @@ const AIModelForm = ({ initialValues, onSubmit, isLoading }: AIModelFormProps) =
 
                     <div className="flex justify-between items-center py-3 mb-2 last:p-0 border-b border-(--input-border-color) dark:border-(--card-border-color)">
                       <span className="text-sm text-slate-600 dark:text-slate-400">Custom Headers:</span>
-                      <span className="inline-flex items-center justify-center min-w-7 h-7 px-2.5 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-(--text-green-primary) rounded-full font-bold text-sm">{values.headerList.filter((h) => h.key).length}</span>
+                      <span className="inline-flex items-center justify-center min-w-7 h-7 px-2.5 bg-primary/20 dark:bg-primary-dark/30 text-primary-dark dark:text-primary rounded-full font-bold text-sm">{values.headerList.filter((h) => h.key).length}</span>
                     </div>
 
                     <div className="flex justify-between items-center py-3 mb-2 last:p-0">
                       <span className="text-sm text-slate-600 dark:text-slate-400">Default Model:</span>
-                      <span className={cn("font-semibold px-3 py-1.5 rounded-lg text-xs uppercase tracking-wide transition-colors", values.is_default ? "bg-(--text-green-primary) text-white shadow-sm" : "bg-slate-200 dark:bg-page-body text-slate-600 dark:text-slate-300")}>{values.is_default ? "Yes" : "No"}</span>
+                      <span className={cn("font-semibold px-3 py-1.5 rounded-lg text-xs uppercase tracking-wide transition-colors", values.is_default ? "bg-primary text-white shadow-sm" : "bg-slate-200 dark:bg-page-body text-slate-600 dark:text-slate-300")}>{values.is_default ? "Yes" : "No"}</span>
                     </div>
                   </div>
                 </CardContent>

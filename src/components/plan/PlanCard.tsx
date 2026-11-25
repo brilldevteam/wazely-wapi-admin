@@ -121,16 +121,16 @@ const PlanCard = ({
     <>
       <div
         className={`
-        relative bg-white dark:bg-(--card-color) rounded-lg border p-6 transition-all duration-500 flex flex-col w-full ring-1 ring-(--text-green-primary)
+        relative bg-white dark:bg-(--card-color) rounded-lg border p-6 transition-all duration-500 flex flex-col w-full ring-1 ring-primary
         ${isHighlighted ? "" : "border-slate-200 dark:border-(--card-border-color)"}
-        ${plan.is_featured && !isHighlighted ? "border-(--text-green-primary) shadow-sm" : ""}
+        ${plan.is_featured && !isHighlighted ? "border-primary shadow-sm" : ""}
       `}
         style={{ minHeight: "580px" }}
       >
         {/* Most Popular Badge */}
         {plan.is_featured && (
           <div className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 z-10">
-            <span className="flex items-center gap-1 px-3 sm:px-4 py-1 sm:py-1.5 bg-(--text-green-primary) text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg whitespace-nowrap">
+            <span className="flex items-center gap-1 px-3 sm:px-4 py-1 sm:py-1.5 bg-primary text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg whitespace-nowrap">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{t("plan_most_popular")}</span>
             </span>
@@ -180,8 +180,8 @@ const PlanCard = ({
               <ul className="grid grid-cols-2 gap-x-3 gap-y-3">
                 {showFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start gap-1.5">
-                    <div className="mt-0.5 w-4 h-4 shrink-0 rounded-full flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/20">
-                      <Check className="w-2 h-2 text-(--text-green-primary)" />
+                    <div className="mt-0.5 w-4 h-4 shrink-0 rounded-full flex items-center justify-center bg-primary/20 dark:bg-primary-dark/20">
+                      <Check className="w-2 h-2 text-primary" />
                     </div>
                     <span className="text-xs text-slate-700 dark:text-slate-300 leading-tight">
                       {feature}
@@ -201,8 +201,8 @@ const PlanCard = ({
               <ul className="grid grid-cols-2 gap-x-3 gap-y-3">
                 {showCapabilities.map((feature, index) => (
                   <li key={index} className="flex items-start gap-1.5">
-                    <div className="mt-0.5 w-4 h-4 shrink-0 rounded-full flex items-center justify-center bg-emerald-100 dark:bg-emerald-900/20">
-                      <Check className="w-2 h-2 text-(--text-green-primary)" />
+                    <div className="mt-0.5 w-4 h-4 shrink-0 rounded-full flex items-center justify-center bg-primary/20 dark:bg-primary-dark/20">
+                      <Check className="w-2 h-2 text-primary" />
                     </div>
                     <span className="text-xs text-slate-700 dark:text-slate-300 leading-tight">
                       {feature}
@@ -224,7 +224,7 @@ const PlanCard = ({
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
-              className="w-full mb-3 text-xs font-bold flex items-center justify-center gap-1 py-1 rounded-md transition-all cursor-pointer text-(--text-green-primary) hover:bg-emerald-50 dark:hover:bg-emerald-900/10 focus:outline-none"
+              className="w-full mb-3 text-xs font-bold flex items-center justify-center gap-1 py-1 rounded-md transition-all cursor-pointer text-primary hover:bg-primary/10 dark:hover:bg-primary-dark/10 focus:outline-none"
             >
               {isExpanded ? (
                 <>

@@ -14,7 +14,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-16 h-8 rounded-full bg-linear-to-r from-green-600 to-emerald-600 opacity-50" />
+      <div className="w-16 h-8 rounded-full bg-linear-to-r from-green-600 to-primary opacity-50" />
     );
   }
 
@@ -25,7 +25,7 @@ export function ThemeToggle() {
   return (
     <Button
       onClick={toggleTheme}
-      className="relative w-16 h-8 rounded-full bg-linear-to-r from-green-600 to-emerald-600 shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transition-all duration-300"
+      className="relative w-16 h-8 rounded-full bg-linear-to-r from-green-600 to-primary shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transition-all duration-300"
       aria-label="Toggle theme"
     >
       <motion.div

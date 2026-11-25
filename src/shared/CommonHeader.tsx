@@ -25,7 +25,7 @@ const CommonHeader = ({ title, description, onSearch, searchTerm = "", searchPla
     <div className="space-y-6 pt-0! sm:space-y-8 mb-5 sm:mb-2 sticky top-[100px] z-[50] -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-light-body-bg dark:bg-(--dark-body) shadow-[0_-55px_0px_0px_var(--light-body-bg)] dark:shadow-[0_-55px_0px_0px_var(--dark-body)] py-4 transition-all">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight mb-2">{title}</h1>
+          <h1 className="text-2xl font-bold text-primary tracking-tight mb-2">{title}</h1>
           <p className="text-gray-500 text-sm">{description}</p>
         </div>
 
@@ -33,7 +33,7 @@ const CommonHeader = ({ title, description, onSearch, searchTerm = "", searchPla
           {extraActions}
           {onAddClick && (
             <Can permission={addPermission}>
-              <Button onClick={onAddClick} className="flex items-center cursor-pointer gap-2 justify-center text-white px-4.5 py-5 rounded-lg dark:shadow-none shadow-md shadow-emerald-100 transition-all active:scale-95">
+              <Button onClick={onAddClick} className="flex items-center cursor-pointer gap-2 justify-center text-white px-4.5 py-5 rounded-lg dark:shadow-none shadow-md shadow-primary/20 transition-all active:scale-95">
                 <Plus className="w-5 h-5" />
                 {addLabel}
               </Button>
@@ -43,14 +43,14 @@ const CommonHeader = ({ title, description, onSearch, searchTerm = "", searchPla
       </div>
 
       {(onSearch || onFilter || onExport) && (
-        <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white p-4 sm:p-6 rounded-lg shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-4 flex-wrap">
+        <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white border p-4 sm:p-6 rounded-lg shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center gap-4 flex-wrap">
           {onSearch && (
             <div className="flex-1 flex flex-col md:flex-row gap-4 items-stretch md:items-center">
               <div className="relative flex-1">
                 <div className="absolute left-4 rtl:right-4 rtl:left-0 top-1/2 -translate-y-1/2 text-muted-text">
                   <Search className="w-5 h-5" />
                 </div>
-                <Input placeholder={searchPlaceholder === "Search..." ? t("common_search") + "..." : searchPlaceholder} value={searchTerm} onChange={(e) => onSearch(e.target.value)} className="dark:bg-page-body pl-12 rtl:pr-12 rtl:pl-0 py-6 bg-(--input-color) border-(--input-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg text-sm dark:border-(--card-border-color) w-full" />
+                <Input placeholder={searchPlaceholder === "Search..." ? t("common_search") + "..." : searchPlaceholder} value={searchTerm} onChange={(e) => onSearch(e.target.value)} className="dark:bg-page-body pl-12 rtl:pr-12 rtl:pl-0 py-6 bg-(--input-color) border-(--input-border-color) focus:border-primary focus:ring-primary rounded-lg text-sm dark:border-(--card-border-color) w-full" />
               </div>
               {searchActions}
             </div>

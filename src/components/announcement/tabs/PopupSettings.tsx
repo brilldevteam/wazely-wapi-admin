@@ -127,7 +127,7 @@ const PopupSettings = ({ isLoading }: { isLoading?: boolean }) => {
                 <div className="space-y-2.5">
                   {popupBullets.map((bullet, idx) => (
                     <div key={idx} className="flex gap-2 items-center">
-                      <div className="w-6 h-6 shrink-0 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                      <div className="w-6 h-6 shrink-0 rounded-full bg-primary/10 text-primary flex items-center justify-center">
                         <Check size={12} className="stroke-[3]" />
                       </div>
                       <Input
@@ -275,7 +275,7 @@ const PopupSettings = ({ isLoading }: { isLoading?: boolean }) => {
                         <ul className="space-y-1.5 mb-4">
                           {popupBullets.map((bullet, idx) => (
                             <li key={idx} className="flex gap-2 items-start text-sm text-gray-700 dark:text-gray-300">
-                              <span className="w-4 h-4 rounded-full bg-emerald-500/15 text-emerald-500 flex items-center justify-center mt-0.5 shrink-0">
+                              <span className="w-4 h-4 rounded-full bg-primary/15 text-primary flex items-center justify-center mt-0.5 shrink-0">
                                 <Check size={9} className="stroke-[3]" />
                               </span>
                               <span className="flex-1 break-all whitespace-noraml line-clamp-1">{bullet}</span>

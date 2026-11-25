@@ -121,7 +121,7 @@ const RazorpaySettings = () => {
               handleInputChange("razorpay_key_id", e.target.value)
             }
             placeholder="rzp_test_..."
-            className="h-11 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+            className="h-11 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary"
           />
         </div>
 
@@ -137,7 +137,7 @@ const RazorpaySettings = () => {
               }
               type={showSecret ? "text" : "password"}
               placeholder="Enter Key Secret"
-              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary"
             />
             <Button
               type="button"
@@ -167,7 +167,7 @@ const RazorpaySettings = () => {
             }
             type={showWebhook ? "text" : "password"}
             placeholder="Enter Webhook Secret"
-            className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+            className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary"
           />
           <Button
             type="button"
@@ -260,7 +260,7 @@ const RazorpaySettings = () => {
           <Button
             onClick={handleUpdate}
             disabled={isUpdating}
-            className="h-9 px-7 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60"
+            className="h-9 px-7 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60"
           >
             {isUpdating ? (
               <span className="flex items-center gap-2">

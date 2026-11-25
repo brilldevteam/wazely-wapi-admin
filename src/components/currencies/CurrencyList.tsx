@@ -59,7 +59,7 @@ const CurrencyList = ({ currencies, onDelete, onBulkDelete, onToggleStatus, onTo
       header: "Default",
       cell: (row: Currency) => (
         <div className="flex items-center justify-center">
-          <Switch checked={row.is_default} onCheckedChange={() => !row.is_default && onToggleDefault(row._id)} disabled={isLoading || !hasPermission("update.currencies")} className="data-[state=checked]:bg-(--text-green-primary)" />
+          <Switch checked={row.is_default} onCheckedChange={() => !row.is_default && onToggleDefault(row._id)} disabled={isLoading || !hasPermission("update.currencies")} className="data-[state=checked]:bg-primary" />
         </div>
       ),
     },
@@ -67,7 +67,7 @@ const CurrencyList = ({ currencies, onDelete, onBulkDelete, onToggleStatus, onTo
       id: "status",
       className: "[@media(max-width:1499px)]:min-w-[110px] ",
       header: "Status",
-      cell: (row: Currency) => <Switch checked={row.is_active} onCheckedChange={() => onToggleStatus(row._id)} disabled={isLoading || !hasPermission("update.currencies")} className="data-[state=checked]:bg-(--text-green-primary)" />,
+      cell: (row: Currency) => <Switch checked={row.is_active} onCheckedChange={() => onToggleStatus(row._id)} disabled={isLoading || !hasPermission("update.currencies")} className="data-[state=checked]:bg-primary" />,
     },
   ];
 

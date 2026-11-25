@@ -191,7 +191,7 @@ export const AppointmentBookingForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddJourneyStep}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Booking Journey Step
             </Button>
@@ -247,7 +247,7 @@ export const AppointmentBookingForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddUsecaseExample}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Usecase Example
             </Button>
@@ -303,7 +303,7 @@ export const AppointmentBookingForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddArchStep}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Engine Feature
             </Button>
@@ -361,7 +361,7 @@ export const AppointmentBookingForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddFaq}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
             </Button>

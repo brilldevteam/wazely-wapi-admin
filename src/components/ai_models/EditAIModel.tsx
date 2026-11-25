@@ -35,7 +35,7 @@ const EditAIModel = () => {
   if (isFetching) {
     return (
       <div className="flex items-center justify-center min-h-100">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-(--text-green-primary)"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -64,7 +64,7 @@ const EditAIModel = () => {
           <ArrowLeft size={20} />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-(--text-green-primary) mb-2">{t("ai_models_edit_title")}</h1>
+          <h1 className="text-2xl font-bold text-primary mb-2">{t("ai_models_edit_title")}</h1>
           <p className="text-sm text-gray-400">{t("ai_models_edit_subtitle")}</p>
         </div>
       </div>

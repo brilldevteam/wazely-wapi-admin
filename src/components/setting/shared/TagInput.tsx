@@ -49,11 +49,11 @@ const TagInput = ({
     <div
       className={`relative ${disabled ? "opacity-50 pointer-events-none" : ""}`}
     >
-      <div className="min-h-10 flex flex-wrap gap-1.5 p-2 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-none rounded-lg focus-within:ring-2 focus-within:ring-(--text-green-primary)/20 focus-within:border-(--text-green-primary) transition-all">
+      <div className="min-h-10 flex flex-wrap gap-1.5 p-2 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-none rounded-lg focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
         {value.map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1 px-2 py-0.5 bg-(--text-green-primary)/10 text-(--text-green-primary) text-xs font-medium rounded-md border border-(--text-green-primary)/20"
+            className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary text-xs font-medium rounded-md border border-primary/20"
           >
             .{tag}
             <Button
@@ -90,7 +90,7 @@ const TagInput = ({
                 key={type}
                 type="button"
                 onMouseDown={() => addTag(type)}
-                className="px-2 py-1 text-xs font-medium rounded-md bg-gray-100 dark:bg-(--card-color) text-gray-700 dark:text-gray-300 hover:bg-(--text-green-primary)/10 hover:text-(--text-green-primary) transition-colors"
+                className="px-2 py-1 text-xs font-medium rounded-md bg-gray-100 dark:bg-(--card-color) text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary transition-colors"
               >
                 .{type}
               </Button>

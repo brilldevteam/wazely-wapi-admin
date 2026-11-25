@@ -153,8 +153,8 @@ const LeftHeader = () => {
           onClick={handleOpen}
           className={`
               pl-10 pr-4 py-2.5 w-full rounded-lg text-sm outline-none transition-all border
-              dark:bg-page-body dark:border-(--card-border-color) dark:text-slate-200 dark:focus:bg-page-body dark:focus:border-(--text-green-primary)
-              bg-(--input-color) border-(--input-border-color) text-slate-600 focus:border-(--text-green-primary)
+              dark:bg-page-body dark:border-(--card-border-color) dark:text-slate-200 dark:focus:bg-page-body dark:focus:border-primary
+              bg-(--input-color) border-(--input-border-color) text-slate-600 focus:border-primary
             `}
         />
         {searchQuery && (

@@ -51,7 +51,7 @@ const EmailTemplateEditContainer = ({ id }: EmailTemplateEditContainerProps) => 
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div className="flex-1">
-          <h1 className="sm:text-2xl text-md font-bold text-(--text-green-primary) mb-1">
+          <h1 className="sm:text-2xl text-md font-bold text-primary mb-1">
             {t("email_template_edit_title")} <span className="text-sm sm:text-lg text-gray-400 font-normal">{`(${response?.data?.name})`}</span>
           </h1>
           <p className="text-gray-400 text-sm leading-relaxed">{t("email_template_edit_subtitle")}</p>

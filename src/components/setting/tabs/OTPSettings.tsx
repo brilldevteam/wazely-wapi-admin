@@ -58,13 +58,13 @@ const VariableRow = ({
   return (
     <div className="bg-slate-50/50 dark:bg-(--page-body-bg) sm:p-5 p-2 rounded-lg border border-slate-100 dark:border-slate-800 space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <Label className="text-[12px] font-black text-(--text-green-primary) flex items-center gap-2">
+        <Label className="text-[12px] font-black text-primary flex items-center gap-2">
           <Layout size={12} /> Variable Placeholder: {"{{" + varKey + "}}"}
         </Label>
         <div className="flex flex-col items-end gap-1">
           <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300">
             You set{" "}
-            <span className="text-(--text-green-primary)">{displayValue}</span>{" "}
+            <span className="text-primary">{displayValue}</span>{" "}
             for this {"{{" + varKey + "}}"}
           </span>
           <span className="text-[10px] font-medium text-slate-400 italic">
@@ -212,16 +212,16 @@ const OTPSettings = () => {
               <div
                 key={method.id}
                 onClick={() => setDeliveryMethod(method.id)}
-                className={`relative flex flex-col p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${isSelected ? "border-(--text-green-primary) bg-(--text-green-primary)/5 shadow-sm" : "border-slate-100 dark:border-slate-800 bg-transparent hover:border-slate-200 dark:hover:border-slate-700"}`}
+                className={`relative flex flex-col p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer group ${isSelected ? "border-primary bg-primary/5 shadow-sm" : "border-slate-100 dark:border-slate-800 bg-transparent hover:border-slate-200 dark:hover:border-slate-700"}`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div
-                    className={`p-2 rounded-lg ${isSelected ? "bg-(--text-green-primary) text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
+                    className={`p-2 rounded-lg ${isSelected ? "bg-primary text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
                   >
                     <Icon className="w-4 h-4" />
                   </div>
                   {isSelected && (
-                    <div className="w-5 h-5 rounded-full bg-(--text-green-primary) flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
                       <Check className="w-3 h-3 text-white" />
                     </div>
                   )}
@@ -300,7 +300,7 @@ const OTPSettings = () => {
                     <div className="mt-4 space-y-4 sm:p-5 p-2 bg-slate-50 dark:bg-(--card-color) rounded-lg border border-dashed border-slate-200 dark:border-(--card-border-color) animate-in fade-in slide-in-from-top-2">
                       <div className="flex items-center gap-2 px-1">
                         <Sparkles
-                          className="text-(--text-green-primary)"
+                          className="text-primary"
                           size={16}
                         />
                         <p className="text-xs font-black text-slate-800 dark:text-white uppercase tracking-wider">
@@ -333,7 +333,7 @@ const OTPSettings = () => {
 
                   <div className="space-y-3 p-4 bg-gray-50 dark:bg-(--dark-body) border border-gray-100 dark:border-gray-800 rounded-lg animate-in fade-in slide-in-from-top-1 duration-200">
                     <div className="flex items-center gap-2 mb-1">
-                      <Info className="w-4 h-4 text-(--text-green-primary)" />
+                      <Info className="w-4 h-4 text-primary" />
                       <h5 className="text-sm font-bold text-gray-900 dark:text-gray-100">
                         {t("settings_otp_variable_mapping")}
                       </h5>

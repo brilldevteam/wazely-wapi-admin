@@ -46,7 +46,7 @@ const QuickReplyModal = ({
 
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
-      <AlertDialogContent className="sm:max-w-lg! max-w-[calc(100%-2rem)]! sm:p-6 p-4 rounded-lg">
+      <AlertDialogContent className="sm:max-w-lg! max-w-[calc(100%-2rem)]! sm:p-6 p-4 rounded-lg dark:bg-(--dark-body)">
         <AlertDialogHeader className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-1 text-left rtl:text-right">
             <AlertDialogTitle>

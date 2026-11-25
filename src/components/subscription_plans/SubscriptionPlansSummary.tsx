@@ -44,7 +44,7 @@ const SubscriptionPlansSummary = ({ totalSubscriptions, activeSubscriptions, exp
       id: "active",
       label: t("subscription_active"),
       value: activeSubscriptions,
-      icon: <CheckCircle className="w-5 h-5 text-emerald-500" />,
+      icon: <CheckCircle className="w-5 h-5 text-primary" />,
       color: "emerald",
     },
     {
@@ -68,7 +68,7 @@ const SubscriptionPlansSummary = ({ totalSubscriptions, activeSubscriptions, exp
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
       {cards.map((card) => (
-        <Card key={card.id} onClick={() => onCardClick?.(card.id)} className={`relative border-none! overflow-hidden cursor-pointer transition-all shadow-sm dark:bg-(--card-color) group ${activeFilter === card.id ? "border-(--text-green-primary) ring-1 ring-(--text-green-primary)" : " dark:border-(--card-border-color) hover:border-(--text-green-primary)/50"}`}>
+        <Card key={card.id} onClick={() => onCardClick?.(card.id)} className={`relative border-none! overflow-hidden cursor-pointer transition-all shadow-sm dark:bg-(--card-color) group ${activeFilter === card.id ? "border-primary ring-1 ring-primary" : " dark:border-(--card-border-color) hover:border-primary/50"}`}>
           <CardContent className="p-4 py-5">
             <div className={`absolute -top-6 -right-6 w-24 h-24 rounded-full blur-2xl opacity-10 transition-all duration-500 ${colorMap[card.color] || ""}`} />
             <div className="flex items-center gap-3">

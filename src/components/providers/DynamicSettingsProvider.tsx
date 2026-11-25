@@ -8,7 +8,7 @@ import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const STORAGE_URL = process.env.NEXT_PUBLIC_STORAGE_URL ?? "";
 
 import { DynamicSettingsProviderProps } from "@/src/types/layout";
 import { getUrlWithBasePath } from "@/src/utils";
@@ -22,9 +22,9 @@ const resolveUrl = (url?: string): string => {
   )
     return url;
 
-  const baseUrl = (API_URL || "").endsWith("/")
-    ? API_URL.slice(0, -1)
-    : API_URL;
+  const baseUrl = (STORAGE_URL || "").endsWith("/")
+    ? STORAGE_URL.slice(0, -1)
+    : STORAGE_URL;
 
   if (url.startsWith("/uploads/")) {
     return `${baseUrl}${url}`;
@@ -60,8 +60,8 @@ const DynamicSettingsProvider = ({
 }: DynamicSettingsProviderProps) => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
-  const { data: settingsData, isSuccess } = useGetSettingsQuery();
-  const { data: settings, pageTitle } = useAppSelector(
+  const { data: settingsData, isSuccess, isLoading, isError } = useGetSettingsQuery();
+  const { data: settings, pageTitle, isSettingsLoaded } = useAppSelector(
     (state) => state.settings,
   );
   const [mounted, setMounted] = useState(false);
@@ -88,26 +88,55 @@ const DynamicSettingsProvider = ({
   }, [mounted, settingsData, setTheme]);
 
   useEffect(() => {
-    if (!mounted || !settings || !isSuccess) return;
+    if (!mounted) return;
 
-    const { app_name, app_description, favicon_url } = settings;
-    const faviconHref = resolveUrl(favicon_url) || DEFAULT_FAVICON;
+    const { app_name, app_description, favicon_url, theme_primary_color, theme_light_background_color } = settings || {};
+    
+    let faviconHref = "";
+    if (isLoading) {
+      if (isSettingsLoaded && favicon_url) {
+        const resolved = resolveUrl(favicon_url);
+        faviconHref = resolved ? resolved : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+      } else {
+        faviconHref = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+      }
+    } else if (isSettingsLoaded) {
+      const resolved = resolveUrl(favicon_url);
+      faviconHref = resolved ? resolved : DEFAULT_FAVICON;
+    } else if (isError) {
+      faviconHref = DEFAULT_FAVICON;
+    } else {
+      faviconHref = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+    }
+
+    const applyThemeColors = (primary?: string, lightBg?: string) => {
+      const root = document.documentElement;
+      if (primary) {
+        root.style.setProperty("--primary", primary, "important");
+      }
+      if (lightBg) {
+        root.style.setProperty("--light-background", lightBg, "important");
+      }
+    };
 
     const applyAll = () => {
-      const fullTitle = `${pageTitle ? `${pageTitle} | ` : ""}${app_name || "WhatsApp CRM"} | All-in-One WhatsApp Marketing & Automation Platform with CRM, Campaigns, Live Chat, Lead Generation, Business API SaaS Platform`;
-      if (document.title !== fullTitle) document.title = fullTitle;
-      if (app_description) {
-        let meta = document.querySelector(
-          'meta[name="description"]',
-        ) as HTMLMetaElement | null;
-        if (!meta) {
-          meta = document.createElement("meta");
-          meta.setAttribute("name", "description");
-          document.head.appendChild(meta);
+      if (isSettingsLoaded) {
+        const fullTitle = `${pageTitle ? `${pageTitle} | ` : ""}${app_name || "WhatsApp CRM"} | All-in-One WhatsApp Marketing & Automation Platform with CRM, Campaigns, Live Chat, Lead Generation, Business API SaaS Platform`;
+        if (document.title !== fullTitle) document.title = fullTitle;
+        if (app_description) {
+          let meta = document.querySelector(
+            'meta[name="description"]',
+          ) as HTMLMetaElement | null;
+          if (!meta) {
+            meta = document.createElement("meta");
+            meta.setAttribute("name", "description");
+            document.head.appendChild(meta);
+          }
+          if (meta.getAttribute("content") !== app_description) {
+            meta.setAttribute("content", app_description);
+          }
         }
-        if (meta.getAttribute("content") !== app_description) {
-          meta.setAttribute("content", app_description);
-        }
+        applyThemeColors(theme_primary_color, theme_light_background_color);
       }
       if (faviconHref) applyFavicon(faviconHref);
     };
@@ -121,7 +150,7 @@ const DynamicSettingsProvider = ({
       observer.disconnect();
       clearInterval(interval);
     };
-  }, [settings, isSuccess, pathname, mounted, pageTitle]);
+  }, [settings, isSettingsLoaded, isLoading, isError, pathname, mounted, pageTitle]);
 
   return <>{children}</>;
 };

@@ -218,8 +218,8 @@ const DataTable = <T,>({
     >
       {/* Table */}
       <div className="overflow-x-auto table-custom-scrollbar">
-        <table className="w-full dark:bg-slate-900">
-          <thead className="dark:bg-(--card-color) bg-gray-50 border-b border-gray-200 dark:border-(--card-border-color)">
+        <table className="w-full dark:bg-(--card-color)!">
+          <thead className="dark:bg-(--card-color) border-b border-gray-200 dark:border-(--card-border-color)">
             <tr>
               {hasDeleteActions && (
                 <th
@@ -227,7 +227,7 @@ const DataTable = <T,>({
                 >
                   <Input
                     type="checkbox"
-                    className="relative w-4 h-4 rounded appearance-none checked:bg-(--text-green-primary) checked:before:content-['✓'] checked:before:absolute checked:before:-top-1.25 checked:before:text-white checked:before:right-0 border indeterminate:before:content-[''] indeterminate:before:absolute indeterminate:before:top-1/2 indeterminate:before:left-1/2 indeterminate:before:w-2 indeterminate:before:h-0.5 indeterminate:before:-translate-x-1/2 indeterminate:before:-translate-y-1/2 indeterminate:before:bg-white border-gray-300 text-green-500 focus:ring-green-500 dark:border-(--card-border-color) indeterminate:bg-(--text-green-primary)"
+                    className="relative w-4 h-4 rounded appearance-none checked:bg-primary checked:before:content-['✓'] checked:before:absolute checked:before:-top-1.25 checked:before:text-white checked:before:right-0 border indeterminate:before:content-[''] indeterminate:before:absolute indeterminate:before:top-1/2 indeterminate:before:left-1/2 indeterminate:before:w-2 indeterminate:before:h-0.5 indeterminate:before:-translate-x-1/2 indeterminate:before:-translate-y-1/2 indeterminate:before:bg-white border-gray-300 text-green-500 focus:ring-green-500 dark:border-(--card-border-color) indeterminate:bg-primary"
                     checked={allSelected}
                     onChange={(e) => handleSelectAll(e.target.checked)}
                     ref={headerCheckboxRef}
@@ -263,7 +263,7 @@ const DataTable = <T,>({
               )}
             </tr>
           </thead>
-          <tbody className="dark:bg-(--card-color) bg-white divide-y divide-gray-200">
+          <tbody className="dark:bg-(--card-color) dark:border-(--card-border-color) divide-y divide-gray-200">
             {isLoading && data.length === 0
               ? Array.from({ length: limit || 5 }).map((_, rowIndex) => (
                   <tr
@@ -355,7 +355,7 @@ const DataTable = <T,>({
                                     !is_demo_mode && handleCopy(e, valueToCopy)
                                   }
                                   disabled={is_demo_mode}
-                                  className={`p-1.5! hover:bg-emerald-50! bg-[unset]! h-[unset]! shadow-none dark:hover:bg-emerald-900/20 rounded-md transition-all dark:hover:bg-(--table-hover)! text-gray-400 hover:text-primary opacity-0 group-hover/row:opacity-100 shrink-0 ${is_demo_mode ? "cursor-not-allowed" : ""}`}
+                                  className={`p-1.5! hover:bg-primary/10! bg-[unset]! h-[unset]! shadow-none dark:hover:bg-primary-dark/20 rounded-md transition-all dark:hover:bg-(--table-hover)! text-gray-400 hover:text-primary opacity-0 group-hover/row:opacity-100 shrink-0 ${is_demo_mode ? "cursor-not-allowed" : ""}`}
                                   title={
                                     is_demo_mode
                                       ? "Copying restricted in demo mode"

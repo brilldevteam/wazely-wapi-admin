@@ -245,7 +245,7 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             <Button variant="unstyled"
               type="button"
               onClick={handleAddProduct}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Product
             </Button>
@@ -343,7 +343,7 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
                     <Button variant="unstyled"
                       type="button"
                       onClick={() => handleAddTabBullet(idx)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 rounded text-xs font-bold text-(--text-green-primary) cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 rounded text-xs font-bold text-primary cursor-pointer"
                     >
                       + Add Bullet
                     </Button>
@@ -362,7 +362,7 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             <Button variant="unstyled"
               type="button"
               onClick={handleAddTab}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Tab
             </Button>
@@ -418,7 +418,7 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             <Button variant="unstyled"
               type="button"
               onClick={handleAddFeature}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Feature
             </Button>
@@ -476,7 +476,7 @@ export const CatalogForm: React.FC<SharedFormProps> = ({
             <Button variant="unstyled"
               type="button"
               onClick={handleAddFaq}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
             </Button>

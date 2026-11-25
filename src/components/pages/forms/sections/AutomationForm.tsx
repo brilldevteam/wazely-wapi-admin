@@ -220,7 +220,7 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
             <Button variant="unstyled"
               type="button"
               onClick={handleAddNode}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Flow Node
             </Button>
@@ -329,7 +329,7 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
                     <Button variant="unstyled"
                       type="button"
                       onClick={() => handleAddStep(tabIdx)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded text-[11px] font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
                     >
                       <Plus size={12} /> Add Recipe Step
                     </Button>
@@ -340,7 +340,7 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
               <Button variant="unstyled"
                 type="button"
                 onClick={handleAddTab}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
               >
                 <Plus size={14} /> Add Recipe Tab
               </Button>
@@ -399,7 +399,7 @@ export const AutomationForm: React.FC<SharedFormProps> = ({
             <Button variant="unstyled"
               type="button"
               onClick={handleAddFaq}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
             </Button>

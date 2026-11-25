@@ -55,7 +55,7 @@ const ChannelsSettings = () => {
                 <div
                   className={`absolute top-4 right-4 w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 ${
                     isActive
-                      ? "bg-emerald-500 border-emerald-500 text-white scale-100"
+                      ? "bg-primary border-primary text-white scale-100"
                       : "border-gray-200 dark:border-slate-800 text-transparent scale-90"
                   }`}
                 >
@@ -91,7 +91,7 @@ const ChannelsSettings = () => {
                   <span
                     className={`text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full border ${
                       isActive
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20"
+                        ? "bg-primary/10 text-primary dark:text-primary border-primary/20"
                         : "bg-gray-100 text-gray-400 dark:bg-(--page-body-bg) dark:text-gray-500 border-gray-200 dark:border-slate-800"
                     }`}
                   >

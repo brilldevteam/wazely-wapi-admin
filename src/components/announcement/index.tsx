@@ -115,11 +115,11 @@ const AnnouncementInner = () => {
         {/* Content Header Controls */}
         <div className="flex flex-wrap gap-4 items-center justify-between bg-white dark:bg-(--card-color) p-4 sm:p-5 rounded-lg shadow-sm dark:border dark:border-(--card-border-color)">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               {activeMode === "banner" ? (
-                <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-(--text-green-primary)" />
+                <Megaphone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               ) : (
-                <Layout className="w-4 h-4 sm:w-5 sm:h-5 text-(--text-green-primary)" />
+                <Layout className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               )}
             </div>
             <div>

@@ -42,8 +42,8 @@ const NavItem: React.FC<NavItemProps> = ({
   const isLeafNode = !hasSubmenu;
 
   const activeClasses = isLeafNode
-    ? "bg-gradient-to-r from-(--text-green-primary) to-sidebar-hover-green text-white h-[44px] shadow-lg shadow-(--text-green-primary)/25"
-    : "bg-green-50  h-[44px] hover:bg-green-50! shadow-unset dark:hover:bg-sidebar-hover-green/50! dark:bg-sidebar-hover-green/50 text-(--text-green-primary)";
+    ? "bg-gradient-to-r from-primary to-sidebar-hover-green text-white h-[44px] shadow-lg shadow-primary/25"
+    : "bg-primary/10 hover:bg-primary/10 h-[44px] shadow-unset dark:bg-sidebar-hover-green/50 text-primary";
 
   const inactiveClasses =
     "hover:bg-slate-100 bg-[unset]! dark:hover:bg-sidebar-hover-green/30 text-slate-500 dark:text-slate-400 shadow-[unset] hover:text-slate-900 dark:hover:text-slate-200";
@@ -63,7 +63,7 @@ const NavItem: React.FC<NavItemProps> = ({
         >
           <span
             className={`transition-all duration-200 
-            ${(isLeafNode ? active : isSubmenuOpen) ? (isLeafNode ? "text-white" : "text-(--text-green-primary)") : "group-hover/navitem:scale-110 text-slate-500 dark:text-slate-400"}
+            ${(isLeafNode ? active : isSubmenuOpen) ? (isLeafNode ? "text-white" : "text-primary") : "group-hover/navitem:scale-110 text-slate-500 dark:text-slate-400"}
           `}
           >
             {icon}
@@ -91,11 +91,11 @@ const SubNavItem: React.FC<SubNavItemProps> = ({ label, active, onClick }) => {
       onClick={onClick}
       className={`
         w-full justify-start flex items-center gap-3 p-2.5 rounded-lg text-sm transition-all mb-1
-        ${active ? "bg-linear-to-r from-(--text-green-primary) to-sidebar-hover-green text-white h-[40px] shadow-md shadow-(--text-green-primary)/20 font-medium" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 bg-[unset] shadow-[unset] dark:hover:bg-sidebar-hover-green/30"}
+        ${active ? "bg-linear-to-r from-primary to-sidebar-hover-green text-white h-[40px] shadow-md shadow-primary/20 font-medium" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 bg-[unset] shadow-[unset] dark:hover:bg-sidebar-hover-green/30"}
       `}
     >
       <div
-        className={`w-1.5 h-1.5 rounded-full shrink-0 ${active ? "bg-white" : "bg-slate-300 dark:bg-(--dark-sidebar)"}`}
+        className={`w-1.5 h-1.5 rounded-full shrink-0 ${active ? "bg-white" : "bg-slate-300 dark:bg-white/70"}`}
       />
       <span className="truncate text-start">{t(label)}</span>
     </Button>
@@ -440,7 +440,7 @@ export default function Sidebar() {
                                 {item.hasSubmenu ? (
                                   <div className="flex flex-col">
                                     <div className="px-4 py-3 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/2">
-                                      <p className="text-[14px] font-medium text-(--text-green-primary)">
+                                      <p className="text-[14px] font-medium text-primary">
                                         {t(item.label)}
                                       </p>
                                     </div>
@@ -451,7 +451,7 @@ export default function Sidebar() {
                                           onClick={() => handleNavigation(sub.path)}
                                           className="flex items-center gap-2.5 px-3 py-2 rounded-md hover:bg-slate-50 dark:hover:bg-white/5 transition-all group cursor-pointer"
                                         >
-                                          <span className="text-[13px] font-medium text-slate-600 dark:text-slate-300 group-hover:text-(--text-green-primary) dark:group-hover:text-white">
+                                          <span className="text-[13px] font-medium text-slate-600 dark:text-slate-300 group-hover:text-primary dark:group-hover:text-white">
                                             {t(sub.label)}
                                           </span>
                                         </div>
@@ -459,7 +459,7 @@ export default function Sidebar() {
                                     </div>
                                   </div>
                                 ) : (
-                                  <div className="px-3 py-1.5 text-[13px] font-semibold text-white bg-(--text-green-primary)">
+                                  <div className="px-3 py-1.5 text-[13px] font-semibold text-white bg-primary">
                                     {t(item.label)}
                                   </div>
                                 )}
@@ -526,14 +526,14 @@ export default function Sidebar() {
                       className="p-2 rounded-lg flex items-center justify-center transition-all duration-300 cursor-pointer hover:bg-slate-100 dark:hover:bg-sidebar-hover-green/30"
                     >
                       <div
-                        className="w-10 h-10 shrink-0 rounded-lg bg-linear-to-tr from-(--text-green-primary) to-sidebar-hover-green flex items-center justify-center text-white font-bold border border-white dark:border-(--card-border-color) shadow-sm"
+                        className="w-10 h-10 shrink-0 rounded-lg bg-linear-to-tr from-primary to-sidebar-hover-green flex items-center justify-center text-white font-bold border border-white dark:border-(--card-border-color) shadow-sm"
                       >
                         {user?.user?.name?.charAt(0) || "A"}
                       </div>
                     </div>
                   </TooltipTrigger>
                   <TooltipContent side="right" className="ml-2 z-[200] p-0 overflow-hidden border shadow-xl bg-white dark:bg-(--card-color) dark:border-(--card-border-color)">
-                    <div className="px-3 py-1.5 text-[13px] font-semibold text-white bg-(--text-green-primary)">
+                    <div className="px-3 py-1.5 text-[13px] font-semibold text-white bg-primary">
                       {t("profile")}
                     </div>
                   </TooltipContent>
@@ -544,7 +544,7 @@ export default function Sidebar() {
                   className="p-3 rounded-lg flex items-center gap-3 transition-all duration-300 cursor-pointer hover:bg-slate-100 dark:hover:bg-(--table-hover)"
                 >
                   <div
-                    className="w-10 h-10 shrink-0 rounded-lg bg-linear-to-tr from-(--text-green-primary) to-sidebar-hover-green flex items-center justify-center text-white font-bold border border-white dark:border-(--card-border-color) shadow-sm"
+                    className="w-10 h-10 shrink-0 rounded-lg bg-linear-to-tr from-primary to-sidebar-hover-green flex items-center justify-center text-white font-bold border border-white dark:border-(--card-border-color) shadow-sm"
                   >
                     {user?.user?.name?.charAt(0) || "A"}
                   </div>

@@ -120,7 +120,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
   if (isFetching) {
     return (
       <div className="h-100 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-(--text-green-primary)" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
@@ -138,7 +138,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
           <ArrowLeft size={20} />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) tracking-tight">
+          <h1 className="text-2xl font-bold text-primary tracking-tight">
             {isEdit ? t("tax_edit_title") || "Edit Tax" : t("tax_add_new") || "Create New Tax"}
           </h1>
           <p className="text-sm text-gray-400 mt-0.5 leading-relaxed">
@@ -166,7 +166,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
                     value={formData.name || ""}
                     onChange={handleInputChange}
                     placeholder="e.g. VAT, GST"
-                    className={`w-full px-4 h-12 bg-(--input-color) dark:bg-page-body border rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-(--text-green-primary)/20 transition-all outline-none ${errors.name ? "border-red-500" : "border-(--input-border-color) dark:border-(--card-border-color) focus:border-(--text-green-primary)"}`}
+                    className={`w-full px-4 h-12 bg-(--input-color) dark:bg-page-body border rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 transition-all outline-none ${errors.name ? "border-red-500" : "border-(--input-border-color) dark:border-(--card-border-color) focus:border-primary"}`}
                   />
                   {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
                 </div>
@@ -181,7 +181,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
                       name="type"
                       value={formData.type || "percentage"}
                       onChange={handleInputChange}
-                      className="w-full px-4 h-12 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-(--card-border-color) rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-(--text-green-primary)/20 transition-all outline-none appearance-none"
+                      className="w-full px-4 h-12 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-(--card-border-color) rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 transition-all outline-none appearance-none"
                     >
                       <option value="percentage">Percentage (%)</option>
                       <option value="fixed">Fixed Amount</option>
@@ -209,7 +209,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
                       value={formData.rate ?? ""}
                       onChange={handleInputChange}
                       placeholder="0"
-                      className={`w-full px-4 h-12 bg-(--input-color) dark:bg-page-body border rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-(--text-green-primary)/20 transition-all outline-none ${errors.rate ? "border-red-500" : "border-(--input-border-color) dark:border-(--card-border-color) focus:border-(--text-green-primary)"}`}
+                      className={`w-full px-4 h-12 bg-(--input-color) dark:bg-page-body border rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 transition-all outline-none ${errors.rate ? "border-red-500" : "border-(--input-border-color) dark:border-(--card-border-color) focus:border-primary"}`}
                     />
                     {formData.type === "percentage" && (
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">%</span>
@@ -228,7 +228,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
                     value={formData.description || ""}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-(--card-border-color) rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-(--text-green-primary)/20 transition-all outline-none resize-none"
+                    className="w-full px-4 py-3 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-(--card-border-color) rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
                     placeholder={t("tax_description_placeholder") || "A brief description of this tax..."}
                   />
                 </div>
@@ -257,7 +257,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
                   <Switch
                     checked={!!formData.is_active}
                     onCheckedChange={handleStatusChange}
-                    className="data-[state=checked]:bg-(--text-green-primary)"
+                    className="data-[state=checked]:bg-primary"
                   />
                 </div>
               </div>
@@ -278,7 +278,7 @@ const TaxForm = ({ id }: TaxFormProps) => {
           </Link>
           <Button
             disabled={isCreating || isUpdating}
-            className="px-6 py-5 h-11 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white font-semibold shadow-md transition-all active:scale-95 disabled:opacity-50 gap-2 rounded-lg"
+            className="px-6 py-5 h-11 bg-primary hover:bg-primary/90 text-white font-semibold shadow-md transition-all active:scale-95 disabled:opacity-50 gap-2 rounded-lg"
           >
             {isCreating || isUpdating ? (
               <Loader2 className="w-4 h-4 animate-spin" />

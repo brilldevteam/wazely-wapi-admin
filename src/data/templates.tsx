@@ -5,6 +5,20 @@ export const LANGUAGES = [
   { label: 'English (UK)', value: 'en_GB' },
   { label: 'Hindi', value: 'hi' },
   { label: 'Gujarati', value: 'gu' },
+  { label: 'Spanish', value: 'es' },
+  { label: 'French', value: 'fr' },
+  { label: 'German', value: 'de' },
+  { label: 'Italian', value: 'it' },
+  { label: 'Portuguese (Brazil)', value: 'pt_BR' },
+  { label: 'Portuguese (Portugal)', value: 'pt_PT' },
+  { label: 'Arabic', value: 'ar' },
+  { label: 'Bengali', value: 'bn' },
+  { label: 'Marathi', value: 'mr' },
+  { label: 'Telugu', value: 'te' },
+  { label: 'Tamil', value: 'ta' },
+  { label: 'Urdu', value: 'ur' },
+  { label: 'Japanese', value: 'ja' },
+  { label: 'Chinese', value: 'zh_CN' },
 ];
 
 export const CATEGORIES = [
@@ -37,7 +51,7 @@ export const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export const PLATFORM_COLORS: Record<string, string> = {
-  whatsapp: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400",
+  whatsapp: "bg-primary/20 text-primary-dark dark:bg-primary/20 dark:text-primary",
   telegram: "bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-400",
   facebook: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400",
   instagram: "bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-400",

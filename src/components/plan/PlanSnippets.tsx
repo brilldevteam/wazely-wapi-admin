@@ -129,7 +129,7 @@ const PlanSnippets = () => {
         </div>
       ) : snippets.length === 0 ? (
         <div className="bg-white dark:bg-(--card-color) rounded-lg border border-slate-100 dark:border-(--card-border-color) shadow-sm sm:p-16 p-4 text-center">
-          <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400 mx-auto mb-4">
+          <div className="w-16 h-16 bg-primary/10 dark:bg-primary/10 rounded-full flex items-center justify-center text-primary dark:text-primary mx-auto mb-4">
             <Plus className="w-8 h-8" />
           </div>
           <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">No Plan Snippets Yet</h3>
@@ -196,7 +196,7 @@ const PlanSnippets = () => {
                 >
                   {copiedToken === snippet.token ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                      <Check className="w-3.5 h-3.5 text-primary" />
                       Copied!
                     </>
                   ) : (
@@ -222,7 +222,7 @@ const PlanSnippets = () => {
 
       {/* CREATE MODAL */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-xl! max-w-[calc(100%-2rem)]! max-h-[90vh] rounded-lg! gap-0! sm:p-6 p-4 overflow-y-auto no-scrollbar bg-white dark:bg-(--card-color) dark:border-(--card-border-color)">
+        <DialogContent className="sm:max-w-xl! max-w-[calc(100%-2rem)]! max-h-[90vh] rounded-lg! gap-0! sm:p-6 p-4 overflow-y-auto no-scrollbar bg-white dark:bg-(--dark-body) dark:border-(--card-border-color)">
           <DialogHeader>
             <DialogTitle className="text-lg text-left rtl:text-right font-bold text-slate-900 dark:text-white">
               Create Plan Snippet
@@ -240,7 +240,7 @@ const PlanSnippets = () => {
                 value={snippetName}
                 onChange={(e) => setSnippetName(e.target.value)}
                 required
-                className="w-full bg-(-input-color) dark:bg-(--page-body-bg) border-(--input-border-color) dark:border-(--card-border-color) focus:border-(--text-green-primary) rounded-lg"
+                className="w-full bg-(-input-color) dark:bg-(--page-body-bg) border-(--input-border-color) dark:border-(--card-border-color) focus:border-primary rounded-lg"
               />
             </div>
 
@@ -254,7 +254,7 @@ const PlanSnippets = () => {
                 value={snippetTitle}
                 onChange={(e) => setSnippetTitle(e.target.value)}
                 required
-                className="w-full bg-(--input-color) dark:bg-(--page-body-bg) border-(--input-border-color) dark:border-(--card-border-color) focus:border-(--text-green-primary) rounded-lg"
+                className="w-full bg-(--input-color) dark:bg-(--page-body-bg) border-(--input-border-color) dark:border-(--card-border-color) focus:border-primary rounded-lg"
               />
             </div>
 
@@ -268,7 +268,7 @@ const PlanSnippets = () => {
                 value={snippetDesc}
                 onChange={(e) => setSnippetDesc(e.target.value)}
                 required
-                className="w-full bg-(--input-color) dark:bg-(--page-body-bg) border-(--input-border-color) dark:border-(--card-border-color) focus:border-(--text-green-primary) rounded-lg"
+                className="w-full bg-(--input-color) dark:bg-(--page-body-bg) border-(--input-border-color) dark:border-(--card-border-color) focus:border-primary rounded-lg"
               />
             </div>
 

@@ -92,7 +92,7 @@ const ForgotPassword = () => {
         <CardContent className="p-4 sm:p-6">
           <div className="flex flex-col items-center mb-8">
             <DynamicLogo />
-            <h1 className="text-lg sm:text-2xl font-bold text-[var(--text-green-primary)] mb-2">Forgot Password?</h1>
+            <h1 className="text-lg sm:text-2xl font-bold text-[var(--primary)] mb-2">Forgot Password?</h1>
             <p className="text-sm text-slate-500 text-center dark:text-gray-400">Enter your {inputType === "mobile" ? "mobile number" : "email address"} to receive a verification code</p>
           </div>
 

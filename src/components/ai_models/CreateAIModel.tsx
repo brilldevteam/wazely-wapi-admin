@@ -41,7 +41,7 @@ const CreateAIModel = () => {
           <ArrowLeft size={20} />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold mb-2 text-(--text-green-primary)">{t("ai_models_create_title")}</h1>
+          <h1 className="text-2xl font-bold mb-2 text-primary">{t("ai_models_create_title")}</h1>
           <p className="text-sm text-gray-400">{t("ai_models_add_subtitle")}</p>
         </div>
       </div>

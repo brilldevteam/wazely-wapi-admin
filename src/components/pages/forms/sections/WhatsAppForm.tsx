@@ -115,7 +115,7 @@ export const WhatsAppForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddCounter}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Counter
             </Button>
@@ -185,7 +185,7 @@ export const WhatsAppForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddCompRow}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Comparison Row
             </Button>
@@ -282,7 +282,7 @@ export const WhatsAppForm: React.FC<SharedFormProps> = ({
                         const newBullets = [...(feat.bullets || []), ""];
                         handleFeatChange(idx, "bullets", newBullets);
                       }}
-                      className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+                      className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
                     >
                       + Add Bullet
                     </Button>
@@ -293,7 +293,7 @@ export const WhatsAppForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddFeature}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Feature Tab
             </Button>

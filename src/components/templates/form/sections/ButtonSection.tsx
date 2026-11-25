@@ -26,7 +26,7 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
         {interactiveActions
           .filter((action) => (isRestricted ? action.value === "cta" : true))
           .map((action) => (
-            <Button key={action.value} type="button" onClick={() => setInteractiveType(action.value)} className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border transition-all text-[10px] sm:text-xs font-bold uppercase tracking-wider ${interactiveType === action.value ? "border-primary bg-emerald-50/50 hover:bg-emerald-50/50 text-emerald-700 dark:bg-(--card-color) dark:hover:bg-(--card-color) dark:text-primary shadow-sm" : "border-slate-50 dark:border-(--card-border-color) bg-slate-50/20 hover:bg-slate-50/20 dark:bg-(--dark-sidebar) dark:hover:bg-(--dark-sidebar) dark:hover:border-(--card-border-color) text-slate-400 hover:border-slate-200"}`}>
+            <Button key={action.value} type="button" onClick={() => setInteractiveType(action.value)} className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border transition-all text-[10px] sm:text-xs font-bold uppercase tracking-wider ${interactiveType === action.value ? "border-primary bg-primary/10/50 hover:bg-primary/10/50 text-primary-dark dark:bg-(--card-color) dark:hover:bg-(--card-color) dark:text-primary shadow-sm" : "border-slate-50 dark:border-(--card-border-color) bg-slate-50/20 hover:bg-slate-50/20 dark:bg-(--dark-sidebar) dark:hover:bg-(--dark-sidebar) dark:hover:border-(--card-border-color) text-slate-400 hover:border-slate-200"}`}>
               {t(action.label)}
             </Button>
           ))}
@@ -55,20 +55,20 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
                     placeholder={t("templates_library_button_text_placeholder")}
                     value={btn.text || ""}
                     onChange={(e) => updateButton(btn.id, { text: e.target.value.slice(0, 60) })}
-                    className="h-11 border-(--input-border-color) p-3 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-emerald-500/50 transition-all font-medium"
+                    className="h-11 border-(--input-border-color) p-3 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-primary/50 transition-all font-medium"
                   />
                 </CharacterCountWrapper>
               </div>
               {(btn.type === "url" || btn.type === "website") && (
                 <div className="space-y-2 flex flex-col">
                   <Label className="text-xs font-bold text-slate-600 dark:text-gray-400">{t("templates_library_button_url_label")}</Label>
-                  <Input placeholder="https://example.com" value={btn.url || btn.website_url || ""} onChange={(e) => updateButton(btn.id, { url: e.target.value, website_url: e.target.value })} className="h-11 border-(--input-border-color) p-3 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-emerald-500/50 transition-all font-medium" />
+                  <Input placeholder="https://example.com" value={btn.url || btn.website_url || ""} onChange={(e) => updateButton(btn.id, { url: e.target.value, website_url: e.target.value })} className="h-11 border-(--input-border-color) p-3 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-primary/50 transition-all font-medium" />
                 </div>
               )}
               {btn.type === "phone_call" && (
                 <div className="space-y-2 flex flex-col">
                   <Label className="text-xs font-bold text-slate-600 dark:text-gray-400">{t("templates_library_button_phone_label")}</Label>
-                  <Input type="number" placeholder="+1 234 567 890" value={btn.phone_number || ""} onChange={(e) => updateButton(btn.id, { phone_number: e.target.value })} className="h-11 border-(--input-border-color) p-3 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-emerald-500/50 transition-all font-medium" />
+                  <Input type="number" placeholder="+1 234 567 890" value={btn.phone_number || ""} onChange={(e) => updateButton(btn.id, { phone_number: e.target.value })} className="h-11 border-(--input-border-color) p-3 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-primary/50 transition-all font-medium" />
                 </div>
               )}
             </div>
@@ -77,35 +77,35 @@ export const ButtonSection = ({ interactiveType, setInteractiveType, buttons, ad
 
         {interactiveType === "cta" && (
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button type="button" onClick={() => addButton("website")} className="flex-1 h-11 bg-[unset]! sm:h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30! dark:hover:bg-(--table-hover)! transition-all text-xs sm:text-sm p-3">
+            <Button type="button" onClick={() => addButton("website")} className="flex-1 h-11 bg-[unset]! sm:h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-primary/50 hover:bg-primary/10/30! dark:hover:bg-(--table-hover)! transition-all text-xs sm:text-sm p-3">
               <Link size={16} /> {t("templates_library_button_add_url", { current: buttons?.filter((b: any) => b.type === "url").length || 0, max: 2 })}
             </Button>
             {!isRestricted && (
-              <Button type="button" onClick={() => addButton("phone_call")} className="flex-1 h-11 bg-[unset]! sm:h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover)! transition-all text-xs sm:text-sm p-3">
+              <Button type="button" onClick={() => addButton("phone_call")} className="flex-1 h-11 bg-[unset]! sm:h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-primary/50 hover:bg-primary/10/30 dark:hover:bg-(--table-hover)! transition-all text-xs sm:text-sm p-3">
                 <Smartphone size={16} /> {t("templates_library_button_add_phone", { current: buttons?.filter((b: any) => b.type === "phone_call").length || 0, max: 1 })}
               </Button>
             )}
             {isRestricted && (
-              <Button type="button" onClick={() => addButton("copy_code")} className="flex-1 h-11 bg-[unset]! sm:h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover)! transition-all text-xs sm:text-sm">
+              <Button type="button" onClick={() => addButton("copy_code")} className="flex-1 h-11 bg-[unset]! sm:h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold hover:border-primary/50 hover:bg-primary/10/30 dark:hover:bg-(--table-hover)! transition-all text-xs sm:text-sm">
                 <Copy size={16} /> {t("templates_library_button_add_copy_code", { current: buttons?.filter((b: any) => b.type === "copy_code").length || 0, max: 1 })}
               </Button>
             )}
           </div>
         )}
         {interactiveType === "quick_reply" && !isRestricted && (
-          <Button type="button" onClick={() => addButton("quick_reply")} className="w-full h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold bg-[unset]! hover:border-emerald-500/50 hover:bg-emerald-50/30 dark:hover:bg-(--table-hover) transition-all text-sm">
+          <Button type="button" onClick={() => addButton("quick_reply")} className="w-full h-12 flex items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 dark:hover:border-(--card-border-color) dark:text-amber-50 dark:border-(--card-border-color) text-slate-500 font-bold bg-[unset]! hover:border-primary/50 hover:bg-primary/10/30 dark:hover:bg-(--table-hover) transition-all text-sm">
             <Plus size={18} /> {t("templates_library_button_add_quick_reply", { current: buttons?.filter((b: any) => b.type === "quick_reply").length || 0, max: 10 })}
           </Button>
         )}
         {interactiveType === "all" && !isRestricted && (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            <Button type="button" onClick={() => addButton("quick_reply")} className="flex flex-col h-[76px] items-center gap-2 p-3 sm:p-4 rounded-lg dark:bg-(--table-hover)! dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:text-amber-50 hover:border-emerald-200 transition-all font-bold text-xs text-slate-600">
+            <Button type="button" onClick={() => addButton("quick_reply")} className="flex flex-col h-[76px] items-center gap-2 p-3 sm:p-4 rounded-lg dark:bg-(--table-hover)! dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:text-amber-50 hover:border-primary/30 transition-all font-bold text-xs text-slate-600">
               <FileText size={18} className="text-slate-400" /> {t("templates_library_button_quick_reply_type")} ({buttons?.filter((b: any) => b.type === "quick_reply").length || 0}/10)
             </Button>
-            <Button type="button" onClick={() => addButton("website")} className="flex flex-col h-[76px] items-center gap-2 p-3 sm:p-4 rounded-lg dark:bg-(--table-hover)! dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:text-amber-50 hover:border-emerald-200 transition-all font-bold text-xs text-slate-600">
+            <Button type="button" onClick={() => addButton("website")} className="flex flex-col h-[76px] items-center gap-2 p-3 sm:p-4 rounded-lg dark:bg-(--table-hover)! dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:text-amber-50 hover:border-primary/30 transition-all font-bold text-xs text-slate-600">
               <Link size={18} className="text-slate-400" /> {t("templates_library_button_url_label")} ({buttons?.filter((b: any) => b.type === "url").length || 0}/2)
             </Button>
-            <Button type="button" onClick={() => addButton("phone_call")} className="flex flex-col h-[76px] items-center gap-2 p-3 sm:p-4 rounded-lg dark:bg-(--table-hover)! dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:text-amber-50 hover:border-emerald-200 transition-all font-bold text-xs text-slate-600">
+            <Button type="button" onClick={() => addButton("phone_call")} className="flex flex-col h-[76px] items-center gap-2 p-3 sm:p-4 rounded-lg dark:bg-(--table-hover)! dark:hover:border-(--card-border-color) border border-slate-100 dark:border-(--card-border-color) bg-slate-50/30! dark:text-amber-50 hover:border-primary/30 transition-all font-bold text-xs text-slate-600">
               <Smartphone size={18} className="text-slate-400" /> {t("templates_library_button_phone_label").split(" ")[0]} ({buttons?.filter((b: any) => b.type === "phone_call").length || 0}/1)
             </Button>
           </div>

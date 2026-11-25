@@ -213,7 +213,7 @@ export const SharedInboxForm: React.FC<SharedFormProps> = ({
               <Button
                 type="button"
                 onClick={handleAddFeatureCard}
-                className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white hover:bg-(--text-green-primary)! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+                className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white hover:bg-primary! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
               >
                 <Plus size={14} /> Add Feature Card
               </Button>
@@ -299,7 +299,7 @@ export const SharedInboxForm: React.FC<SharedFormProps> = ({
               <Button
                 type="button"
                 onClick={handleAddTeamCard}
-                className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white hover:bg-(--text-green-primary)! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+                className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white hover:bg-primary! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
               >
                 <Plus size={14} /> Add Collaboration Card
               </Button>
@@ -378,7 +378,7 @@ export const SharedInboxForm: React.FC<SharedFormProps> = ({
               <Button
                 type="button"
                 onClick={handleAddCounter}
-                className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white hover:bg-(--text-green-primary)! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+                className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white hover:bg-primary! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
               >
                 <Plus size={14} /> Add Metric Counter
               </Button>
@@ -436,7 +436,7 @@ export const SharedInboxForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddFaq}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white hover:bg-(--text-green-primary)! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white hover:bg-primary! items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
             </Button>

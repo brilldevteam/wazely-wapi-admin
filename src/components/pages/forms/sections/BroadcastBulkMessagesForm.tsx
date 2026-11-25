@@ -153,7 +153,7 @@ export const BroadcastBulkMessagesForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddCampaignFeature}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Campaign Feature
             </Button>
@@ -228,7 +228,7 @@ export const BroadcastBulkMessagesForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddTemplateType}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add Template Type
             </Button>
@@ -285,7 +285,7 @@ export const BroadcastBulkMessagesForm: React.FC<SharedFormProps> = ({
             <Button
               type="button"
               onClick={handleAddFaq}
-              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+              className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
             >
               <Plus size={14} /> Add FAQ Question
             </Button>

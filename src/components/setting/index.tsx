@@ -17,6 +17,7 @@ import {
   Globe, Mail,
   MessageCircle,
   MessageSquare, Palette,
+  Paintbrush,
   RefreshCw,
   Save,
   Share2,
@@ -44,10 +45,13 @@ import OTPSettings from "./tabs/OTPSettings";
 import SignupAgreementSettings from "./tabs/SignupAgreementSettings";
 import WhatsAppSettings from "./tabs/WhatsAppSettings";
 import WidgetSettings from "./tabs/WidgetSettings";
+import ThemeColorSettings from "./tabs/ThemeColorSettings";
+import SocialMediaSettings from "./tabs/SocialMediaSettings";
 
 const tabs = [
   { id: "general", label: "General", icon: Globe, description: "App info & preferences" },
   { id: "branding", label: "Branding", icon: Palette, description: "Logos & icons" },
+  { id: "theme_color", label: "Theme Customization", icon: Paintbrush, description: "Dynamic brand & theme colors" },
   { id: "channels", label: "Channel Platforms", icon: Share2, description: "Enable omnichannel platforms" },
   { id: "whatsapp", label: "Meta Configuration", icon: MessageSquare, description: "API credentials" },
   { id: "facebook_lead", label: "Facebook & Instagram", icon: Facebook, description: "Lead webhook configuration" },
@@ -58,6 +62,7 @@ const tabs = [
   { id: "otp", label: "OTP Delivery", icon: ShieldCheck, description: "OTP delivery methods" },
   { id: "widget", label: "Landing Widget", icon: MessageCircle, description: "Configure dynamic landing widgets & redirects" },
   { id: "maintenance", label: "Maintenance", icon: Wrench, description: "Maintenance & error pages" },
+  { id: "social_media", label: "Social Media Settings", icon: Share2, description: "Configure social media publishing credentials" },
   { id: "signup_agreement", label: "Signup Customization", icon: FileCheck, description: "Signup agree line customization" },
 ] as const;
 
@@ -160,6 +165,8 @@ const SettingInner = () => {
         return <GeneralSettings isLoading={isUpdating} />;
       case "branding":
         return <BrandingSettings />;
+      case "theme_color":
+        return <ThemeColorSettings />;
       case "channels":
         return <ChannelsSettings />;
       case "whatsapp":
@@ -180,6 +187,8 @@ const SettingInner = () => {
         return <WidgetSettings isLoading={isUpdating} />;
       case "maintenance":
         return <MaintenanceSettings isLoading={isUpdating} />;
+      case "social_media":
+        return <SocialMediaSettings />;
       case "signup_agreement":
         return <SignupAgreementSettings />;
     }
@@ -205,10 +214,10 @@ const SettingInner = () => {
                 <Button
                   key={id}
                   onClick={() => setActiveTab(id)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 whitespace-nowrap ${isActive ? "bg-(--text-green-primary)/10 hover:bg-(--primary)/10 text-(--text-green-primary)" : "text-gray-600 bg-[unset]! shadow-none! dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) hover:text-gray-900 dark:hover:text-gray-100"}`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 whitespace-nowrap ${isActive ? "bg-primary/10 hover:bg-(--primary)/10 text-primary" : "text-gray-600 bg-[unset]! shadow-none! dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) hover:text-gray-900 dark:hover:text-gray-100"}`}
                 >
                   <div
-                    className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-(--text-green-primary)/15 text-(--text-green-primary)" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white"}`}
+                    className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-primary/15 text-primary" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white"}`}
                   >
                     <Icon className="w-3.5 h-3.5" />
                   </div>
@@ -230,16 +239,16 @@ const SettingInner = () => {
                   <Button
                     key={id}
                     onClick={() => setActiveTab(id)}
-                    className={`w-full flex items-center gap-3 h-14 px-3 py-2.5 rounded-lg text-left transition-all duration-150 group ${isActive ? "bg-(--text-green-primary)/10! hover:bg-(--text-green-primary)/10! text-(--text-green-primary)" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) bg-[unset]! shadow-[unset]! hover:text-gray-900 dark:hover:text-gray-100"}`}
+                    className={`w-full flex items-center gap-3 h-14 px-3 py-2.5 rounded-lg text-left transition-all duration-150 group ${isActive ? "bg-primary/10! hover:bg-primary/10! text-primary" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-(--table-hover) bg-[unset]! shadow-[unset]! hover:text-gray-900 dark:hover:text-gray-100"}`}
                   >
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-(--text-green-primary)/15 text-(--text-green-primary)" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white group-hover:bg-gray-200 dark:group-hover:bg-(--card-color)"}`}
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-primary/15 text-primary" : "bg-gray-100 dark:bg-(--dark-body) text-gray-500 dark:text-white group-hover:bg-gray-200 dark:group-hover:bg-(--card-color)"}`}
                     >
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p
-                        className={`text-sm font-medium truncate ${isActive ? "text-(--text-green-primary)" : ""}`}
+                        className={`text-sm font-medium truncate ${isActive ? "text-primary" : ""}`}
                       >
                         {t(`settings_tabs_${id}`)}
                       </p>
@@ -248,7 +257,7 @@ const SettingInner = () => {
                       </p>
                     </div>
                     {isActive && (
-                      <div className="w-1 h-4 rounded-full bg-(--text-green-primary) shrink-0" />
+                      <div className="w-1 h-4 rounded-full bg-primary shrink-0" />
                     )}
                   </Button>
                 );
@@ -262,8 +271,8 @@ const SettingInner = () => {
           {/* Content Header */}
           <div className="flex flex-wrap gap-2 items-center justify-between mb-5 bg-white dark:bg-(--card-color) p-4 sm:p-5 rounded-lg shadow-sm dark:border dark:border-(--card-border-color)">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center shrink-0">
-                <activeTabInfo.icon className="w-4 h-4 sm:w-5 sm:h-5 text-(--text-green-primary)" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <activeTabInfo.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               </div>
               <div>
                 <h2 className="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-100">

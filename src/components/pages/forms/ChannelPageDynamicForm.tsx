@@ -93,7 +93,7 @@ export default function ChannelPageDynamicForm({
     "block text-xs font-bold text-slate-650 dark:text-gray-300 mb-1.5";
   // Standard input class
   const inputClass =
-    "w-full h-9 px-4.5 py-2.5 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--page-body-bg) text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:ring-1 focus:ring-(--text-green-primary) focus:border-(--text-green-primary) outline-none transition-all";
+    "w-full h-9 px-4.5 py-2.5 rounded-lg border border-slate-200 dark:border-(--card-border-color) bg-white dark:bg-(--page-body-bg) text-slate-900 dark:text-white placeholder-slate-400 text-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all";
 
   // Render text input field
   const renderTextInput = (path: string[], label: string, placeholder = "") => {
@@ -187,7 +187,7 @@ export default function ChannelPageDynamicForm({
         <Button
           type="button"
           onClick={handleAdd}
-          className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+          className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
         >
           <Plus size={14} /> Add Item
         </Button>
@@ -346,7 +346,7 @@ export default function ChannelPageDynamicForm({
         <Button
           type="button"
           onClick={handleAddStep}
-          className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-(--text-green-primary)! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-(--text-green-primary) bg-(--text-green-primary)/10 hover:bg-(--text-green-primary)/15 transition-all cursor-pointer"
+          className="flex max-w-fit ml-auto rtl:ml-0 rtl:mr-auto hover:bg-primary! hover:text-white items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-primary bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
         >
           <Plus size={14} /> Add Step Card
         </Button>

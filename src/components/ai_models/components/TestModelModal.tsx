@@ -15,9 +15,10 @@ interface TestModelModalProps {
   isOpen: boolean;
   onClose: () => void;
   modelId: string;
+  modelConfig?: any;
 }
 
-const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
+const TestModelModal = ({ isOpen, onClose, modelId, modelConfig }: TestModelModalProps) => {
   const [apiKey, setApiKey] = useState("");
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
@@ -34,17 +35,36 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
     }
 
     try {
-      const result = await testModel({ modelId, prompt, apiKey }).unwrap();
+      const result = await testModel({ modelId, prompt, apiKey, modelConfig }).unwrap();
       if (result.success) {
         setResponse(result.data?.response || (typeof result.data === "string" ? result.data : JSON.stringify(result.data, null, 2)));
         toast.success("Test successful!");
       } else {
-        setResponse(result.message || "Unknown error");
-        toast.error(result.message || "Test failed");
+        const errorMsg = (result as any).error || result.message || "Test failed";
+        setResponse(errorMsg);
+        toast.error(errorMsg);
       }
        
     } catch (error: any) {
-      const errorMessage = error.data?.message || error.message || "An unexpected error occurred";
+      let errorMessage = "An unexpected error occurred";
+      if (error.data) {
+        const detailedError = error.data.error;
+        const genericMessage = error.data.message;
+        
+        if (detailedError && genericMessage) {
+          if (genericMessage.includes("Failed to test")) {
+            errorMessage = detailedError;
+          } else if (detailedError.includes("Failed to test")) {
+            errorMessage = genericMessage;
+          } else {
+            errorMessage = `${genericMessage}: ${detailedError}`;
+          }
+        } else {
+          errorMessage = detailedError || genericMessage || errorMessage;
+        }
+      } else {
+        errorMessage = error.message || errorMessage;
+      }
       setResponse(errorMessage);
       toast.error(errorMessage);
     }
@@ -65,11 +85,11 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-xl! max-w-[calc(100%-2rem)]! bg-white dark:bg-(--card-color) border-none rounded-lg p-0 overflow-hidden shadow-2xl">
+      <DialogContent className="sm:max-w-xl! max-w-[calc(100%-2rem)]! bg-white dark:bg-(--dark-body) border-none rounded-lg p-0 overflow-hidden shadow-2xl">
         <DialogHeader className="p-4 pb-0">
           <DialogTitle className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-            <div className="p-2 bg-(--light-primary) dark:bg-emerald-900/30 rounded-lg">
-              <Sparkles className="w-6 h-6 text-(--text-green-primary)" />
+            <div className="p-2 bg-(--light-primary) dark:bg-primary-dark/30 rounded-lg">
+              <Sparkles className="w-6 h-6 text-primary" />
             </div>
             Test AI Model
           </DialogTitle>
@@ -87,7 +107,7 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
             <Label htmlFor="test-prompt" className="text-sm font-semibold text-slate-700 dark:text-gray-400">
               Test Prompt
             </Label>
-            <Textarea id="test-prompt" placeholder="Enter a prompt to test the model..." value={prompt} onChange={(e) => setPrompt(e.target.value)} className="min-h-30 p-4 rounded-lg bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-(--card-border-color) focus:bg-(--input-color) dark:focus:bg-page-body transition-all resize-none" />
+            <Textarea id="test-prompt" placeholder="Enter a prompt to test the model..." value={prompt} onChange={(e) => setPrompt(e.target.value)} className="min-h-30 p-4 rounded-lg bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-(--card-border-color) focus:bg-(--input-color) dark:focus:bg-page-body transition-all resize-none custom-scrollbar" />
           </div>
 
           <div className="space-y-2 flex flex-col relative">
@@ -95,9 +115,9 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
               Model Response
             </Label>
             <div className="relative group">
-              <Textarea id="test-response" readOnly placeholder="Model response will appear here..." value={response} className="min-h-37.5 p-4 pr-12 rounded-lg bg-(--input-color) dark:bg-page-body border-(--input-border-color) text-slate-600 dark:text-gray-300 font-mono text-sm resize-none cursor-default" />
+              <Textarea id="test-response" readOnly placeholder="Model response will appear here..." value={response} className="min-h-37.5 p-4 pr-12 rounded-lg bg-(--input-color) dark:bg-page-body border-(--input-border-color) text-slate-600 dark:text-gray-300 font-mono text-sm resize-none cursor-default custom-scrollbar" />
               {response && (
-                <Button type="button" size="icon" variant="ghost" onClick={copyToClipboard} className="absolute right-3 top-3 h-8 w-8 text-slate-400 hover:text-(--text-green-primary) hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all opacity-0 group-hover:opacity-100">
+                <Button type="button" size="icon" variant="ghost" onClick={copyToClipboard} className="absolute right-3 top-3 h-8 w-8 text-slate-400 hover:text-primary hover:bg-primary/10 dark:hover:bg-primary-dark/20 transition-all opacity-0 group-hover:opacity-100">
                   <Copy className="w-4 h-4" />
                 </Button>
               )}
@@ -109,7 +129,7 @@ const TestModelModal = ({ isOpen, onClose, modelId }: TestModelModalProps) => {
           <Button type="button" variant="ghost" onClick={handleClose} className="flex-1 h-12 rounded-lg dark:bg-(--dark-sidebar) dark:text-amber-50 text-slate-600 bg-gray-100 font-bold hover:bg-slate-100 dark:hover:bg-(--dark-sidebar) transition-all">
             Cancel
           </Button>
-          <Button type="button" disabled={isLoading || !apiKey || !prompt} onClick={handleTest} className="flex-1 h-11 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all dark:shadow-none active:scale-95 disabled:opacity-50 disabled:active:scale-100">
+          <Button type="button" disabled={isLoading || !apiKey || !prompt} onClick={handleTest} className="flex-1 h-11 bg-primary hover:bg-primary text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-all dark:shadow-none active:scale-95 disabled:opacity-50 disabled:active:scale-100">
             {isLoading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />

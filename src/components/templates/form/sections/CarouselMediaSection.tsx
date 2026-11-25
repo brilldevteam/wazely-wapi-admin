@@ -49,10 +49,10 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
         </div>
         {buttonTemplates.length < 3 && (
           <div className="flex flex-col sm:flex-row gap-2">
-            <Button type="button" onClick={() => onAddButtonTemplate("url")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-emerald-50/20 dark:hover:bg-(--table-hover) bg-[unset]! transition-all text-xs font-bold">
+            <Button type="button" onClick={() => onAddButtonTemplate("url")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-primary/10/20 dark:hover:bg-(--table-hover) bg-[unset]! transition-all text-xs font-bold">
               <Link size={13} /> {t("templates_library_form_carousel_add_url_btn")}
             </Button>
-            <Button type="button" onClick={() => onAddButtonTemplate("quick_reply")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-emerald-50/20 dark:hover:bg-(--table-hover) bg-[unset]! transition-all text-xs font-bold">
+            <Button type="button" onClick={() => onAddButtonTemplate("quick_reply")} className="flex-1 h-10 flex items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-200 dark:border-(--card-border-color) text-slate-500 hover:border-primary hover:bg-primary/10/20 dark:hover:bg-(--table-hover) bg-[unset]! transition-all text-xs font-bold">
               <MessageSquareReply size={13} /> {t("templates_library_form_carousel_add_quick_reply_btn")}
             </Button>
           </div>
@@ -66,7 +66,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
             <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 tracking-tight">{t("templates_library_form_carousel_media_cards")}</h3>
             <p className="text-xs text-slate-500 font-medium dark:text-gray-400 mt-0.5">{t("templates_library_form_carousel_media_cards_desc")}</p>
           </div>
-          <Button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="w-full sm:w-auto h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-primary hover:bg-emerald-700 disabled:opacity-40 text-white text-xs font-bold transition-all">
+          <Button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="w-full sm:w-auto h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-primary hover:bg-primary-dark disabled:opacity-40 text-white text-xs font-bold transition-all">
             <Plus size={14} /> {t("templates_library_form_carousel_add_media_card")}
           </Button>
         </div>
@@ -98,9 +98,9 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                   onChange={(e) => handleFileChange(card.id, e)}
                 />
                 {card.file ? (
-                  <div className="flex items-center justify-between p-3 bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/20 rounded-lg">
+                  <div className="flex items-center justify-between p-3 bg-primary/10/50 dark:bg-primary/5 border border-primary/20 dark:border-primary/20 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center">
+                      <div className="w-9 h-9 rounded-lg bg-primary/20 dark:bg-primary/20 flex items-center justify-center">
                         <ImageIcon size={16} className="text-primary" />
                       </div>
                       <div>
@@ -113,7 +113,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                     </Button>
                   </div>
                 ) : (
-                  <div onClick={() => fileRefs.current[card.id]?.click()} className="border-2 border-dashed border-slate-200 dark:border-(--card-border-color) rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-emerald-50/20 dark:hover:bg-(--table-hover) transition-all">
+                  <div onClick={() => fileRefs.current[card.id]?.click()} className="border-2 border-dashed border-slate-200 dark:border-(--card-border-color) rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-primary/10/20 dark:hover:bg-(--table-hover) transition-all">
                     <ImageIcon size={24} className="text-slate-300 mb-2" />
                     <p className="text-xs font-bold text-slate-400">{t("templates_library_form_carousel_click_to_upload")}</p>
                     <p className="text-[10px] text-slate-400">{t("templates_library_form_carousel_upload_hint")}</p>
@@ -127,7 +127,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                     placeholder={t("templates_library_form_carousel_describe_card")}
                     value={card.body_text || ""}
                     onChange={(e) => onUpdateCard(card.id, { body_text: e.target.value.slice(0, 200) })}
-                    className="min-h-20 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-emerald-500/50 transition-all font-medium resize-none"
+                    className="min-h-20 border-slate-200 dark:border-(--card-border-color) rounded-lg bg-(--input-color) dark:bg-page-body focus:border-primary/50 transition-all font-medium resize-none"
                   />
                 </CharacterCountWrapper>
               </div>
@@ -140,7 +140,7 @@ export const CarouselMediaSection = ({ buttonTemplates, cards, onAddButtonTempla
                       return (
                         <div key={tmpl.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
                           <div className="shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-page-body border border-slate-200 dark:border-(--card-border-color)">
-                            {tmpl.type === "url" ? <Link size={12} className="text-sky-500" /> : <MessageSquareReply size={12} className="text-emerald-500" />}
+                            {tmpl.type === "url" ? <Link size={12} className="text-sky-500" /> : <MessageSquareReply size={12} className="text-primary" />}
                             <span className="text-[10px] font-bold text-slate-500 dark:text-gray-400 whitespace-nowrap">Btn {bIdx + 1}</span>
                           </div>
                           <div className="flex-1 w-full flex flex-col xs:flex-row gap-2">

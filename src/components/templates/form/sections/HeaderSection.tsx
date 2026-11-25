@@ -61,9 +61,9 @@ export const HeaderSection = ({ templateType, setTemplateType, headerText, setHe
                       setHeaderFile(null);
                     } else setTemplateType(type.value);
                   }}
-                  className={`flex flex-col h-[79px] items-center justify-center gap-1.5 p-2 sm:p-3 rounded-lg border transition-all font-bold text-[9px] sm:text-[10px] uppercase tracking-wider ${templateType === type.value ? "border-primary bg-emerald-50/50 hover:bg-emerald-50/50 text-primary dark:bg-(--table-hover) dark:hover:bg-(--table-hover)" : "border-slate-150 dark:border-(--table-hover) bg-slate-50/20 hover:bg-slate-50/20 dark:bg-(--table-hover) dark:hover:bg-(--table-hover) text-slate-400 dark:text-gray-500 hover:border-primary dark:hover:border-(--card-border-color)"}`}
+                  className={`flex flex-col h-[79px] items-center justify-center gap-1.5 p-2 sm:p-3 rounded-lg border transition-all font-bold text-[9px] sm:text-[10px] uppercase tracking-wider ${templateType === type.value ? "border-primary bg-primary/10/50 hover:bg-primary/10/50 text-primary dark:bg-(--table-hover) dark:hover:bg-(--table-hover)" : "border-slate-150 dark:border-(--table-hover) bg-slate-50/20 hover:bg-slate-50/20 dark:bg-(--table-hover) dark:hover:bg-(--table-hover) text-slate-400 dark:text-gray-500 hover:border-primary dark:hover:border-(--card-border-color)"}`}
                 >
-                  <div className={`p-1.5 rounded-lg ${templateType === type.value ? "bg-emerald-100 dark:bg-(--card-color)" : "bg-white dark:bg-transparent shadow-xs"}`}>{type.icon}</div>
+                  <div className={`p-1.5 rounded-lg ${templateType === type.value ? "bg-primary/20 dark:bg-(--card-color)" : "bg-white dark:bg-transparent shadow-xs"}`}>{type.icon}</div>
                   {type.label}
                 </Button>
               ))}
@@ -75,14 +75,14 @@ export const HeaderSection = ({ templateType, setTemplateType, headerText, setHe
         <div className="pt-6 border-t border-slate-50 dark:border-(--card-border-color)">
           <Input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept={templateType === "image" ? "image/*" : templateType === "video" ? "video/*" : templateType === "document" ? ".pdf,.doc,.docx" : "*"} />
           {headerFile ? (
-            <div className="flex items-center justify-between p-4 bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/20 rounded-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="flex items-center justify-between p-4 bg-primary/10/50 dark:bg-primary/5 border border-primary/20 dark:border-primary/20 rounded-2xl animate-in fade-in slide-in-from-top-2 duration-300">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center shadow-sm">
-                  <div className="text-primary dark:text-emerald-400">{templateTypes.find((t_opt) => t_opt.value === templateType)?.icon}</div>
+                <div className="w-12 h-12 rounded-lg bg-primary/20 dark:bg-primary/20 flex items-center justify-center shadow-sm">
+                  <div className="text-primary dark:text-primary">{templateTypes.find((t_opt) => t_opt.value === templateType)?.icon}</div>
                 </div>
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-slate-800 dark:text-slate-200 truncate max-w-50">{headerFile.name}</span>
-                  <span className="text-[10px] text-primary dark:text-emerald-400 font-bold uppercase tracking-wider">{(headerFile.size / (1024 * 1024)).toFixed(2)} MB • {t("templates_library_file_ready")}</span>
+                  <span className="text-[10px] text-primary dark:text-primary font-bold uppercase tracking-wider">{(headerFile.size / (1024 * 1024)).toFixed(2)} MB • {t("templates_library_file_ready")}</span>
                 </div>
               </div>
               <Button

@@ -84,7 +84,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
             "var(--chart-purple)",
             "var(--chart-pink)",
             "var(--chart-warning)",
-            "var(--text-green-primary)",
+            "var(--primary)",
           ],
         });
         onClose();
@@ -117,11 +117,11 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-lg! max-w-[95vw]! gap-0 bg-white dark:bg-(--card-color) border-none max-h-[90vh] custom-scrollbar overflow-y-auto rounded-xl p-0! shadow-2xl transition-all duration-300">
+      <DialogContent className="sm:max-w-lg! max-w-[95vw]! gap-0 bg-white dark:bg-(--dark-body) border-none max-h-[90vh] custom-scrollbar overflow-y-auto rounded-xl p-0! shadow-2xl transition-all duration-300">
         <DialogHeader className="sm:p-6 p-4 pb-0">
           <DialogTitle className="font-bold text-slate-900 dark:text-white flex items-center gap-3">
-            <div className="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg">
-              <Package className="w-6 h-6 text-(--text-green-primary)" />
+            <div className="p-2 bg-primary/10 dark:bg-primary-dark/30 rounded-lg">
+              <Package className="w-6 h-6 text-primary" />
             </div>
             <div className="flex flex-col gap-1 text-left rtl:text-right">
               <h4 className="text-xl font-semibold">
@@ -155,7 +155,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
               })}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-11 bg-slate-50 dark:bg-page-body border-slate-100 dark:border-(--card-border-color) rounded-xl focus:ring-emerald-500/20 focus:border-(--text-green-primary) transition-all"
+              className="pl-9 h-11 bg-slate-50 dark:bg-page-body border-slate-100 dark:border-(--card-border-color) rounded-xl focus:ring-primary/20 focus:border-primary transition-all"
             />
           </div>
         </div>
@@ -163,7 +163,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
         <div className="sm:p-6 p-4 space-y-4 max-h-[50vh] sm:max-h-100 overflow-y-auto custom-scrollbar">
           {plansLoading ? (
             <div className="flex flex-col items-center justify-center py-10 gap-3">
-              <Loader2 className="w-8 h-8 animate-spin text-(--text-green-primary)" />
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
               <p className="text-sm text-slate-500">
                 {t("common_loading_plans", {
                   defaultValue: "Loading plans...",
@@ -188,7 +188,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
                 <div
                   key={plan._id}
                   onClick={() => setSelectedPlanId(plan._id)}
-                  className={`relative flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedPlanId === plan._id ? "border-(--text-green-primary) bg-emerald-50/50 dark:bg-emerald-900/10" : "border-slate-100 dark:border-(--card-border-color) hover:border-primary/5 dark:hover:border-emerald-800"}`}
+                  className={`relative flex items-center p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedPlanId === plan._id ? "border-primary bg-primary/10/50 dark:bg-primary-dark/10" : "border-slate-100 dark:border-(--card-border-color) hover:border-primary/5 dark:hover:border-primary-dark"}`}
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
@@ -196,13 +196,13 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
                         {plan.name}
                       </h4>
                       {user?.current_plan?._id === plan._id && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400 font-medium">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-primary/20 text-primary-dark dark:bg-primary-dark/40 dark:text-primary font-medium">
                           {t("common_current", { defaultValue: "Current" })}
                         </span>
                       )}
                     </div>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-lg font-bold text-(--text-green-primary)">
+                      <span className="text-lg font-bold text-primary">
                         {plan.currency?.symbol || "$"}
                         {plan.price}
                       </span>
@@ -212,7 +212,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
                     </div>
                   </div>
                   {selectedPlanId === plan._id && (
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-(--text-green-primary) flex items-center justify-center shrink-0">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                     </div>
                   )}
@@ -227,8 +227,8 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
           <div className="sm:px-6 px-4 pb-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 rounded-xl bg-slate-50 dark:bg-page-body border border-slate-100 dark:border-(--card-border-color)">
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div className="p-2 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg shrink-0">
-                  <Clock className="w-4 h-4 text-(--text-green-primary)" />
+                <div className="p-2 bg-primary/10 dark:bg-primary-dark/30 rounded-lg shrink-0">
+                  <Clock className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-0.5">
@@ -266,7 +266,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
                         setDurationError("");
                       }
                     }}
-                    className={`h-9 w-24 sm:w-28 bg-white dark:bg-(--card-color) border-slate-200 dark:border-(--card-border-color) rounded-lg text-sm text-center focus:ring-emerald-500/20 focus:border-(--text-green-primary) ${durationError ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`}
+                    className={`h-9 w-24 sm:w-28 bg-white dark:bg-(--card-color) border-slate-200 dark:border-(--card-border-color) rounded-lg text-sm text-center focus:ring-primary/20 focus:border-primary ${durationError ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}`}
                   />
                   {durationError && (
                     <p className="absolute -bottom-5 left-0 right-0 text-[9px] text-red-500 font-medium whitespace-nowrap">
@@ -277,7 +277,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
 
                 <div className="text-right shrink-0">
                   {selectedPlan && (
-                    <p className="text-sm font-bold text-(--text-green-primary)">
+                    <p className="text-sm font-bold text-primary">
                       {selectedPlan.currency?.symbol || "$"}
                       {(selectedPlan.price * (parseInt(duration) || 0)).toFixed(
                         2,
@@ -312,7 +312,7 @@ const AssignPlanModal = ({ isOpen, onClose, user }: AssignPlanModalProps) => {
                 parseInt(duration) === user?.current_subscription?.duration)
             }
             onClick={handleAssign}
-            className="w-full sm:flex-1 h-11 bg-(--text-green-primary) hover:bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 order-1 sm:order-2"
+            className="w-full sm:flex-1 h-11 bg-primary hover:bg-primary text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 order-1 sm:order-2"
           >
             {isAssigning ? (
               <>

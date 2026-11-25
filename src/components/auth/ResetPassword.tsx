@@ -94,7 +94,7 @@ const ResetPassword = () => {
         <CardContent className="sm:p-6 p-4">
           <div className="flex flex-col items-center mb-8">
             <DynamicLogo />
-            <h1 className="text-lg sm:text-2xl font-bold text-(--text-green-primary) mb-2 mt-2">Set New Password</h1>
+            <h1 className="text-lg sm:text-2xl font-bold text-primary mb-2 mt-2">Set New Password</h1>
             <p className="text-sm text-slate-500 text-center dark:text-gray-400">Create a new password for your account</p>
           </div>
 
@@ -132,18 +132,18 @@ const ResetPassword = () => {
               </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="pl-10 pr-11.75 h-12 border-slate-200 focus:border-(--text-green-primary) dark:bg-page-body focus:ring-(--text-green-primary)" required disabled={isLoading} />
+                <Input id="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="••••••••" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="pl-10 pr-11.75 h-12 border-slate-200 focus:border-primary dark:bg-page-body focus:ring-primary" required disabled={isLoading} />
                 <Button type="button" variant="ghost" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors hover:bg-transparent" disabled={isLoading}>
                   {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </Button>
               </div>
             </div>
-            <div className="p-3 bg-(--light-primary) dark:bg-page-body dark:border-(--card-border-color) border dark:border-none border-emerald-100 rounded-lg flex items-start gap-2">
-              <CheckCircle className="w-5 h-5 text-(--text-green-primary) shrink-0 mt-0.5" />
-              <p className="text-xs text-(--text-green-primary)">Use at least 8 characters with a mix of letters, numbers & symbols</p>
+            <div className="p-3 bg-(--light-primary) dark:bg-page-body dark:border-(--card-border-color) border dark:border-none border-primary/20 rounded-lg flex items-start gap-2">
+              <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+              <p className="text-xs text-primary">Use at least 8 characters with a mix of letters, numbers & symbols</p>
             </div>
 
-            <Button type="submit" className="w-full h-12 bg-(--text-green-primary) text-white font-medium shadow-md shadow-primary/20 transition-all" disabled={isLoading}>
+            <Button type="submit" className="w-full h-12 bg-primary text-white font-medium shadow-md shadow-primary/20 transition-all" disabled={isLoading}>
               {isLoading ? "Resetting..." : "Reset Password"}
             </Button>
           </form>

@@ -17,7 +17,7 @@ export const CarouselProductSection = ({ cards, onAddCard, onRemoveCard, onUpdat
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 tracking-tight">{t("templates_library_carousel_products_title")}</h3>
           <p className="text-xs text-slate-500 font-medium dark:text-gray-400">{t("templates_library_carousel_products_subtitle")}</p>
         </div>
-        <Button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="w-full sm:w-auto h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-emerald-50 dark:bg-primary/10 text-primary dark:text-primary dark:hover:bg-(--table-hover)! font-bold hover:bg-emerald-100 transition-all text-sm border border-emerald-200/50 dark:border-primary/20 disabled:opacity-50">
+        <Button type="button" onClick={onAddCard} disabled={cards.length >= 10} className="w-full sm:w-auto h-11 flex items-center justify-center gap-2 px-6 rounded-lg bg-primary/10 dark:bg-primary/10 text-primary dark:text-primary dark:hover:bg-(--table-hover)! font-bold hover:bg-primary/20 transition-all text-sm border border-primary/30/50 dark:border-primary/20 disabled:opacity-50">
           <Plus size={16} /> {t("templates_library_carousel_add_product_card")}
         </Button>
       </div>

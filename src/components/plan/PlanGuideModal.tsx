@@ -25,11 +25,11 @@ export default function PlanGuideModal({
 }: PlanGuideModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl! max-w-[calc(100%-2rem)]! gap-3 max-h-[85vh] overflow-y-auto p-3 pt-0! rounded-lg dark:bg-(--card-color) dark:border-(--card-border-color) no-scrollbar">
+      <DialogContent className="sm:max-w-2xl! max-w-[calc(100%-2rem)]! gap-3 max-h-[85vh] overflow-y-auto p-3 pt-0! rounded-lg dark:bg-(--dark-body) dark:border-(--card-border-color) no-scrollbar">
         <DialogHeader className="space-y-3 pb-4 pt-3 border-b dark:border-(--card-border-color) bg-white dark:bg-(--card-color) z-10">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-emerald-100 dark:bg-emerald-500/10 rounded-lg">
-              <BookOpen className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+            <div className="p-2.5 bg-primary/20 dark:bg-primary/10 rounded-lg">
+              <BookOpen className="w-6 h-6 text-primary dark:text-primary" />
             </div>
             <div>
               <DialogTitle className="sm:text-2xl text-lg text-left rtl:text-right font-bold text-gray-900 dark:text-gray-100 tracking-tight">
@@ -46,12 +46,12 @@ export default function PlanGuideModal({
           {/* Section 1: General Info */}
           <section className="space-y-4">
             <div className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-gray-200">
-              <div className="w-1.5 h-6 bg-emerald-500 rounded-full" />
+              <div className="w-1.5 h-6 bg-primary rounded-full" />
               1. General Information
             </div>
             <div className="grid gap-3 pl-3.5">
               <div className="flex gap-3 group">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   Provide a clear{" "}
                   <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">
@@ -65,7 +65,7 @@ export default function PlanGuideModal({
                 </p>
               </div>
               <div className="flex gap-3 group">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                 <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   Write a compelling{" "}
                   <span className="font-bold text-gray-800 dark:text-gray-200 text-[13px]">
@@ -220,7 +220,7 @@ export default function PlanGuideModal({
         <div className="flex justify-end">
           <Button
             onClick={onClose}
-            className="px-8 bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-11 rounded-lg shadow-lg transition-all active:scale-95"
+            className="px-8 bg-primary hover:bg-primary-dark text-white font-bold h-11 rounded-lg shadow-lg transition-all active:scale-95"
           >
             Got it!
           </Button>

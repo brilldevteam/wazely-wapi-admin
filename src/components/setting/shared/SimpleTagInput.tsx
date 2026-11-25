@@ -32,9 +32,9 @@ const SimpleTagInput = ({ value = [], onChange, placeholder = "Type and press En
 
   return (
     <div className="relative">
-      <div className="min-h-11 flex flex-wrap gap-1.5 p-2 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-none rounded-lg focus-within:ring-2 focus-within:ring-(--text-green-primary)/20 focus-within:border-(--text-green-primary) transition-all">
+      <div className="min-h-11 flex flex-wrap gap-1.5 p-2 bg-(--input-color) dark:bg-page-body border border-(--input-border-color) dark:border-none rounded-lg focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
         {value.map((tag) => (
-          <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-1 bg-(--text-green-primary)/10 text-(--text-green-primary) text-xs font-semibold rounded-md border border-(--text-green-primary)/20 shadow-sm">
+          <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-md border border-primary/20 shadow-sm">
             {tag}
             <Button type="button" onClick={() => removeTag(tag)} className="hover:text-red-500 bg-[unset]! p-0! shadow-[unset]! h-[unset]! transition-colors ml-0.5">
               <X className="w-3.5 h-3.5" />

@@ -116,6 +116,9 @@ const OverrideLimitsModal = ({
   };
 
   const handleEnabledChange = (id: string, val: boolean) => {
+    if (!val) {
+      setFeatures((prev) => ({ ...prev, [id]: "0" }));
+    }
     setEnabledFeatures((prev) => {
       const updated = { ...prev, [id]: val };
       // Dependency: contacts -> segments, template_bots, campaigns
@@ -123,14 +126,28 @@ const OverrideLimitsModal = ({
         updated["segments"] = false;
         updated["template_bots"] = false;
         updated["campaigns"] = false;
+        setFeatures((prevFeatures) => ({
+          ...prevFeatures,
+          segments: "0",
+          template_bots: "0",
+          campaigns: "0",
+        }));
       }
       // Dependency: template_bots -> campaigns
       if (id === "template_bots" && !val) {
         updated["campaigns"] = false;
+        setFeatures((prevFeatures) => ({
+          ...prevFeatures,
+          campaigns: "0",
+        }));
       }
       // Dependency: staff -> teams
       if (id === "staff" && !val) {
         updated["teams"] = false;
+        setFeatures((prevFeatures) => ({
+          ...prevFeatures,
+          teams: "0",
+        }));
       }
       // Dependency: teams -> staff
       if (id === "teams" && val) {
@@ -188,7 +205,7 @@ const OverrideLimitsModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl! max-w-[calc(100%-2rem)]! gap-0 bg-white dark:bg-(--card-color) border-none rounded-lg p-0! overflow-hidden shadow-2xl">
+      <DialogContent className="sm:max-w-2xl! max-w-[calc(100%-2rem)]! gap-0 bg-white dark:bg-(--dark-body) border-none rounded-lg p-0! overflow-hidden shadow-2xl">
         <DialogHeader className="sm:p-6 p-4 pb-4 border-b border-slate-100 dark:border-(--card-border-color)">
           <DialogTitle className="font-bold text-slate-900 dark:text-white flex items-center gap-3">
             <div className="p-2 bg-amber-50 dark:bg-amber-900/30 rounded-lg">
@@ -286,7 +303,7 @@ const OverrideLimitsModal = ({
                               onChange={(e) =>
                                 handleNumericChange(id, e.target.value)
                               }
-                              className={`h-9 bg-white dark:bg-page-body border-slate-200 dark:border-(--card-border-color) rounded-lg text-sm focus:border-(--text-green-primary) focus:ring-1 focus:ring-(--text-green-primary) transition-all ${!isActuallyEnabled || isParentDisabled ? "cursor-not-allowed" : ""}`}
+                              className={`h-9 bg-white dark:bg-page-body border-slate-200 dark:border-(--card-border-color) rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all ${!isActuallyEnabled || isParentDisabled ? "cursor-not-allowed" : ""}`}
                             />
                           </div>
                         </TooltipTrigger>
@@ -335,7 +352,7 @@ const OverrideLimitsModal = ({
                   return (
                     <Label
                       key={id}
-                      className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${isChecked ? "border-(--text-green-primary) bg-emerald-50/50 dark:bg-emerald-900/10" : "border-slate-100 dark:border-(--card-border-color)"}`}
+                      className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${isChecked ? "border-primary bg-primary/10/50 dark:bg-primary-dark/10" : "border-slate-100 dark:border-(--card-border-color)"}`}
                     >
                       <Input
                         type="checkbox"
@@ -414,7 +431,7 @@ const OverrideLimitsModal = ({
                           return (
                             <Label
                               key={child.id}
-                              className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${childChecked ? "border-(--text-green-primary)/40 bg-emerald-50/30 dark:bg-emerald-900/5" : "border-slate-100 dark:border-(--card-border-color)"}`}
+                              className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-all ${childChecked ? "border-primary/40 bg-primary/10/30 dark:bg-primary-dark/5" : "border-slate-100 dark:border-(--card-border-color)"}`}
                             >
                               <Input
                                 type="checkbox"

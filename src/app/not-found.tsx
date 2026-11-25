@@ -12,7 +12,7 @@ const NotFound = () => {
     <div className="min-h-screen bg-page-body flex items-center justify-center p-4">
       <div className="max-w-2xl w-full text-center">
         <div className="mb-8">
-          <h1 className="text-9xl font-bold text-transparent bg-clip-text bg-linear-to-r from-(--text-green-primary) via-(--text-green-primary) to-(--text-green-primary) animate-pulse">
+          <h1 className="text-9xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary via-(--text-green-primary) to-primary animate-pulse">
             404
           </h1>
         </div>
@@ -31,8 +31,8 @@ const NotFound = () => {
 
         <div className="mb-8 flex justify-center">
           <div className="relative">
-            <div className="w-32 h-32 bg-emerald-100 rounded-full flex items-center justify-center">
-              <Search className="w-16 h-16 text-(--text-green-primary)" />
+            <div className="w-32 h-32 bg-primary/20 rounded-full flex items-center justify-center">
+              <Search className="w-16 h-16 text-primary" />
             </div>
             <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
               <span className="text-white text-xs font-bold">!</span>
@@ -44,14 +44,14 @@ const NotFound = () => {
           <Button
             onClick={() => router.back()}
             variant="outline"
-            className="flex items-center gap-2 h-[44px]! px-6 py-3 rounded-lg border-2 border-gray-300 dark:border-(--card-border-color) h-9 dark:bg-(--card-color) dark:hover:bg-(--dark-sidebar) hover:border-(--text-green-primary) hover:text-(--text-green-primary) transition-colors"
+            className="flex items-center gap-2 h-[44px]! px-6 py-3 rounded-lg border-2 border-gray-300 dark:border-(--card-border-color) h-9 dark:bg-(--card-color) dark:hover:bg-(--dark-sidebar) hover:border-primary hover:text-primary transition-colors"
           >
             <ArrowLeft className="w-4 h-full" />
             Go Back
           </Button>
           <Button
             asChild
-            className="flex items-center h-full! rounded-lg dark:hover:bg-(--text-green-primary) cursor-pointer  dark:border-gray-800 last:border-b-0 gap-2 px-6 py-3 bg-(--text-green-primary) hover:bg-(--text-green-primary) text-white transition-all"
+            className="flex items-center h-full! rounded-lg dark:hover:bg-primary cursor-pointer  dark:border-gray-800 last:border-b-0 gap-2 px-6 py-3 bg-primary hover:bg-primary text-white transition-all"
           >
             <Link href="/dashboard">
               <Home className="w-4 h-4" />
@@ -67,25 +67,25 @@ const NotFound = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/dashboard"
-              className="text-sm text-(--text-green-primary) hover:text-(--text-green-primary) hover:underline transition-colors"
+              className="text-sm text-primary hover:text-primary hover:underline transition-colors"
             >
               Dashboard
             </Link>
             <Link
               href="/faq_management"
-              className="text-sm text-(--text-green-primary) hover:text-(--text-green-primary) hover:underline transition-colors"
+              className="text-sm text-primary hover:text-primary hover:underline transition-colors"
             >
               FAQ
             </Link>
             <Link
               href="/testimonial_management"
-              className="text-sm text-(--text-green-primary) hover:text-(--text-green-primary) hover:underline transition-colors"
+              className="text-sm text-primary hover:text-primary hover:underline transition-colors"
             >
               Testimonials
             </Link>
             <Link
               href="/contact_inquiries"
-              className="text-sm text-(--text-green-primary) hover:text-(--text-green-primary) hover:underline transition-colors"
+              className="text-sm text-primary hover:text-primary hover:underline transition-colors"
             >
               Contact Inquiries
             </Link>

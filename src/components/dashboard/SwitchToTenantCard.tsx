@@ -30,8 +30,8 @@ const SwitchToTenantCard = () => {
               <p className="text-xs font-medium text-slate-500 dark:text-slate-400 line-clamp-2">{t("access_frontend_description", { defaultValue: "Access frontend with super admin privileges" })}</p>
             </div>
           </div>
-          <div className="hidden sm:flex shrink-0 text-nowrap items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider rounded-full px-3 py-1 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <div className="hidden sm:flex shrink-0 text-nowrap items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider rounded-full px-3 py-1 bg-primary/10 text-primary border border-primary/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shrink-0" />
             Active Mode
           </div>
         </div>
@@ -41,7 +41,7 @@ const SwitchToTenantCard = () => {
             { icon: Zap, label: "Instant Login", color: "text-amber-500" },
             { icon: BarChart3, label: "Live Monitoring", color: "text-blue-500" },
             { icon: Globe, label: "Full Control", color: "text-purple-500" },
-            { icon: UserCog, label: "Role Preserved", color: "text-emerald-500" },
+            { icon: UserCog, label: "Role Preserved", color: "text-primary" },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2 p-2 rounded-lg bg-white/50 dark:bg-white/5 border border-slate-100 dark:border-white/5 group/item hover:border-primary/30 transition-all duration-300">
               <item.icon size={14} className={`${item.color} group-hover/item:scale-110 transition-transform`} />

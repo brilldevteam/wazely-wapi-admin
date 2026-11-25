@@ -9,7 +9,7 @@ import { SubscriptionPlansTableProps } from "@/src/types/components";
 import { ColumnDef } from "@/src/types/shared";
 import { Subscription } from "@/src/types/store";
 import { format } from "date-fns";
-import { Check, X, XCircle, Download } from "lucide-react";
+import { Check, X, XCircle, Download, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -23,6 +23,8 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
   const [cancelSubscription, { isLoading: isCancelling }] = useCancelSubscriptionMutation();
 
   const [cancelSub, setCancelSub] = useState<Subscription | null>(null);
+  const [optimisticStatus, setOptimisticStatus] = useState<Record<string, string>>({});
+  const [loadingAction, setLoadingAction] = useState<Record<string, "approve" | "reject" | null>>({});
 
   const handleCancel = async () => {
     if (!cancelSub) return;
@@ -41,27 +43,43 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
   };
 
   const handleApprove = async (id: string) => {
+    setLoadingAction((prev) => ({ ...prev, [id]: "approve" }));
     try {
       await approveManual(id).unwrap();
+      setOptimisticStatus((prev) => ({ ...prev, [id]: "active" }));
       toast.success(t("subscription_approved_success"));
     } catch {
       toast.error(t("subscription_approved_error"));
+    } finally {
+      setLoadingAction((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
     }
   };
 
   const handleReject = async (id: string) => {
+    setLoadingAction((prev) => ({ ...prev, [id]: "reject" }));
     try {
       await rejectManual(id).unwrap();
+      setOptimisticStatus((prev) => ({ ...prev, [id]: "cancelled" }));
       toast.success(t("subscription_rejected_success"));
     } catch {
       toast.error(t("subscription_rejected_error"));
+    } finally {
+      setLoadingAction((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-emerald-100 text-(--text-green-primary) dark:bg-transparent dark:border-(--card-border-color) dark:hover:bg-page-body hover:bg-emerald-100">{t("subscription_status_active")}</Badge>;
+        return <Badge className="bg-primary/20 text-primary dark:bg-transparent dark:border-(--card-border-color) dark:hover:bg-page-body hover:bg-primary/20">{t("subscription_status_active")}</Badge>;
       case "pending":
         return <Badge className="bg-amber-100 text-amber-700 dark:bg-transparent dark:border-(--card-border-color) dark:hover:bg-page-body hover:bg-amber-100">{t("subscription_status_pending")}</Badge>;
       case "expired":
@@ -163,7 +181,7 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
       className: "[@media(max-width:1375px)]:min-w-[140px]",
       sortable: true,
       sortKey: "status",
-      accessor: (sub) => getStatusBadge(sub.status),
+      accessor: (sub) => getStatusBadge(optimisticStatus[sub._id] || sub.status),
     },
   ];
 
@@ -192,9 +210,10 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
   };
 
   const renderActions = (sub: Subscription) => {
+    const currentStatus = optimisticStatus[sub._id] || sub.status;
     const isManualOrAdmin = sub.payment_gateway === "manual" || sub.payment_gateway === "admin generated" || sub.payment_method === "manual";
-    const canCancel = sub.status === "active" || sub.status === "trial";
-    const isPending = sub.status === "pending";
+    const canCancel = currentStatus === "active" || currentStatus === "trial";
+    const isPending = currentStatus === "pending";
     const hasReceipt = sub.transaction_receipt && sub.transaction_receipt !== "null" && sub.transaction_receipt.trim() !== "";
 
     return (
@@ -202,13 +221,13 @@ const SubscriptionPlansTable = ({ subscriptions, page, totalPages, total, onPage
         {isManualOrAdmin && isPending ? (
           <>
             <Can permission="update.subscriptions">
-              <Button variant="ghost" size="icon" className="w-10 h-10 border-none text-primary hover:text-primary hover:bg-primary/10 rounded-lg dark:hover:bg-primary/20 transition-all shadow-xs dark:bg-page-body" onClick={() => handleApprove(sub._id)} title={t("common_approve")}>
-                <Check className="w-5 h-5" />
+              <Button disabled={loadingAction[sub._id] === "approve" || loadingAction[sub._id] === "reject"} variant="ghost" size="icon" className="w-10 h-10 border-none text-primary hover:text-primary hover:bg-primary/10 rounded-lg dark:hover:bg-primary/20 transition-all shadow-xs dark:bg-page-body" onClick={() => handleApprove(sub._id)} title={t("common_approve")}>
+                {loadingAction[sub._id] === "approve" ? <Loader2 className="w-5 h-5 animate-spin" /> : <Check className="w-5 h-5" />}
               </Button>
             </Can>
             <Can permission="update.subscriptions">
-              <Button variant="ghost" size="icon" className="w-10 h-10 border-none text-red-500 hover:text-red-600 hover:bg-red-500/10 rounded-lg dark:hover:bg-red-500/20 transition-all shadow-xs dark:bg-page-body" onClick={() => handleReject(sub._id)} title={t("common_reject")}>
-                <X className="w-5 h-5" />
+              <Button disabled={loadingAction[sub._id] === "approve" || loadingAction[sub._id] === "reject"} variant="ghost" size="icon" className="w-10 h-10 border-none text-red-500 hover:text-red-600 hover:bg-red-500/10 rounded-lg dark:hover:bg-red-500/20 transition-all shadow-xs dark:bg-page-body" onClick={() => handleReject(sub._id)} title={t("common_reject")}>
+                {loadingAction[sub._id] === "reject" ? <Loader2 className="w-5 h-5 animate-spin" /> : <X className="w-5 h-5" />}
               </Button>
             </Can>
           </>

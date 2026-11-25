@@ -49,7 +49,7 @@ const TestMailModal = ({ isOpen, onClose, smtpSettings }: TestMailModalProps) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md! max-w-[calc(100%-2rem)]! rounded-lg sm:p-6 p-4 dark:bg-(--card-color)">
+      <DialogContent className="sm:max-w-md! max-w-[calc(100%-2rem)]! rounded-lg sm:p-6 p-4 dark:bg-(--dark-body)">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Mail className="w-5 h-5 text-primary" />

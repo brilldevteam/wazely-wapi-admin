@@ -120,7 +120,7 @@ export const booleanFeatures = [
     label: "Rest API",
     description: "Rest API (WA QR)",
     icon: (
-      <span className="text-(--text-green-primary) font-bold text-sm">☁️</span>
+      <span className="text-primary font-bold text-sm">☁️</span>
     ),
   },
   {
@@ -128,7 +128,7 @@ export const booleanFeatures = [
     label: "WhatsApp Webhook",
     description: "WhatsApp webhook support",
     icon: (
-      <span className="text-(--text-green-primary) font-bold text-sm">🔥</span>
+      <span className="text-primary font-bold text-sm">🔥</span>
     ),
   },
   {
@@ -136,7 +136,7 @@ export const booleanFeatures = [
     label: "Auto Replies",
     description: "Enable automatic responses",
     icon: (
-      <span className="text-(--text-green-primary) font-bold text-sm">🤖</span>
+      <span className="text-primary font-bold text-sm">🤖</span>
     ),
   },
   {
@@ -144,7 +144,7 @@ export const booleanFeatures = [
     label: "Analytics",
     description: "Enable analytics dashboard",
     icon: (
-      <span className="text-(--text-green-primary) font-bold text-sm">📊</span>
+      <span className="text-primary font-bold text-sm">📊</span>
     ),
   },
   {
@@ -152,7 +152,7 @@ export const booleanFeatures = [
     label: "Priority Support",
     description: "Get priority customer support",
     icon: (
-      <span className="text-(--text-green-primary) font-bold text-sm">⭐</span>
+      <span className="text-primary font-bold text-sm">⭐</span>
     ),
   },
   {

@@ -16,7 +16,7 @@ export const subscriptionApi = baseApi.enhanceEndpoints({ addTagTypes: ["Subscri
 
         return `/subscription?${queryParams.toString()}`;
       },
-      providesTags: (result) => (result?.data.subscriptions ? [...result.data.subscriptions.map(({ _id }) => ({ type: "Subscription" as const, id: _id })), { type: "Subscription", id: "LIST" }] : [{ type: "Subscription", id: "LIST" }]),
+      providesTags: (result) => (result?.data?.subscriptions ? [...result.data.subscriptions.map(({ _id }) => ({ type: "Subscription" as const, id: _id })), { type: "Subscription", id: "LIST" }] : [{ type: "Subscription", id: "LIST" }]),
     }),
 
     getSubscriptionSummary: builder.query<GetSubscriptionSummaryResponse, void>({
@@ -34,7 +34,11 @@ export const subscriptionApi = baseApi.enhanceEndpoints({ addTagTypes: ["Subscri
         url: `/subscription/${id}/approve-manual`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: "Subscription", id: "LIST" }],
+      invalidatesTags: (result, error, id) => [
+        { type: "Subscription", id: "LIST" },
+        { type: "Subscription", id },
+        { type: "Subscription", id: "SUMMARY" }
+      ],
     }),
 
     rejectManualSubscription: builder.mutation<{ success: boolean; message: string }, string>({
@@ -42,7 +46,11 @@ export const subscriptionApi = baseApi.enhanceEndpoints({ addTagTypes: ["Subscri
         url: `/subscription/${id}/reject-manual`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: "Subscription", id: "LIST" }],
+      invalidatesTags: (result, error, id) => [
+        { type: "Subscription", id: "LIST" },
+        { type: "Subscription", id },
+        { type: "Subscription", id: "SUMMARY" }
+      ],
     }),
 
     getSubscriptionPayments: builder.query<GetPaymentHistoryResponse, GetPaymentHistoryParams>({
@@ -60,7 +68,7 @@ export const subscriptionApi = baseApi.enhanceEndpoints({ addTagTypes: ["Subscri
 
         return `/subscription/payments?${queryParams.toString()}`;
       },
-      providesTags: (result) => (result?.data.payments ? [...result.data.payments.map(({ _id }) => ({ type: "Subscription" as const, id: _id })), { type: "Subscription", id: "PAYMENT_LIST" }] : [{ type: "Subscription", id: "PAYMENT_LIST" }]),
+      providesTags: (result) => (result?.data?.payments ? [...result.data.payments.map(({ _id }) => ({ type: "Subscription" as const, id: _id })), { type: "Subscription", id: "PAYMENT_LIST" }] : [{ type: "Subscription", id: "PAYMENT_LIST" }]),
     }),
 
     assignPlanToUser: builder.mutation<{ success: boolean; message: string; data: Subscription }, { user_id: string; plan_id: string; amount?: number; duration?: number }>({

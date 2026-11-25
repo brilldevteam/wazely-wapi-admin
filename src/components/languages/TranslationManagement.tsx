@@ -152,8 +152,6 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
       return;
     }
 
-    console.log("Translation Diff Payload:", diff);
-
     try {
       await updateTranslations({
         locale: locale as string,
@@ -200,7 +198,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
               <ArrowLeft size={20} />
             </Button>
             <div className="min-w-0">
-              <h1 className="text-xl md:text-2xl font-bold text-(--text-green-primary) flex items-center gap-2 truncate">
+              <h1 className="text-xl md:text-2xl font-bold text-primary flex items-center gap-2 truncate">
                 <span className="truncate">Manage Translations</span>
                 <span className="text-gray-400 font-normal shrink-0">
                   ({languageData?.data?.name || "..."})
@@ -227,7 +225,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
             <Can permission="update.languages">
               <Button
                 onClick={handleSave}
-                className="flex-1 sm:flex-none bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg h-11 px-4 dark:shadow-none min-w-[120px]"
+                className="flex-1 sm:flex-none bg-primary hover:bg-primary-dark text-white rounded-lg h-11 px-4 dark:shadow-none min-w-[120px]"
                 disabled={isUpdating}
               >
                 {isUpdating ? (
@@ -253,7 +251,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <Input
                 placeholder="Search keys or values..."
-                className="pl-10 h-11 bg-gray-50 dark:bg-page-body border-none rounded-lg focus-visible:ring-emerald-500 w-full"
+                className="pl-10 h-11 bg-gray-50 dark:bg-page-body border-none rounded-lg focus-visible:ring-primary w-full"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -263,7 +261,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
               value={activeComponent}
               onValueChange={(val: any) => setActiveComponent(val)}
             >
-              <SelectTrigger className="h-11 w-full md:w-48 bg-gray-50 dark:bg-page-body border-none rounded-lg shadow-none focus:ring-emerald-500">
+              <SelectTrigger className="h-11 w-full md:w-48 bg-gray-50 dark:bg-page-body border-none rounded-lg shadow-none focus:ring-primary">
                 <SelectValue placeholder="Select Component" />
               </SelectTrigger>
               <SelectContent className="dark:bg-(--card-color)">
@@ -317,17 +315,17 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
               return (
                 <div
                   key={key}
-                  className={`bg-white dark:bg-(--card-color) p-4 md:p-6 rounded-xl border transition-all shadow-sm group ${isCatMatch ? "border-emerald-500 ring-2 ring-emerald-500/10" : "border-gray-100 dark:border-(--card-border-color) hover:border-emerald-200 dark:hover:border-primary/10"}`}
+                  className={`bg-white dark:bg-(--card-color) p-4 md:p-6 rounded-xl border transition-all shadow-sm group ${isCatMatch ? "border-primary ring-2 ring-primary/10" : "border-gray-100 dark:border-(--card-border-color) hover:border-primary/30 dark:hover:border-primary/10"}`}
                 >
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center justify-between border-b border-gray-100 dark:border-white/5 pb-3">
                       <Label
-                        className={`text-sm md:text-md font-medium break-all pr-4 ${isCatMatch ? "text-emerald-600" : "text-gray-400 dark:text-gray-500"}`}
+                        className={`text-sm md:text-md font-medium break-all pr-4 ${isCatMatch ? "text-primary" : "text-gray-400 dark:text-gray-500"}`}
                       >
                         {key}
                       </Label>
                       <div className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
-                        <Check className="w-4 h-4 text-emerald-500" />
+                        <Check className="w-4 h-4 text-primary" />
                       </div>
                     </div>
 
@@ -351,7 +349,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
                             return (
                               <div key={subKey} className="space-y-1.5">
                                 <Label
-                                  className={`text-[11px] font-semibold uppercase tracking-wider ml-1 mb-1 transition-colors block truncate ${isSubKeyMatch ? "text-emerald-600 font-bold" : "text-gray-500"}`}
+                                  className={`text-[11px] font-semibold uppercase tracking-wider ml-1 mb-1 transition-colors block truncate ${isSubKeyMatch ? "text-primary font-bold" : "text-gray-500"}`}
                                 >
                                   {subKey}
                                 </Label>
@@ -364,7 +362,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
                                       subKey,
                                     )
                                   }
-                                  className={`bg-(--input-color) border-(--input-border-color) dark:bg-page-body dark:border-none focus:border-emerald-500 focus:ring-emerald-500/10 rounded-lg h-11 transition-all text-sm w-full ${isMatch ? "ring-2 ring-emerald-500/20 border-emerald-400 bg-emerald-50/30 dark:bg-emerald-900/10" : ""}`}
+                                  className={`bg-(--input-color) border-(--input-border-color) dark:bg-page-body dark:border-none focus:border-primary focus:ring-primary/10 rounded-lg h-11 transition-all text-sm w-full ${isMatch ? "ring-2 ring-primary/20 border-primary bg-primary/10/30 dark:bg-primary-dark/10" : ""}`}
                                 />
                               </div>
                             );
@@ -375,7 +373,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
                       <Input
                         value={value}
                         onChange={(e) => handleValueChange(key, e.target.value)}
-                        className={`bg-(--input-color) border-(--input-border-color) dark:bg-page-body dark:border-none focus:border-emerald-500 focus:ring-emerald-500/10 rounded-lg h-11 transition-all w-full ${searchQuery && value.toLowerCase().includes(searchQuery.toLowerCase()) ? "ring-2 ring-emerald-500/20 border-emerald-400 bg-emerald-50/30 dark:bg-emerald-900/10" : ""}`}
+                        className={`bg-(--input-color) border-(--input-border-color) dark:bg-page-body dark:border-none focus:border-primary focus:ring-primary/10 rounded-lg h-11 transition-all w-full ${searchQuery && value.toLowerCase().includes(searchQuery.toLowerCase()) ? "ring-2 ring-primary/20 border-primary bg-primary/10/30 dark:bg-primary-dark/10" : ""}`}
                       />
                     )}
                   </div>
@@ -402,7 +400,7 @@ const TranslationManagement = ({ id }: TranslationManagementProps) => {
           <Can permission="update.languages">
             <Button
               onClick={handleSave}
-              className="w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg flex items-center justify-center p-0"
+              className="w-14 h-14 rounded-full bg-primary hover:bg-primary-dark text-white shadow-lg flex items-center justify-center p-0"
               disabled={isUpdating}
             >
               {isUpdating ? (

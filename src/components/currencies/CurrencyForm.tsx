@@ -158,7 +158,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
           <ArrowLeft size={20} />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-(--text-green-primary) mb-1">
+          <h1 className="text-2xl font-bold text-primary mb-1">
             {isEditMode
               ? t("currencies_edit_title")
               : t("currencies_add_title")}
@@ -223,7 +223,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                       }
                     }}
                   >
-                    <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg border-gray-200">
+                    <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg border-gray-200">
                       <SelectValue placeholder="Select currency code" />
                     </SelectTrigger>
                     <SelectContent className="max-h-64 dark:bg-(--card-color)">
@@ -266,7 +266,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                       }
                     }}
                   >
-                    <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg border-gray-200">
+                    <SelectTrigger className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg border-gray-200">
                       <SelectValue placeholder="Select symbol" />
                     </SelectTrigger>
                     <SelectContent className="max-h-64 dark:bg-(--card-color)">
@@ -311,7 +311,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                         setCustomCurrencyCode(val);
                         setCode(val.trim());
                       }}
-                      className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg border-gray-200"
+                      className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg border-gray-200"
                       required
                     />
                     <p className="text-xs text-gray-400">
@@ -339,7 +339,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                         setCustomCurrencySymbol(val);
                         setSymbol(val.trim());
                       }}
-                      className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg border-gray-200"
+                      className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg border-gray-200"
                       required
                     />
                     <p className="text-xs text-gray-400">
@@ -362,7 +362,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     placeholder="e.g. US Dollar"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg"
+                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg"
                     required
                   />
                 </div>
@@ -383,7 +383,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     min="0"
                     value={exchangeRate}
                     onChange={(e) => setExchangeRate(e.target.value)}
-                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg"
+                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg"
                     required
                   />
                 </div>
@@ -402,7 +402,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     min="0"
                     value={decimalNumber}
                     onChange={(e) => setDecimalNumber(e.target.value)}
-                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-(--text-green-primary) focus:ring-(--text-green-primary) rounded-lg"
+                    className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg"
                     required
                   />
                 </div>
@@ -412,7 +412,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
 
           {/* Sidebar — 4 columns: Settings */}
           <div className="xl:col-span-4 space-y-6">
-            <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white  rounded-lg shadow-sm border border-gray-200 overflow-hidden">
               <div className="sm:px-6 px-4 py-4 border-b border-gray-100 dark:border-(--card-border-color)">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   {t("common_settings")}
@@ -435,7 +435,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     id="isActive"
                     checked={isActive}
                     onCheckedChange={setIsActive}
-                    className="data-[state=checked]:bg-(--text-green-primary)"
+                    className="data-[state=checked]:bg-primary"
                   />
                 </div>
               </div>

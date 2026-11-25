@@ -16,7 +16,7 @@ const GatewayCard = ({ title, enabled, onToggle, children }: GatewayCardProps) =
       <div className="flex items-center justify-between px-8 py-6 border-b border-(--input-border-color) dark:border-(--card-border-color)">
         <div>
           <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">{title} · Configuration</p>
-          <div className={`inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-300 ${enabled ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500"}`}>
+          <div className={`inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-300 ${enabled ? "text-primary dark:text-primary" : "text-slate-400 dark:text-slate-500"}`}>
             {enabled ? (
               <>
                 <CheckCircle2 className="w-4 h-4" /> {t("gateway_active")}
@@ -30,7 +30,7 @@ const GatewayCard = ({ title, enabled, onToggle, children }: GatewayCardProps) =
         </div>
         <div className="flex items-center gap-3">
           <span className="text-xs text-slate-400 dark:text-slate-500">{enabled ? "Enabled" : "Disabled"}</span>
-          <Switch checked={enabled} onCheckedChange={onToggle} disabled={!hasPermission("update.payment_gateways")} className="data-[state=checked]:bg-(--text-green-primary)" />
+          <Switch checked={enabled} onCheckedChange={onToggle} disabled={!hasPermission("update.payment_gateways")} className="data-[state=checked]:bg-primary" />
         </div>
       </div>
 

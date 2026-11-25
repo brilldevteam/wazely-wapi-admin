@@ -31,7 +31,7 @@ const VisibilitySettingsForm = ({ status, onStatusChange }: VisibilitySettingsFo
         <Switch
           checked={status}
           onCheckedChange={onStatusChange}
-          className="data-[state=checked]:bg-(--text-green-primary)"
+          className="data-[state=checked]:bg-primary"
         />
       </div>
     </div>

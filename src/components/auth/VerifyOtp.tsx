@@ -30,11 +30,11 @@ const VerifyOtp = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // useEffect(() => {
-  //   if (!identifier) {
-  //     router.push(ROUTES.ForgotPassword);
-  //   }
-  // }, [identifier, router]);
+  useEffect(() => {
+    if (!identifier) {
+      router.push(ROUTES.ForgotPassword);
+    }
+  }, [identifier, router]);
 
   const handleChange = (index: number, value: string) => {
     if (isNaN(Number(value))) return;
@@ -149,13 +149,13 @@ const VerifyOtp = () => {
                   onChange={(e) => handleChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   onPaste={index === 0 ? handlePaste : undefined}
-                  className="w-full h-full py-[8px] px-0 sm:py-[8px] sm:px-[12px] sm:w-12 sm:h-12 w-9 h-9 text-center text-xl font-bold border-slate-200 dark:border-[var(--card-border-color)] focus:border-[var(--text-green-primary)] focus:ring-[var(--text-green-primary)] dark:bg-page-body"
+                  className="w-full h-full py-[8px] px-0 sm:py-[8px] sm:px-[12px] sm:w-12 sm:h-12 w-9 h-9 text-center text-xl font-bold border-slate-200 dark:border-[var(--card-border-color)] focus:border-[var(--primary)] focus:ring-[var(--primary)] dark:bg-page-body"
                   disabled={isLoading}
                 />
               ))}
             </div>
 
-            <Button type="submit" className="w-full h-12 bg-linear-to-r bg-[var(--text-green-primary)] text-white font-medium shadow-md shadow-primary/20 transition-all" disabled={isLoading}>
+            <Button type="submit" className="w-full h-12 bg-linear-to-r bg-[var(--primary)] text-white font-medium shadow-md shadow-primary/20 transition-all" disabled={isLoading}>
               {isLoading ? "Verifying..." : "Verify OTP"}
             </Button>
           </form>

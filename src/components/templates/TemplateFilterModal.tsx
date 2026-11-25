@@ -87,7 +87,7 @@ const TemplateFilterModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] rounded-lg dark:bg-(--card-color)">
+      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] rounded-lg dark:bg-(--dark-body)">
         <DialogHeader>
           <DialogTitle>{t("templates_library_filter_templates")}</DialogTitle>
         </DialogHeader>
@@ -98,7 +98,7 @@ const TemplateFilterModal = ({
               id="sector"
               value={sectorFilter}
               onChange={(e) => setSectorFilter(e.target.value)}
-              className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none"
+              className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none"
             >
               <option value="all">{t("templates_library_all_sectors")}</option>
               {SECTORS_LIST.map((s) => (
@@ -120,7 +120,7 @@ const TemplateFilterModal = ({
               value={templateCategoryFilter}
               onChange={(e) => setTemplateCategoryFilter(e.target.value)}
               disabled={sectorFilter === "all"}
-              className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full h-10 dark:bg-page-body dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <option value="all">
                 {t("templates_library_all_categories")}

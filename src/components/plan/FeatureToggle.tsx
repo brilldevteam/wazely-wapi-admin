@@ -32,7 +32,7 @@ const FeatureToggle = ({
         className={`w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-lg flex items-center justify-center transition-colors ${
           disabled
             ? "bg-gray-100 text-gray-400 dark:bg-slate-800"
-            : "bg-(--text-green-primary)/10 text-(--text-green-primary) group-hover:bg-(--text-green-primary)/20"
+            : "bg-primary/10 text-primary group-hover:bg-primary/20"
         }`}
       >
         <div>{icon}</div>
@@ -55,7 +55,7 @@ const FeatureToggle = ({
             checked={checked}
             disabled={disabled}
             onCheckedChange={onCheckedChange}
-            className="data-[state=checked]:bg-(--text-green-primary) shrink-0"
+            className="data-[state=checked]:bg-primary shrink-0"
           />
         </div>
       </div>

@@ -108,8 +108,8 @@ const PlanFeatures = ({
       {showNumeric && (
         <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm sm:p-6 p-4 border border-gray-100/80 dark:border-(--card-border-color) transition-all">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center">
-              <Check className="w-5 h-5 text-(--text-green-primary)" />
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Check className="w-5 h-5 text-primary" />
             </div>
             <div>
               <h2 className="text-xl font-medium text-gray-900 dark:text-white leading-none">
@@ -210,8 +210,8 @@ const PlanFeatures = ({
           {/* Card 1: General Capabilities */}
           <div className="dark:bg-(--card-color) dark:border-(--card-border-color) bg-white rounded-lg shadow-sm sm:p-6 p-4 border border-gray-100/80 dark:border-(--card-border-color) transition-all">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-(--text-green-primary)/10 flex items-center justify-center">
-                <Check className="w-5 h-5 text-(--text-green-primary)" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Check className="w-5 h-5 text-primary" />
               </div>
               <div>
                 <h2 className="text-xl font-medium text-gray-900 dark:text-white leading-none">

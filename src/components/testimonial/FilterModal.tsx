@@ -49,14 +49,14 @@ const FilterModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)]">
+      <DialogContent className="sm:max-w-lg max-w-[calc(100%-2rem)] dark:bg-(--dark-body)">
         <DialogHeader>
           <DialogTitle>Filter Testimonials</DialogTitle>
         </DialogHeader>
         <div className="space-y-6 py-4">
           <div className="space-y-2 flex flex-col">
             <Label htmlFor="status">Status</Label>
-            <select id="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-full h-10 dark:bg-(--card-color) dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none">
+            <select id="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="w-full h-10 dark:bg-(--card-color) dark:border-(--card-border-color) px-3 py-2 rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none">
               <option value="all">All</option>
               <option value="active">Active</option>
               <option value="hidden">Hidden</option>
@@ -65,7 +65,7 @@ const FilterModal = ({
 
           <div className="space-y-2 flex flex-col">
             <Label htmlFor="rating">Rating</Label>
-            <select id="rating" value={ratingFilter} onChange={(e) => setRatingFilter(e.target.value)} className="w-full h-10 px-3 py-2 dark:bg-(--card-color) dark:border-(--card-border-color) rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-(--text-green-primary) focus:border-none">
+            <select id="rating" value={ratingFilter} onChange={(e) => setRatingFilter(e.target.value)} className="w-full h-10 px-3 py-2 dark:bg-(--card-color) dark:border-(--card-border-color) rounded-lg border border-gray-300 bg-(--input-color) text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-none">
               <option value="all">All Ratings</option>
               <option value="5">5 Stars</option>
               <option value="4">4 Stars</option>

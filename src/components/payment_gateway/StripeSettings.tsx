@@ -113,7 +113,7 @@ const StripeSettings = () => {
               }
               type={showPk ? "text" : "password"}
               placeholder="pk_test_..."
-              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary"
             />
             <Button
               type="button"
@@ -142,7 +142,7 @@ const StripeSettings = () => {
               }
               type={showSk ? "text" : "password"}
               placeholder="sk_test_..."
-              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-(--text-green-primary)"
+              className="h-11 pr-10 font-mono text-sm bg-(--input-color) dark:bg-page-body border-(--input-border-color) dark:border-none focus-visible:ring-1 focus-visible:ring-primary"
             />
             <Button
               type="button"
@@ -241,7 +241,7 @@ const StripeSettings = () => {
           <Button
             onClick={handleUpdate}
             disabled={isUpdating}
-            className="h-9 px-7 bg-(--text-green-primary) hover:bg-(--text-green-primary)/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60"
+            className="h-9 px-7 bg-primary hover:bg-primary/90 text-white text-sm font-semibold rounded-lg transition-all shadow-sm active:scale-95 disabled:opacity-60"
           >
             {isUpdating ? (
               <span className="flex items-center gap-2">
