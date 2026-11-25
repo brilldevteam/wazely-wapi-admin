@@ -98,11 +98,8 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
       toast.error(t("currencies_validation_symbol_required"));
       return;
     }
-    if (!exchangeRate) {
-      toast.error(t("currencies_validation_exchange_rate_required"));
-      return;
-    }
-    if (Number(exchangeRate) < 0) {
+    // Exchange rate is optional: the server fills it in from live rates and updates it daily.
+    if (exchangeRate !== "" && exchangeRate !== null && exchangeRate !== undefined && Number(exchangeRate) < 0) {
       toast.error(t("currencies_validation_exchange_rate_min"));
       return;
     }
@@ -119,7 +116,9 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
       name: name.trim(),
       code: code.trim().toUpperCase(),
       symbol: symbol.trim(),
-      exchange_rate: Number(exchangeRate),
+      ...(exchangeRate !== "" && exchangeRate !== null && exchangeRate !== undefined && Number(exchangeRate) > 0
+        ? { exchange_rate: Number(exchangeRate) }
+        : {}),
       decimal_number: Number(decimalNumber),
       is_active: isActive,
     };
@@ -373,8 +372,7 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     htmlFor="exchangeRate"
                     className="text-sm font-medium text-gray-900 dark:text-gray-400"
                   >
-                    Exchange Rate (1 USD = ?){" "}
-                    <span className="text-red-500">*</span>
+                    Exchange Rate (1 USD = ?)
                   </Label>
                   <Input
                     id="exchangeRate"
@@ -383,9 +381,12 @@ const CurrencyForm = ({ id }: CurrencyFormProps) => {
                     min="0"
                     value={exchangeRate}
                     onChange={(e) => setExchangeRate(e.target.value)}
+                    placeholder="Leave empty: filled in automatically"
                     className="h-11 bg-(--input-color) dark:bg-page-body dark:border-(--card-border-color) focus:border-primary focus:ring-primary rounded-lg"
-                    required
                   />
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Updated automatically every day from live exchange rates.
+                  </p>
                 </div>
 
                 {/* Decimal Places */}
