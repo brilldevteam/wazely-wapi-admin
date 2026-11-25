@@ -103,9 +103,14 @@ const UserList = ({
       const result = await startImpersonation({
         targetUserId: user._id,
       }).unwrap();
-      window.location.href = `${FRONT_URL}/auth/impersonate?token=${result.token}`;
+      const impersonationUrl = new URL("/auth/impersonate", FRONT_URL);
+      impersonationUrl.searchParams.set("token", result.token);
+      window.location.assign(impersonationUrl.toString());
     } catch (err: any) {
       toast.error(err?.data?.message || t("common_error"));
+    } finally {
+      // The browser can restore this page from its back-forward cache. Resetting
+      // here keeps the impersonation action available when the admin returns.
       setImpersonatingId(null);
     }
   };

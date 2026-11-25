@@ -4,14 +4,15 @@ const BASE_PATH = "";
 
 const nextConfig: NextConfig = {
   basePath: BASE_PATH || undefined,
+  allowedDevOrigins: ["127.0.0.1"],
   reactStrictMode: false,
   serverExternalPackages: ["unzipper"],
   env: {
     NEXT_PUBLIC_BASE_PATH: BASE_PATH,
-    NEXT_PUBLIC_API_URL: "https://api.wazely.io/api",
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "https://api.wazely.io/api",
     NEXT_PUBLIC_API_BASE_URL: BASE_PATH + "/api",
     NEXT_PUBLIC_STORAGE_URL: "https://api.wazely.io/",
-    NEXT_PUBLIC_FRONT_URL: "https://crm.wazely.io/",
+    NEXT_PUBLIC_FRONT_URL: process.env.NEXT_PUBLIC_FRONT_URL || "https://crm.wazely.io/",
   },
   redirects: async () => {
     const list: any[] = [
