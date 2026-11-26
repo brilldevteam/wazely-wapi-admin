@@ -1,5 +1,10 @@
 # Changelog
 
+## Wazely CRM rollout updates - 2026-11-26
+
+- Group Plan Management by billing cycle (Monthly / Yearly / One Time tabs with plan counts), matching the customer Billing & Plans page.
+- Make the currency exchange rate optional when adding a currency; rates are now filled and updated automatically every day by the API.
+
 ## Unreleased
 
 - Fix tenant impersonation and self-tenant redirects when the CRM URL has a trailing slash, and restore the "Login With Tenant" action after returning to the user list.
