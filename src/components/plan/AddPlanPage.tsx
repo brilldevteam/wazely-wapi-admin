@@ -22,6 +22,13 @@ import PlanGuideModal from "./PlanGuideModal";
 import PlanPricing from "./PlanPricing";
 import PlanStatus from "./PlanStatus";
 
+// Staff (agent) limit to save. 0 = unlimited and must be kept; 1 is only the default
+// for an empty or invalid field. (`parseInt(x) || 1` turned 0 into 1.)
+const toStaffLimit = (value: unknown): number => {
+  const n = parseInt(String(value ?? ""), 10);
+  return Number.isNaN(n) ? 1 : Math.max(0, n);
+};
+
 const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
   const { t } = useTranslation();
   const planId = id;
@@ -321,7 +328,8 @@ const AddPlanPageContent = ({ id }: AddPlansPageProps) => {
           ai_prompts: formData.features.ai_prompts
             ? parseInt(formData.features.ai_prompts)
             : undefined,
-          staff: parseInt(formData.features.staff) || 1,
+          // 0 means unlimited, so keep it; fall back to 1 only when the field is empty or invalid.
+          staff: toStaffLimit(formData.features.staff),
           conversations: formData.features.conversations
             ? parseInt(formData.features.conversations)
             : undefined,

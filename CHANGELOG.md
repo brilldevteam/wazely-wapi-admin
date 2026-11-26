@@ -4,6 +4,7 @@
 
 - Group Plan Management by billing cycle (Monthly / Yearly / One Time tabs with plan counts), matching the customer Billing & Plans page.
 - Make the currency exchange rate optional when adding a currency; rates are now filled and updated automatically every day by the API.
+- Fix a plan's Agent (staff) limit of 0 being saved as 1, so "0 = unlimited" now works for agents like it does for the other limits.
 
 ## Unreleased
 
